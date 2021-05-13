@@ -33,8 +33,11 @@ scale$comm <- if_else(scale$cluster %in% 1:14, "Ndirande",
 
 scale <- select(scale, hh_id, ind_id, comm, cluster, age, sex, agegp, hiv, lat, lon, alt, acc )
 
+#add physical address to the dataset
+address <- readstata13::read.dta13(here::here("data", "address.dta"))
+scale <- left_join(scale, select(address, hh_id, h06adres), by = "hh_id")
+rm(address)
+
 # perform stratified sampling
 set.seed(1988)
-somipa <- stratified(subset(scale, comm == "Ndirande"), c("agegp", "hiv"), 150)
-write_csv(select(somipa, hh_id, ind_id, comm, cluster, lon, lat, age, sex, hiv), here("data", "OKD_DS.csv"))
-
+scale <- stratified(subset(scale, comm == "Ndirande"), c("agegp", "hiv"), 150)
