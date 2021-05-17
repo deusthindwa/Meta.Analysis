@@ -4,7 +4,7 @@
 #===========================================================================
 
 # duration of contacts
-A <- filter(contacts, !is.na(cnt_dur) & !is.na(cnt_type)) %>% group_by(cnt_dur, cnt_type) %>% tally() %>% mutate(cnt_dur_p = n/sum(n)) %>%
+A <- filter(cn.labeled, !is.na(cnt_dur) & !is.na(cnt_type)) %>% group_by(cnt_dur, cnt_type) %>% tally() %>% mutate(cnt_dur_p = n/sum(n)) %>%
 ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), y = cnt_dur_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   theme_bw() +
@@ -17,7 +17,7 @@ ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), 
 #===========================================================================
 
 # frequency of contacts
-B <- filter(contacts, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_freq, cnt_type) %>% tally() %>% mutate(cnt_freq_p = n/sum(n)) %>%
+B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_freq, cnt_type) %>% tally() %>% mutate(cnt_freq_p = n/sum(n)) %>%
 ggplot(mapping = aes(x = factor(cnt_freq, levels(factor(cnt_freq))[c(4,2,1,3,5)]), y = cnt_freq_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   theme_bw() +
@@ -30,7 +30,7 @@ ggplot(mapping = aes(x = factor(cnt_freq, levels(factor(cnt_freq))[c(4,2,1,3,5)]
 #===========================================================================
 
 # relationship to contacts
-C <- filter(contacts, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, cnt_type) %>% tally() %>% mutate(cnt_rel_p = n/sum(n)) %>%
+C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, cnt_type) %>% tally() %>% mutate(cnt_rel_p = n/sum(n)) %>%
   ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,4,2,1,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   theme_bw() +
@@ -43,7 +43,7 @@ C <- filter(contacts, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, 
 #===========================================================================
 
 # location of contact events
-D <- contacts %>% 
+D <- cn.labeled %>% 
   filter(!is.na(cnt_loc) & !is.na(cnt_type)) %>% 
   group_by(cnt_loc, cnt_type) %>% 
   tally() %>% 
@@ -61,7 +61,7 @@ D <- contacts %>%
 #===========================================================================
 
 # place of contact events
-E <- contacts %>% 
+E <- cn.labeled %>% 
   filter(!is.na(cnt_plc) & !is.na(cnt_type)) %>% 
   group_by(cnt_plc, cnt_type) %>% 
   tally() %>% 
@@ -79,7 +79,7 @@ E <- contacts %>%
 #===========================================================================
 
 # participant sex
-F <- contacts %>% 
+F <- cn.labeled %>% 
   filter(!is.na(cnt_sex) & !is.na(cnt_type)) %>% 
   group_by(cnt_sex, cnt_type) %>% 
   tally() %>% 
