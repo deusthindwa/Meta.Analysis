@@ -54,7 +54,6 @@ sdate, iid, hhid, pno, pid, pstatus, agey, agexact, sex, occup, educ, dtravel, p
 pp.unlabel <- distinct(pp.unlabel, pid, .keep_all = TRUE)
 
 #load participant dataset with labels (pp2.enrol)
-
 pp.labeled <- pp.unlabel %>% 
   
 #sex
@@ -154,7 +153,10 @@ cn.labeled <- cn.unlabel %>% mutate(
 
 #===========================================================================
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 # load participants dataset 
 spatial1 <- read_csv(here::here("data", "participant.csv"))
 spatial1 <- select(rename(spatial1, 
@@ -188,15 +190,27 @@ get_geo_distance = function(long1, lat1, long2, lat2) {
   distance
 }
 
+<<<<<<< HEAD
 spatial <- spatial %>% filter(eplon > 0)
+=======
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 spatial$cnt_dist <- get_geo_distance(spatial$hh_lon, spatial$hh_lat, spatial$eplon, spatial$eplat)
 spatial <- spatial %>% select(part_id, hhid, part_sex, part_age, cnt_type, cnt_dist)
 
 # load scale dataset to extract HIV status of participant
+<<<<<<< HEAD
 scalehiv <- select(scale, hh_id, ind_id, hiv)
 connecta <- rename(select(hh.unlabel, scale_hhid,  scale_pid,  hhid), "hh_id" = scale_hhid, "ind_id" = scale_pid)
 
 #merge datasets
 scalehiv <- left_join(connecta, scalehiv)
 spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scalehiv %>% select(hhid, hiv))
+=======
+scale.hivQ <- select(read_csv(here::here("data", "scaleNdix.csv")), hh_id, ind_id, hiv)
+connecta.Q <- rename(select(hh.unlabel, scale_hhid,  scale_pid,  hhid), "hh_id" = scale_hhid, "ind_id" = scale_pid)
+
+#merge datasets
+X <- left_join(connecta.Q, scale.hivQ)
+spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scale.hivQ %>% select(hhid, hiv))
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 

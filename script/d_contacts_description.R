@@ -3,7 +3,11 @@
 
 #===========================================================================
 
+<<<<<<< HEAD
 # duration of cn.labeled
+=======
+# duration of contacts
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 A <- filter(cn.labeled, !is.na(cnt_dur) & !is.na(cnt_type)) %>% group_by(cnt_dur, cnt_type) %>% tally() %>% mutate(cnt_dur_p = n/sum(n)) %>%
 ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), y = cnt_dur_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
@@ -16,7 +20,11 @@ ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), 
 
 #===========================================================================
 
+<<<<<<< HEAD
 # frequency of cn.labeled
+=======
+# frequency of contacts
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_freq, cnt_type) %>% tally() %>% mutate(cnt_freq_p = n/sum(n)) %>%
 ggplot(mapping = aes(x = factor(cnt_freq, levels(factor(cnt_freq))[c(4,2,1,3,5)]), y = cnt_freq_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
@@ -29,7 +37,11 @@ ggplot(mapping = aes(x = factor(cnt_freq, levels(factor(cnt_freq))[c(4,2,1,3,5)]
 
 #===========================================================================
 
+<<<<<<< HEAD
 # relationship to cn.labeled
+=======
+# relationship to contacts
+>>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, cnt_type) %>% tally() %>% mutate(cnt_rel_p = n/sum(n)) %>%
   ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,4,2,1,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +

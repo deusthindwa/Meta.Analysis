@@ -17,7 +17,7 @@ A <- spatial %>%
   labs(title = "A, all mixing types") +
   xlab(bquote('Distance in meters ('*delta~')')) +
   coord_cartesian(xlim = c(0,3000)) +
-  ylab(bquote("")) +
+  ylab(bquote('Proportion '*delta~' or further away from home')) +
   theme(plot.title = element_text(size = 16), axis.text.x = element_text(face = "bold", size = 11), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = c(0.6, 0.65)) + 
   guides(color=guide_legend(title="Age group"))
