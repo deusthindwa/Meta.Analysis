@@ -5,7 +5,6 @@
 
 #load household dataset
 householdQ <- read_csv(here::here("data", "household.csv"))
-householdQ <- householdQ %>% mutate(s1_1 = replace(s1_1, ))
 
 householdQ <- select(rename(householdQ,
 "istatus" = index_status, "date" = data_date, "scale_hhid" = s1_1, "scale_pid" = s1_2, "community" = s1_3c, "cluster" = s1_4c, 
@@ -154,3 +153,50 @@ cn.labeled <- cn.unlabel %>% mutate(
                                             if_else(cnt_dur == 4L, ">2-4 hrs", ">4 hrs")))))
 
 #===========================================================================
+
+
+# load participants dataset 
+spatial1 <- read_csv(here::here("data", "participant.csv"))
+spatial1 <- select(rename(spatial1, 
+                          "part_id" = pid, "part_sex" = s4_10, "dob" = dob, "age" = s4_6, "agescale" = s4_7, "agedeter" = s4_8, "cnt_type" = s6_1_4, 
+                          "eplon" = epal_location_longitude, "eplat" = epal_location_latitude), 
+                   part_id, part_sex, dob, age, agescale, agedeter, cnt_type, eplon, eplat)
+
+spatial1 <- select(spatial1 %>% mutate(age = if_else(agescale == 1, age/12, age), part_age = if_else(is.na(dob), age, dob), hhid = str_sub(part_id, 1, 6)),
+                   part_id, hhid, part_sex, part_age, cnt_type, eplon, eplat)
+
+spatial1 <- spatial1 %>% filter(!is.na(part_id))
+
+# load household dataset 
+spatial2 <- read_csv(here::here("data", "household.csv"))
+spatial2 <- filter(select(rename(spatial2, "hhid" = s2_1, "hh_lon" = s1_5c, "hh_lat" = s1_6c), hhid, hh_lon, hh_lat), !is.na(hhid))
+spatial2 <- distinct(spatial2, hhid, .keep_all = TRUE)
+
+# merge household dataset and participant data
+spatial <- filter(left_join(spatial1, spatial2, by = "hhid"), !is.na(eplon), !is.na(eplat), !is.na(hh_lon), !is.na(hh_lat))
+rm(spatial1, spatial2)
+
+# calculate spatial distance between two coordinates
+get_geo_distance = function(long1, lat1, long2, lat2) {
+  
+  longlat1 = map2(long1, lat1, function(x,y) c(x,y))
+  longlat2 = map2(long2, lat2, function(x,y) c(x,y))
+  
+  distance_list = map2(longlat1, longlat2, function(x,y) distHaversine(x, y))
+  distance_m = sapply(distance_list, function(col) { col[1] })
+  distance = distance_m
+  distance
+}
+
+spatial <- spatial %>% filter(eplon > 0)
+spatial$cnt_dist <- get_geo_distance(spatial$hh_lon, spatial$hh_lat, spatial$eplon, spatial$eplat)
+spatial <- spatial %>% select(part_id, hhid, part_sex, part_age, cnt_type, cnt_dist)
+
+# load scale dataset to extract HIV status of participant
+scalehiv <- select(scale, hh_id, ind_id, hiv)
+connecta <- rename(select(hh.unlabel, scale_hhid,  scale_pid,  hhid), "hh_id" = scale_hhid, "ind_id" = scale_pid)
+
+#merge datasets
+scalehiv <- left_join(connecta, scalehiv)
+spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scalehiv %>% select(hhid, hiv))
+
