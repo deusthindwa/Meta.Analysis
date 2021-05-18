@@ -153,10 +153,6 @@ cn.labeled <- cn.unlabel %>% mutate(
 
 #===========================================================================
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 # load participants dataset 
 spatial1 <- read_csv(here::here("data", "participant.csv"))
 spatial1 <- select(rename(spatial1, 
@@ -175,8 +171,7 @@ spatial2 <- filter(select(rename(spatial2, "hhid" = s2_1, "hh_lon" = s1_5c, "hh_
 spatial2 <- distinct(spatial2, hhid, .keep_all = TRUE)
 
 # merge household dataset and participant data
-spatial <- filter(left_join(spatial1, spatial2, by = "hhid"), !is.na(eplon), !is.na(eplat), !is.na(hh_lon), !is.na(hh_lat))
-rm(spatial1, spatial2)
+spatial <- filter(left_join(spatial1, spatial2, by = "hhid"), !is.na(eplon), !is.na(eplat), !is.na(hh_lon), !is.na(hh_lat)); rm(spatial1, spatial2)
 
 # calculate spatial distance between two coordinates
 get_geo_distance = function(long1, lat1, long2, lat2) {
@@ -190,27 +185,16 @@ get_geo_distance = function(long1, lat1, long2, lat2) {
   distance
 }
 
-<<<<<<< HEAD
 spatial <- spatial %>% filter(eplon > 0)
-=======
->>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
 spatial$cnt_dist <- get_geo_distance(spatial$hh_lon, spatial$hh_lat, spatial$eplon, spatial$eplat)
 spatial <- spatial %>% select(part_id, hhid, part_sex, part_age, cnt_type, cnt_dist)
 
 # load scale dataset to extract HIV status of participant
-<<<<<<< HEAD
-scalehiv <- select(scale, hh_id, ind_id, hiv)
-connecta <- rename(select(hh.unlabel, scale_hhid,  scale_pid,  hhid), "hh_id" = scale_hhid, "ind_id" = scale_pid)
-
-#merge datasets
-scalehiv <- left_join(connecta, scalehiv)
-spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scalehiv %>% select(hhid, hiv))
-=======
 scale.hivQ <- select(read_csv(here::here("data", "scaleNdix.csv")), hh_id, ind_id, hiv)
-connecta.Q <- rename(select(hh.unlabel, scale_hhid,  scale_pid,  hhid), "hh_id" = scale_hhid, "ind_id" = scale_pid)
+connecta.Q <- rename(select(hh.unlabel, scale_hhid,  hhid), "hh_id" = scale_hhid)
 
 #merge datasets
-X <- left_join(connecta.Q, scale.hivQ)
+scale.hivQ <- left_join(connecta.Q, scale.hivQ, by = "hh_id")
 spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scale.hivQ %>% select(hhid, hiv))
->>>>>>> 4c8b5fc4d71b2ac7a897bb50ed772eddb70edc21
+
 
