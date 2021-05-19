@@ -51,7 +51,7 @@ pp.unlabel <- pp.unlabel %>% mutate(age = if_else(agescale == 1, age/12, age), a
 pp.unlabel <- select(pp.unlabel %>% mutate(agexact = if_else(agedeter == 1 | is.na(agedeter), 1, 2)),
 sdate, iid, hhid, pno, pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
 
-pp.unlabel <- distinct(pp.unlabel, pid, .keep_all = TRUE)
+pp.unlabel <- filter(distinct(pp.unlabel, pid, .keep_all = TRUE), !is.na(pid))
 
 #load participant dataset with labels (pp2.enrol)
 pp.labeled <- pp.unlabel %>% 
