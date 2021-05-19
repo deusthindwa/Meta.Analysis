@@ -5,7 +5,7 @@
 
 # create survey object by combining participants and contacts datasets
 part.m <- rename(select(pp.labeled, pid, hhid, agey, sex, sdate), "part_id" = pid, "part_age" = agey, "part_sex" = sex)
-part.m <- part.m %>% mutate(country = "Malawi", year = 2021, dayofweek = weekdays(sdate))
+part.m <- part.m %>% mutate(country = "Malawi", year = 2021, dayofweek = wday(dmy(sdate), label = TRUE))
 part.m <- select(left_join(part.m, select(spatialhiv, part_id, hhid, hiv)), part_id, hhid, part_age, part_sex, sdate, country, year, dayofweek, hiv)
 part.m <- part.m %>% distinct()
 
@@ -33,7 +33,7 @@ check(
 clean(somipa.all, country.column = "Malawi", participant.age.column = "part_age", contact.age.column = "cnt_age")
 
 # prepare a participant population (for null model of probability of contact under random mixing)
-survey.pop <- read.csv(here("data", "survey_pop.csv"))
+survey.pop <- read.csv(here::here("data", "survey_pop.csv"))
 survey.pop$lower.age.limit <- if_else(survey.pop$age < 1, 0,
                                       if_else(survey.pop$age >= 1 & survey.pop$age <= 4, 1,
                                               if_else(survey.pop$age > 4 & survey.pop$age <= 14, 5,
@@ -131,7 +131,7 @@ ggplot(aes(x = Contact.age, y = Participant.age, fill = Mixing.rate)) +
 
 #===========================================================================
 
-ggsave(here("output", "Fig1_matrices.tiff"),
+ggsave(here::here("output", "Fig1_matrices.tiff"),
        plot = A,
        width = 14, height = 4, unit="in", dpi = 200)
 

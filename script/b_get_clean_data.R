@@ -196,5 +196,3 @@ connecta.Q <- rename(select(hh.unlabel, scale_hhid,  hhid), "hh_id" = scale_hhid
 #merge datasets
 scale.hivQ <- left_join(connecta.Q, scale.hivQ, by = "hh_id")
 spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scale.hivQ %>% select(hhid, hiv))
-
-

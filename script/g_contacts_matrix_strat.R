@@ -188,9 +188,8 @@ B <- rbind(somipa.pos, somipa.ohh, somipa.ocom) %>%
 
 #===========================================================================
 
-
 A / B
 
-ggsave(here("output", "Fig2_matrices.tiff"),
+ggsave(here::here("output", "Fig2_matrices.tiff"),
        plot = (A / B),
        width = 14, height = 7, unit="in", dpi = 200)
