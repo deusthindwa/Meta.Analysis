@@ -8,14 +8,15 @@ householdQ <- read_csv(here::here("data", "household.csv"))
 
 householdQ <- select(rename(householdQ,
 "istatus" = index_status, "date" = data_date, "scale_hhid" = s1_1, "scale_pid" = s1_2, "community" = s1_3c, "cluster" = s1_4c, 
-"hh_lon" = s1_5c, "hh_lat" = s1_6c, "age" = s1_7c, "sex" = s1_8c, "hhid" = s2_1, "iid" = s2_2, "room" = s2_3, "sroom" = s2_4, 
+"age" = s1_7c, "sex" = s1_8c, "hhid" = s2_1, "iid" = s2_2, "room" = s2_3, "sroom" = s2_4, 
 "gas" = s2_5_01, "electric" = s2_5_02, "firewood" = s2_5_03, "charcoal" = s2_5_04, "kerosene" = s2_5_05, "diesel" = s2_5_06, 
 "indoor" = s2_6, "vent" = s2_7, "settle" = s2_8, "nlive" = s3_1, "nleft" = s3_2, "ndied" = s3_3, "smoke" = s3_4),
-istatus, date, scale_hhid, scale_pid, community, cluster, hh_lon, hh_lat, age, sex, hhid, iid, room, sroom,
+istatus, date, scale_hhid, scale_pid, community, cluster, age, sex, hhid, iid, room, sroom,
 gas, electric, firewood, charcoal, kerosene, diesel, indoor, vent, settle, nlive, nleft, ndied, smoke)
 
 #enrolled households without labels (hh1.enrol)
 hh.unlabel <- filter(householdQ, istatus == 1) %>% mutate(sex = if_else(sex == "Male", 1, 2))
+hh.unlabel <- distinct(hh.unlabel, hhid, .keep_all = TRUE)
 householdQ <- filter(householdQ, istatus != 1)
 
 #enrolled households with labels (hh2.enrol)
@@ -39,19 +40,19 @@ hh.labeled <- hh.unlabel %>%
 pp.unlabel <- read_csv(here::here("data", "participant.csv"))
 
 pp.unlabel <- select(rename(pp.unlabel,
-"sdate" = data_date, "iid" = s4_0, "hhid" = s4_1, "pno" = s4_2, "pid" = pid, "pstatus" = s4_3, 
+"sdate" = data_date, "iid" = s4_0, "scale_pid" = s1_2, "hhid" = s4_1, "pno" = s4_2, "pid" = pid, "pstatus" = s4_3, 
 "dob" = dob, "age" = s4_6, "agescale" = s4_7, "agedeter" = s4_8, "sex" = s4_10, "occup" = s4_11, "educ" = s4_12,
 "dtravel" = s5_1, "pvisit" = s5_2, "vtime" = s5_3, "transfot" = s5_4_01, "transbic" = s5_4_02, "transcar" = s5_4_03, "transpub" = s5_4_04, "transbac" = s5_4_05, "transdk" = s5_4_06,
 "cvdcnt" = s5_5, "cvdno" = s5_6, "cvdhome" = s5_7_01, "cvdwork" = s5_7_02, "cvdxool" = s5_7_03, "cvdchurch" = s5_7_04, "cvdmrkt" = s5_7_05, "cvdothr" = s5_7_06,
 "cvdinfant" = s5_8_01, "cvdprexool" = s5_8_02, "cvdprixool" = s5_8_03, "cvdsecxool" = s5_8_04, "cvdadult" = s5_8_05, "cvdelderly" = s5_8_06, "cntno" = s6_1_0),
-sdate, iid, hhid, pno, pid, pstatus, dob, age, agescale, agedeter, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
+sdate, iid, scale_pid, hhid, pno, pid, pstatus, dob, age, agescale, agedeter, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
 
 pp.unlabel <- pp.unlabel %>% mutate(age = if_else(agescale == 1, age/12, age), agey = if_else(is.na(dob), age, dob))
 
 pp.unlabel <- select(pp.unlabel %>% mutate(agexact = if_else(agedeter == 1 | is.na(agedeter), 1, 2)),
-sdate, iid, hhid, pno, pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
+sdate, iid, scale_pid, hhid, pno, pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
 
-pp.unlabel <- filter(distinct(pp.unlabel, pid, .keep_all = TRUE), !is.na(pid))
+pp.unlabel <- filter(distinct(pp.unlabel, pid, .keep_all = TRUE), !is.na(scale_pid))
 
 #load participant dataset with labels (pp2.enrol)
 pp.labeled <- pp.unlabel %>% 
@@ -104,14 +105,14 @@ cvdcnt = if_else(cvdcnt == 1, "Yes", "No"))
 contacts.Q <- read_csv(here::here("data", "participant.csv"))
 
 contacts.Q <- select(rename(contacts.Q, 
-"sdate" = start, "edate" = end, "iid" = s4_0, "hhid" = s4_1, "pno" = s4_2, "pid" = pid, "part_sex" = s4_10, "cnt_no" = s6_1_0, 
+"sdate" = start, "edate" = end, "iid" = s4_0, "scale_pid" = s1_2, "hhid" = s4_1, "pno" = s4_2, "pid" = pid, "part_sex" = s4_10, "cnt_no" = s6_1_0, 
 "cnt_age" = s6_1_2a, "cnt_scale" = s6_1_2b, "cnt_sex" = s6_1_3, "cnt_type" = s6_1_4, "cnt_rel" = s6_1_5, "cnt_loc" = s6_1_6, "cnt_plc" = s6_1_7, "cnt_freq" = s6_1_9, "cnt_dur" = s6_1_10), 
-sdate, iid, hhid, pno, pid, part_sex, cnt_no, cnt_age, cnt_scale, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
+sdate, edate, iid, scale_pid, hhid, pno, pid, part_sex, cnt_no, cnt_age, cnt_scale, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
 
 contacts.Q <- select(contacts.Q %>% mutate(cnt_age = if_else(cnt_scale == 1, cnt_age/12, cnt_age)),
-                   sdate, iid, hhid, pno, pid, part_sex, cnt_no, cnt_age, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
+                   sdate, edate, iid, scale_pid, hhid, pno, pid, part_sex, cnt_no, cnt_age, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
 
-cn.unlabel <- contacts.Q <- contacts.Q %>% filter(!is.na(pid))
+cn.unlabel <- contacts.Q <- contacts.Q %>% filter(!is.na(scale_pid))
 
 #create contact dataset without labels
 cn.labeled <- cn.unlabel %>% mutate(
@@ -172,6 +173,7 @@ spatial2 <- distinct(spatial2, hhid, .keep_all = TRUE)
 
 # merge household dataset and participant data
 spatial <- filter(left_join(spatial1, spatial2, by = "hhid"), !is.na(eplon), !is.na(eplat), !is.na(hh_lon), !is.na(hh_lat)); rm(spatial1, spatial2)
+spatial <- spatial %>% mutate(eplon = if_else(eplon < 0, hh_lon, eplon), eplat = if_else(eplat < -20, hh_lat, eplat))
 
 # calculate spatial distance between two coordinates
 get_geo_distance = function(long1, lat1, long2, lat2) {
@@ -185,14 +187,22 @@ get_geo_distance = function(long1, lat1, long2, lat2) {
   distance
 }
 
-spatial <- spatial %>% filter(eplon > 0)
 spatial$cnt_dist <- get_geo_distance(spatial$hh_lon, spatial$hh_lat, spatial$eplon, spatial$eplat)
-spatial <- spatial %>% select(part_id, hhid, part_sex, part_age, cnt_type, cnt_dist)
+spatial <- spatial %>% mutate(cnt_dist = if_else(cnt_dist == 0, 14000, cnt_dist)) %>% select(part_id, hhid, part_sex, part_age, cnt_type, cnt_dist)
+
+#===========================================================================
 
 # load scale dataset to extract HIV status of participant
-scale.hivQ <- select(read_csv(here::here("data", "scaleNdix.csv")), hh_id, ind_id, hiv)
-connecta.Q <- rename(select(hh.unlabel, scale_hhid,  hhid), "hh_id" = scale_hhid)
+scale.hivq <- rename(select(read_csv(here::here("data", "scalehiv.csv")), ind_id, hiv), "scale_pid" = ind_id)
 
-#merge datasets
-scale.hivQ <- left_join(connecta.Q, scale.hivQ, by = "hh_id")
-spatialhiv <- spatial %>% filter(str_sub(part_id, -1,-1) == 1) %>% left_join(scale.hivQ %>% select(hhid, hiv))
+# create survey object by combining participants and contacts datasets
+part.m <- rename(select(pp.labeled, pid, scale_pid, agey, sex, sdate), "part_id" = pid, "part_age" = agey, "part_sex" = sex)
+part.m <- part.m %>% mutate(country = "Malawi", year = 2021, dayofweek = wday(dmy(sdate)))
+part.m <- select(left_join(part.m, scale.hivq), part_id, scale_pid, part_age, part_sex, sdate, country, year, dayofweek, hiv)
+part.m <- part.m %>% distinct()
+
+cnt.m <- rename(select(cn.labeled, pid, cnt_age, cnt_type, cnt_loc, cnt_plc), "part_id" = pid)
+cnt.m <- cnt.m %>% arrange(part_id) %>% mutate(cnt_id = 1:n())
+cnt.m$pid <- c(0, cumsum(as.numeric(with(cnt.m, part_id[1:(length(part_id)-1)] != part_id[2:length(part_id)])))) + 1
+cnt.m <- cnt.m %>% select(cnt_id, part_id, pid, everything())
+
