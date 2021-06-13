@@ -55,10 +55,10 @@ somipa.sexf <- melt(Reduce("+", lapply(somipa.sexf$matrices, function(x) {x$matr
 # contact matrix for within household
 
 # create survey object for household location
-x <- cnt.m %>% filter(cnt_loc == "Home" & (part_id=="S00094_3" | part_id=="S00235_4" | part_id=="S00441_3" | part_id=="S01258_5" | part_id=="S01258_6" | part_id=="S02256_2" | part_id=="S02579_6"))
+x <- part.m %>% filter(part_id=="S00094_3" | part_id=="S00235_4" | part_id=="S00441_3" | part_id=="S01258_5" | part_id=="S01258_6" | part_id=="S02256_2" | part_id=="S02579_6")
+y <- cnt.m %>% filter(cnt_loc == "Home" & (part_id=="S00094_3" | part_id=="S00235_4" | part_id=="S00441_3" | part_id=="S01258_5" | part_id=="S01258_6" | part_id=="S02256_2" | part_id=="S02579_6"))
 
-somipa.whh <- survey(part.m, cnt.m %>% 
-                       filter(cnt_loc == "Home" & (part_id=="S00094_3" | part_id=="S00235_4" | part_id=="S00441_3" | part_id=="S01258_5" | part_id=="S01258_6" | part_id=="S02256_2" | part_id=="S02579_6")))
+somipa.whh <- survey(x, y)
 
 # build a contact matrix via sampling contact survey using bootstrapping
 somipa.whh <- contact_matrix(
