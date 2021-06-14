@@ -4,111 +4,110 @@
 #===========================================================================
 
 # distribution of participant age
-pp.labeled %>% 
-  mutate(agegp = if_else(agey < 1, "<1y",
-                      if_else(agey >= 1 & agey < 5, "1-4y",
-                      if_else(agey >= 5 & agey < 15, "5-14y",
-                      if_else(agey >= 15 & agey < 20, "15-19y",
-                      if_else(agey >= 20 & agey < 50, "20-49y", "50+y"))))))  %>% 
+A <- pp.labeled %>% 
+  mutate(agegp = if_else(agey < 1, "<1y", if_else(agey >= 1 & agey < 5, "1-4y", 
+                                                  if_else(agey >= 5 & agey < 15, "5-14y", 
+                                                          if_else(agey >= 15 & agey < 20, "15-19y", 
+                                                                  if_else(agey >= 20 & agey < 50, "20-49y", "50+y"))))))  %>% 
+  group_by(agegp) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:6], uci = exactci(n, sum(n), 0.95)$conf.int[7:12]) %>%
   
-  group_by(agegp) %>% tally() %>%
-
-ggplot(aes(x = agegp, y = n, fill = agegp)) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) +
+ggplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = perc)) + 
+  geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Sea Green"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
+  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(breaks = seq(0, 0.4, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "A", x = "Age (years)", y = "Frequency") +
+  labs(title = "A", x = "Age,y", y = "Proportion") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-# distribution of adult participant education
+# distribution of participant education
 B <- pp.labeled %>% 
-  ggplot(aes(x = education, color=sex,fill = sex), alpha=0.2) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) +
+  filter(!is.na(educ)) %>% group_by(educ) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:4], uci = exactci(n, sum(n), 0.95)$conf.int[5:8]) %>%
+  
+  ggplot(aes(x = factor(educ, levels(factor(educ))[c(2, 3, 4, 1)]), y = perc)) + 
+  geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Green Yellow"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
+  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "A", x = "Age (years)", y = "Probability density") +
-  scale_x_continuous(breaks = seq(0, 90, 5)) +
-  ylim(0,0.05) +
+  labs(title = "B", x = "Education status", y = "") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = c(0.6,0.7))
+  theme(legend.position = "none")
 
 #===========================================================================
 
-# relationship to contacts
-C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, cnt_type) %>% tally() %>% mutate(cnt_rel_p = n/sum(n)) %>%
-  ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,1,2,4,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) +
-  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+# distribution of participant employment
+C <- pp.labeled %>% 
+  filter(!is.na(occup)) %>% 
+  mutate(occupgp = if_else(occup == "Agriculture", "Manual", 
+                           if_else(occup == "Business", "Business", 
+                                   if_else(occup == "Domestic", "Other", 
+                                           if_else(occup == "Manual", "Manual",
+                                                   if_else(occup == "Office", "Office",
+                                                           if_else(occup == "Other", "Other",
+                                                                   if_else(occup == "Preschool", "Preschool",
+                                                                           if_else(occup == "Retired", "Retired", 
+                                                                                   if_else(occup == "School", "School",
+                                                                                           if_else(occup == "Shop", "Business", "Unemployed")))))))))))  %>%
+
+  group_by(occupgp) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:8], uci = exactci(n, sum(n), 0.95)$conf.int[9:16]) %>%
+  
+  ggplot(aes(x = occupgp, y = perc)) + 
+  geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Red Violet"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
+  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "C", x = "Relationship to contact", y = "") +
-  scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
+  labs(title = "C", x = "Occupation status", y = "") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-# location of contact events
-D <- cn.labeled %>% 
-  filter(!is.na(cnt_loc) & !is.na(cnt_type)) %>% 
-  group_by(cnt_loc, cnt_type) %>% 
-  tally() %>% 
-  mutate(cnt_loc_p = n/sum(n)) %>% 
-  ggplot(mapping = aes(x = factor(cnt_loc, levels(factor(cnt_loc))[c(8,1,7,6,2,3,10,5,4,9)]), y = cnt_loc_p, color = cnt_type, fill = cnt_type)) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) + 
-  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
-  theme_bw() + 
-  labs(title = "D", x = "Location of mixing events", y = "Proportion of mixing events") + 
-  scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
+# distribution of participant sex
+D <- pp.labeled %>% 
+  filter(!is.na(sex)) %>% group_by(sex) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:2], uci = exactci(n, sum(n), 0.95)$conf.int[3:4]) %>%
+  
+  ggplot(aes(x = sex, y = perc)) + 
+  geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Sky Blue"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
+  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
+  theme_bw() +
+  labs(title = "D", x = "Sex", y = "") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-# place of contact events
-E <- cn.labeled %>% 
-  filter(!is.na(cnt_plc) & !is.na(cnt_type)) %>% 
-  group_by(cnt_plc, cnt_type) %>% 
-  tally() %>% 
-  mutate(cnt_plc_p = n/sum(n)) %>% 
-  ggplot(mapping = aes(x = factor(cnt_plc, levels(factor(cnt_plc))[c(1,2)]), y = cnt_plc_p, color = cnt_type, fill = cnt_type)) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) + 
-  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
-  theme_bw() + 
-  labs(title = "E", x = "Community boundary", y = "") + 
-  scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+cn.labeled %>% mutate(dayofweek = wday(dmy_hms(sdate)), n = 1) %>%  group_by(dayofweek) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
+  
+  ggplot() + 
+  geom_line(aes(x = factor(dayofweek), y = perc), size = 0.7, color = brocolors("crayons")["Sepia"]) +
+  #geom_ribbon(aes(ymin = lci, ymax = uci), color = brocolors("crayons")["Sepia"], alpha = 0.2, size = 0.1) +
+  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) + 
+  scale_y_continuous(breaks = c(0, 0.5, 0.1, 0.15, 0.2, 0.25, 0.30), labels = scales::percent_format(accuracy = 1)) + 
+  theme_bw() +
+  labs(title = "E", x = "Day of the week", y = "Proportion") +
+  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-# participant sex
-F <- cn.labeled %>% 
-  filter(!is.na(cnt_sex) & !is.na(cnt_type)) %>% 
-  group_by(cnt_sex, cnt_type) %>% 
-  tally() %>% 
-  mutate(cnt_sex_p = n/sum(n)) %>% 
-  ggplot(mapping = aes(x = cnt_sex, y = cnt_sex_p, color = cnt_type, fill = cnt_type)) + 
-  geom_bar(stat = "identity", color = "black", size = 0.7) + 
-  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
-  theme_bw() + 
-  labs(title = "F", x = "Contact sex", y = "") + 
-  scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
-  theme(legend.position = "none")
-
-#===========================================================================
-
-(A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1)))
+(A | B | C | D | plot_layout(ncol = 4, width = c(2,2,3,1)))
 
 ggsave(here("output", "Fig2_descriptive.tiff"),
        plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
