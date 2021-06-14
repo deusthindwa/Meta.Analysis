@@ -15,7 +15,7 @@ A <- pp.labeled %>%
 ggplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Sea Green"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_y_continuous(breaks = seq(0, 0.4, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "A", x = "Age,y", y = "Proportion") +
@@ -33,7 +33,7 @@ B <- pp.labeled %>%
   ggplot(aes(x = factor(educ, levels(factor(educ))[c(2, 3, 4, 1)]), y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Green Yellow"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "B", x = "Education status", y = "") +
@@ -63,7 +63,7 @@ C <- pp.labeled %>%
   ggplot(aes(x = occupgp, y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Red Violet"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "C", x = "Occupation status", y = "") +
@@ -81,7 +81,7 @@ D <- pp.labeled %>%
   ggplot(aes(x = sex, y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7, fill = brocolors("crayons")["Sky Blue"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.2, position = position_dodge(0.9)) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "D", x = "Sex", y = "") +
@@ -91,19 +91,20 @@ D <- pp.labeled %>%
 
 #===========================================================================
 
-cn.labeled %>% mutate(dayofweek = wday(dmy_hms(sdate)), n = 1) %>%  group_by(dayofweek) %>% tally() %>% 
+cn.labeled %>% mutate(datex = dmy(str_sub(sdate, 1, 9)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
   
-  ggplot() + 
-  geom_line(aes(x = factor(dayofweek), y = perc), size = 0.7, color = brocolors("crayons")["Sepia"]) +
-  #geom_ribbon(aes(ymin = lci, ymax = uci), color = brocolors("crayons")["Sepia"], alpha = 0.2, size = 0.1) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) + 
-  scale_y_continuous(breaks = c(0, 0.5, 0.1, 0.15, 0.2, 0.25, 0.30), labels = scales::percent_format(accuracy = 1)) + 
+  ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc)) + 
+  geom_point(aes(size = n), color = brocolors("crayons")["Sepia"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), color = brocolors("crayons")["Sepia"], size = 0.9) + 
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 1.2)) +
+  scale_y_continuous(breaks = seq(0, 0.3, 0.05), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "E", x = "Day of the week", y = "Proportion") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
+
 
 #===========================================================================
 
