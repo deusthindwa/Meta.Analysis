@@ -1,6 +1,17 @@
 #Last edited by - Deus Thindwa
 #Date - 28/10/2019
 
+# prepare a participant population (for null model of probability of contact under random mixing)
+survey.poph <- read.csv(here::here("data", "survey_pop.csv"))
+survey.poph$lower.age.limit <- if_else(survey.poph$age >= 0 & survey.poph$age < 1, 0,
+                                      if_else(survey.poph$age >= 1 & survey.poph$age <= 4, 1,
+                                              if_else(survey.poph$age > 4 & survey.poph$age <= 9, 5, 
+                                                      if_else(survey.poph$age > 9 & survey.poph$age <= 17, 10, 
+                                                              if_else(survey.poph$age > 17 & survey.poph$age <= 29, 18, 
+                                                                      if_else(survey.poph$age > 29 & survey.poph$age <= 39, 30, 
+                                                                              if_else(survey.poph$age > 39 & survey.poph$age <= 49, 40, 
+                                                                                      if_else(survey.poph$age > 49 & survey.poph$age <= 59, 50, 60))))))))
+
 #==========================contact matrix for HIV negative participants
 
 #create survey object by combining separate male and female part and cnt datasets
@@ -10,8 +21,8 @@ somipa.pos <- survey(part.m %>% filter(hiv == "Positive on ART"), cnt.m)
 somipa.pos <- contact_matrix(
   somipa.pos,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.poph,
+  age.limits = c(0, 1, 5, 10, 18, 30, 40, 50, 60),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -36,8 +47,8 @@ somipa.neg <- survey(part.m %>% filter(hiv == "Negative"), cnt.m)
 somipa.neg <- contact_matrix(
   somipa.neg,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.poph,
+  age.limits = c(0, 1, 5, 10, 18, 30, 40, 50, 60),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -62,17 +73,16 @@ B <- rbind(somipa.neg, somipa.pos) %>%
   theme_bw() +
   scale_fill_gradient(low="lightgreen", high="red") +
   facet_grid(.~ Category) +
-  labs(title = "", x = "", y = "Contacts age") +
+  labs(title = "", x = "Participants age (years)", y = "Contacts age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 14)) +
   guides(fill=guide_legend(title="Average number\nof daily contacts")) +
   theme(legend.position = "right") + 
-  geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
-  geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
+  geom_hline(yintercept = c(2, 4, 7), linetype="dashed", color = "black", size = 0.2)
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig5_matrices.tiff"),
+ggsave(here::here("output", "Fig6_matrices.tiff"),
        plot = B,
        width = 14, height = 5, unit="in", dpi = 200)

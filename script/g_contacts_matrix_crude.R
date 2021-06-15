@@ -135,7 +135,6 @@ ggplot(aes(x = Participant.age, y = Contact.age, fill = Mixing.rate)) +
   geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
 #===========================================================================
 
-ggsave(here::here("output", "Fig3_matrices.tiff"),
+ggsave(here::here("output", "Fig4_matrices.tiff"),
        plot = A,
        width = 18, height = 6, unit="in", dpi = 200)
-
