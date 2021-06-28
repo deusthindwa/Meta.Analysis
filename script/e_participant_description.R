@@ -151,6 +151,6 @@ G <- cn.labeled %>% group_by(cnt_no) %>% tally() %>%
 #turn on warnings
 options(warn = defaultW)
 
-ggsave(here("output", "Fig1_descriptive.tiff"),
+ggsave(here("output", "Fig2_descriptive.tiff"),
        plot = (A | B | C | D | plot_layout(ncol = 4, width = c(2,2,3,1))) / (E | F | G),
        width = 20, height = 9, unit="in", dpi = 200)

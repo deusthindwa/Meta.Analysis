@@ -1,24 +1,38 @@
 #Last edited by - Deus Thindwa
 #Date - 28/10/2019
 
-#==========================contact matrix for HIV negative participants
+# prepare a participant population (for null model of probability of contact under random mixing)
+survey.poph <- read.csv(here::here("data", "survey_pop.csv"))
+survey.poph <- survey.poph %>% 
+  mutate(lower.age.limit = if_else(age >= 0 & age < 1, 0, 
+                                   if_else(age >= 1 & age <= 4, 1,
+                                           if_else(age > 4 & age <= 9, 5, 
+                                                   if_else(age > 9 & age <= 17, 10, 
+                                                           if_else(age > 17 & age <= 24, 18,
+                                                                   if_else(age > 24 & age <= 34, 25,
+                                                                           if_else(age > 34 & age <= 44, 35, 
+                                                                                   if_else(age > 44 & age <= 54, 45, 55))))))))) %>% 
+  group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
-#create survey object by combining separate male and female part and cnt datasets
+
+#==========================contact matrix for HIV positive participants
+
+#create survey object by combining HIV-infected part and cnt datasets
 somipa.pos <- survey(part.m %>% filter(hiv == "Positive on ART"), cnt.m)
 
 #build a contact matrix via sampling contact survey using bootstrapping
 somipa.pos <- contact_matrix(
   somipa.pos,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.poph,
+  age.limits = c(0, 1, 5, 10, 18, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
-  weigh.dayofweek = FALSE,
+  weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
   quiet = FALSE
 )
@@ -29,22 +43,22 @@ somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix
 
 #==========================contact matrix for HIV negative participants
 
-# create survey object by combining separate male and female part and cnt datasets
+# create survey object by combining HIV-uninfected part and cnt datasets
 somipa.neg <- survey(part.m %>% filter(hiv == "Negative"), cnt.m)
 
 # build a contact matrix via sampling contact survey using bootstrapping
 somipa.neg <- contact_matrix(
   somipa.neg,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.poph,
+  age.limits = c(0, 1, 5, 10, 18, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
-  weigh.dayofweek = FALSE,
+  weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
   quiet = FALSE
 )

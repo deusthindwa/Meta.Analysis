@@ -22,19 +22,19 @@ clean(somipa.all, country.column = "Malawi", participant.age.column = "part_age"
 
 # prepare a participant population (for null model of probability of contact under random mixing)
 survey.pop <- read.csv(here::here("data", "survey_pop.csv"))
-survey.pop$lower.age.limit <- if_else(survey.pop$age >= 0 & survey.pop$age < 1, 0,
-                              if_else(survey.pop$age >= 1 & survey.pop$age <= 4, 1,
-                              if_else(survey.pop$age > 4 & survey.pop$age <= 9, 5, 
-                              if_else(survey.pop$age > 9 & survey.pop$age <= 14, 10, 
-                              if_else(survey.pop$age > 14 & survey.pop$age <= 19, 15, 
-                              if_else(survey.pop$age > 19 & survey.pop$age <= 24, 20,
-                              if_else(survey.pop$age > 24 & survey.pop$age <= 29, 25, 
-                              if_else(survey.pop$age > 29 & survey.pop$age <= 34, 30,
-                              if_else(survey.pop$age > 34 & survey.pop$age <= 39, 35,
-                              if_else(survey.pop$age > 39 & survey.pop$age <= 44, 40,
-                              if_else(survey.pop$age > 44 & survey.pop$age <= 49, 45, 50)))))))))))
-                              
-survey.pop <- survey.pop %>% group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
+survey.pop <- survey.pop %>% 
+  mutate(lower.age.limit = if_else(age >= 0 & age < 1, 0,
+                                   if_else(age >= 1 & age <= 4, 1,
+                                           if_else(age > 4 & age <= 9, 5,
+                                                   if_else(age > 9 & age <= 14, 10,
+                                                           if_else(age > 14 & age <= 19, 15,
+                                                                   if_else(age > 19 & age <= 24, 20,
+                                                                           if_else(age > 24 & age <= 29, 25,
+                                                                                   if_else(age > 29 & age <= 34, 30,
+                                                                                           if_else(age > 34 & age <= 39, 35,
+                                                                                                   if_else(age > 39 & age <= 44, 40,
+                                                                                                           if_else(age > 44 & age <= 49, 45, 50)))))))))))) %>% 
+  group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
 # build a contact matrix via sampling contact survey using bootstrapping
 somipa.all <- contact_matrix(
@@ -46,7 +46,7 @@ somipa.all <- contact_matrix(
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -73,7 +73,7 @@ somipa.phys <- contact_matrix(
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -100,7 +100,7 @@ somipa.verb <- contact_matrix(
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -120,7 +120,19 @@ somipa.verb <- somipa.verb %>% mutate(Category = "C, non-physical contacts")
 
 
 A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
-ggplot(aes(x = Participant.age, y = Contact.age, fill = Mixing.rate)) + 
+  mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
+                            if_else(Participant.age == 2L, "[1,5)",
+                                    if_else(Participant.age == 3L, "[5,10)",
+                                            if_else(Participant.age == 4L, "[10,15)",
+                                                    if_else(Participant.age == 5L, "[15,20)",
+                                                            if_else(Participant.age == 6L, "[20,25)",
+                                                                    if_else(Participant.age == 7L, "[25,30)",
+                                                                            if_else(Participant.age == 8L, "[30,35)",
+                                                                                    if_else(Participant.age == 9L, "[35,40)",
+                                                                                            if_else(Participant.age == 10L, "[40,45)",
+                                                                                                    if_else(Participant.age == 11L, "[45,50)", "50+")))))))))))) %>%
+
+ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,11,3,4,5,6,7,8,9,10,12)]), y = Contact.age, fill = Mixing.rate)) + 
   geom_tile() + 
   scale_fill_gradient(low="lightgreen", high="red") +
   facet_grid(.~ Category) +
