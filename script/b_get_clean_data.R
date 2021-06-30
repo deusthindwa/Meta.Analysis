@@ -53,6 +53,7 @@ pp.unlabel <- select(pp.unlabel %>% mutate(agexact = if_else(agedeter == 1 | is.
 sdate, iid, scale_pid, somipa_hhid, pno, somipa_pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
 
 pp.unlabel <- filter(distinct(pp.unlabel, somipa_pid, .keep_all = TRUE), !is.na(scale_pid))
+pp.unlabel <- left_join(pp.unlabel, hh.labeled %>% select(hhid, cluster) %>%rename("somipa_hhid" = hhid))
 
 #load participant dataset with labels (pp2.enrol)
 pp.labeled <- pp.unlabel %>% 
