@@ -44,13 +44,13 @@ pp.unlabel <- select(rename(pp.unlabel,
 "dob" = dob, "age" = s4_6, "agescale" = s4_7, "agedeter" = s4_8, "sex" = s4_10, "occup" = s4_11, "educ" = s4_12,
 "dtravel" = s5_1, "pvisit" = s5_2, "vtime" = s5_3, "transfot" = s5_4_01, "transbic" = s5_4_02, "transcar" = s5_4_03, "transpub" = s5_4_04, "transbac" = s5_4_05, "transdk" = s5_4_06,
 "cvdcnt" = s5_5, "cvdno" = s5_6, "cvdhome" = s5_7_01, "cvdwork" = s5_7_02, "cvdxool" = s5_7_03, "cvdchurch" = s5_7_04, "cvdmrkt" = s5_7_05, "cvdothr" = s5_7_06,
-"cvdinfant" = s5_8_01, "cvdprexool" = s5_8_02, "cvdprixool" = s5_8_03, "cvdsecxool" = s5_8_04, "cvdadult" = s5_8_05, "cvdelderly" = s5_8_06, "cntno" = s6_1_0),
-sdate, iid, scale_pid, somipa_hhid, pno, somipa_pid, pstatus, dob, age, agescale, agedeter, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
+"cvdinfant" = s5_8_01, "cvdprexool" = s5_8_02, "cvdprixool" = s5_8_03, "cvdsecxool" = s5_8_04, "cvdadult" = s5_8_05, "cvdelderly" = s5_8_06, "cntno" = s6_1_0, "jkey" = joining_key),
+sdate, iid, scale_pid, somipa_hhid, pno, somipa_pid, pstatus, dob, age, agescale, agedeter, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno, jkey)
 
 pp.unlabel <- pp.unlabel %>% mutate(age = if_else(agescale == 1, age/12, age), agey = if_else(is.na(dob), age, dob))
 
 pp.unlabel <- select(pp.unlabel %>% mutate(agexact = if_else(agedeter == 1 | is.na(agedeter), 1, 2)),
-sdate, iid, scale_pid, somipa_hhid, pno, somipa_pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno)
+sdate, iid, scale_pid, somipa_hhid, pno, somipa_pid, pstatus, agey, agexact, sex, occup, educ, dtravel, pvisit, vtime, transfot, transbic, transcar, transpub, transbac, transdk, cvdcnt, cvdno, cvdhome, cvdwork, cvdxool, cvdchurch, cvdmrkt, cvdothr, cvdinfant, cvdprexool, cvdprixool, cvdsecxool, cvdadult, cvdelderly, cntno, jkey)
 
 pp.unlabel <- filter(distinct(pp.unlabel, somipa_pid, .keep_all = TRUE), !is.na(scale_pid))
 
@@ -107,10 +107,10 @@ contacts.Q <- read_csv(here::here("data", "participant.csv"))
 contacts.Q <- select(rename(contacts.Q, 
 "sdate" = start, "edate" = end, "iid" = s4_0, "scale_pid" = s1_2, "somipa_hhid" = s4_1, "pno" = s4_2, "somipa_pid" = pid, "part_sex" = s4_10, "cnt_no" = s6_1_0, 
 "cnt_age" = s6_1_2a, "cnt_scale" = s6_1_2b, "cnt_sex" = s6_1_3, "cnt_type" = s6_1_4, "cnt_rel" = s6_1_5, "cnt_loc" = s6_1_6, "cnt_plc" = s6_1_7, "cnt_freq" = s6_1_9, "cnt_dur" = s6_1_10), 
-sdate, edate, iid, scale_pid, somipa_hhid, pno, somipa_pid, part_sex, cnt_no, cnt_age, cnt_scale, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
+sdate, edate, iid, scale_pid, somipa_hhid, pno, somipa_pid, part_sex, cnt_no, cnt_age, cnt_scale, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur, "jkey" = joining_key)
 
 contacts.Q <- select(contacts.Q %>% mutate(cnt_age = if_else(cnt_scale == 1, cnt_age/12, cnt_age)),
-                   sdate, edate, iid, scale_pid, somipa_hhid, pno, somipa_pid, part_sex, cnt_no, cnt_age, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur)
+                   sdate, edate, iid, scale_pid, somipa_hhid, pno, somipa_pid, part_sex, cnt_no, cnt_age, cnt_sex, cnt_type, cnt_rel, cnt_loc, cnt_plc, cnt_freq, cnt_dur, jkey)
 
 cn.unlabel <- contacts.Q %>% filter(!is.na(scale_pid))
 
@@ -155,9 +155,9 @@ cn.labeled <- cn.unlabel %>% mutate(
 #===========================================================================
 
 # load participants dataset 
-spatial1 <- read_csv(here::here("data", "spatial.csv")) %>% filter(!is.na(S1_2))
-spatial1 <- select(rename(spatial1, "somipa_pid" = pid, "eplon" = EPAL_LOCATION_LONGITUDE, "eplat" = EPAL_LOCATION_LATITUDE), somipa_pid, eplon, eplat)
-spatialX <- inner_join(cn.labeled, spatial1)
+spatial1 <- read_csv(here::here("data", "somipa_coordinates.csv")) %>% filter(!is.na(pid))
+spatial1 <- select(rename(spatial1, "eplon" = EPAL_LOCATION_LONGITUDE, "eplat" = EPAL_LOCATION_LATITUDE, "jkey" = joining_key), eplon, eplat, jkey)
+spatialX <- left_join(cn.labeled, spatial1)
 
 # load household dataset 
 spatial2 <- read_csv(here::here("data", "household.csv"))

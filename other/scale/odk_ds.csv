@@ -1,0 +1,491 @@
+hh_id,ind_id,longitude,latitude,age,sex,Address
+H0100004,P0100006,35.04837534,-15.77459177,39,Female,At soko maize mill ask for Mr nkumba
+H0100006,P0100009,35.0477394,-15.77389202,58,Female,At soko maize mill ask for Mr guduza
+H0100006,P0100033,35.0477394,-15.77389202,67,Male,At soko maize mill ask for Mr guduza
+H0100009,P0100015,35.0475972,-15.77508741,43,Female,At mkwaira clinic ask for Mr padambo plot of 7AD
+H0100015,P0100278,35.0484488,-15.77125049,37,Female,At Safarao market ask for paa nyani plot
+H0100022,P0100022,35.04902648,-15.77432669,56,Female,Ndirande matope near SDA church at house number 92AD
+H0100022,P0100023,35.04902648,-15.77432669,65,Male,Ndirande matope near SDA church at house number 92AD
+H0100023,P0100026,35.04844749,-15.7742288,72,Male,Ndirande matope near SDA at house number 55AD
+H0100024,P0100029,35.0482057,-15.77434414,37,Female,Behind soko maize mill at Mr khwena plot
+H0100027,P0100010,35.04768905,-15.77379764,33,Female,Ndirande matope near Mr guduza shop at house number 188AD
+H0100028,P0100036,35.04730079,-15.77387807,18,Female,Near safa market house number  177AD
+H0100036,P0100054,35.04839106,-15.77126496,56,Female,Ndirande matope near Mr things tap at house number 151AG
+H0100043,P0100082,35.04842917,-15.77342615,62,Female,Matope at mwantenga's residence
+H0100043,P0100081,35.04842917,-15.77342615,68,Male,Matope at mwantenga's residence
+H0100047,P0100064,35.04768524,-15.77316663,37,Female,Matope at fellows plot.
+H0100051,P0100070,35.04808073,-15.77314713,46,Female,Matope near chide residence
+H0100052,P0100080,35.04806449,-15.77317272,33,Female,Matope  near guduza o888847617
+H0100065,P0100087,35.04741506,-15.77198357,76,Male,Chilambo plot near themba borehole
+H0100066,P0100088,35.04736698,-15.77202852,46,Female,Mdala plot  near  kalilombe tap
+H0100069,P0100092,35.0470948,-15.77176157,49,Male,Msumsa plot near Goliati shop
+H0100070,P0100095,35.04702718,-15.77156565,21,Female,Moffat plot near mtemba  borehole
+H0100075,P0100101,35.04926464,-15.77352318,63,Female,Goli plot near kachere seventh day
+H0100077,P0100104,35.0491388,-15.77414536,33,Male,Umali plot near kachere sevethday
+H0100077,P0100105,35.0491388,-15.77414536,22,Female,Umali plot near kachere sevethday
+H0100087,P0100203,35.04991983,-15.77332302,60,Female,Ndirande near Luseko shop
+H0100093,P0100205,35.05075963,-15.77422654,54,Female,Ndirande near Matope Primary school
+H0100094,P0100207,35.05092562,-15.77386428,46,Female,Ndirande near Matope Primary school
+H0100094,P0100209,35.05092562,-15.77386428,53,Male,Ndirande near Matope Primary school
+H0100095,P0100233,35.05149375,-15.77386006,46,Male,Near ndirande matope primary school
+H0100097,P0100247,35.05079603,-15.77387305,21,Female,Ndirande near Matope Primary School
+H0100108,P0100129,35.0490917,-15.77296777,80,Female,Kaponya plot near kachele s.d.a church
+H0100109,P0100131,35.04839586,-15.77283892,26,Female,Gutu plot near kachele s.d.a
+H0100112,P0100140,35.05007544,-15.77227988,47,Male,Liveya plot near s.d.a church
+H0100113,P0100138,35.04623219,-15.77251692,28,Female,Plot of Mr Steven mamba
+H0100130,P0100111,35.05023998,-15.77228084,37,Female,Plot of Mr osman
+H0100131,P0100114,35.05021311,-15.77234183,51,Female,Plot of Mr makhala
+H0100132,P0100118,35.04914345,-15.77303813,21,Female,Near mai kazembe kiosk
+H0100132,P0100150,35.04914345,-15.77303813,30,Male,Near mai kazembe kiosk
+H0100148,P0100234,35.05181622,-15.77381567,52,Female,Near ndirande matope primary school
+H0100150,P0100216,35.04997532,-15.7730683,20,Male,Near kachere adventist church
+H0100152,P0100243,35.04932458,-15.77299899,31,Male,Near kachere adventist church
+H0200002,P0200070,35.04551814,-15.77319014,38,Female,Ndirande Safarao near market
+H0200004,P0200075,35.04637288,-15.77666489,46,Female,Ndirande near market
+H0200004,P0200062,35.04637288,-15.77666489,22,Male,Ndirande near market
+H0200008,P0200082,35.0458778,-15.77774227,19,Female,Near matope road
+H0200011,P0200252,35.04642082,-15.77716057,24,Male,Near market
+H0200017,P0200243,35.04630623,-15.77674574,29,Female,Near kachere road
+H0200019,P0200063,35.0457132,-15.77671164,26,Female,Near safalao road
+H0200019,P0200247,35.0457132,-15.77671164,20,Female,Near safalao road
+H0200022,P0200099,35.04529285,-15.77443324,23,Female,Safalawo near Airtel tower
+H0200025,P0200173,35.04499844,-15.77473451,40,Female,Safalawo near tower.
+H0200026,P0200174,35.04494948,-15.77493605,50,Female,Safalawo near Airtel tower
+H0200028,P0200089,35.04472872,-15.77435509,30,Female,Safalawo near jenara kiosk
+H0200029,P0200091,35.04441017,-15.77425226,25,Female,Safalawo near machonjo phamarcy
+H0200030,P0200092,35.04429943,-15.77371029,50,Male,Safalawo near machonjo corner shop.
+H0200048,P0200041,35.04789389,-15.77615425,33,Female,Makawa plot near sitchaya
+H0200048,P0200030,35.04789389,-15.77615425,52,Male,Makawa plot near sitchaya
+H0200050,P0200189,35.04637998,-15.77530648,55,Female,Musa plot near misuku kiosk
+H0200052,P0200036,35.04783739,-15.77520769,33,Female,Kazembe plot near ndaza talema meiz mill
+H0200064,P0200179,35.04553149,-15.77526231,41,Female,Opposite musopha maize mill
+H0200075,P0200273,35.04827307,-15.77532172,45,Female,Near nabanda kiosk
+H0200075,P0200037,35.04827307,-15.77532172,49,Male,Near nabanda kiosk
+H0200087,P0200277,35.04457624,-15.77572746,34,Male,At Zain tower ask for Mrs juma plot
+H0200089,P0200153,35.0446164,-15.77531255,57,Female,At Zain tower ask for Mr Zulu's plot house number 112y
+H0200092,P0200284,35.04414605,-15.77572291,56,Female,At Zain tower ask for green land then ask for mind set school then ask for Mrs Banda/ma edward
+H0200095,P0200292,35.04606642,-15.77359557,60,Female,At Zain tower ask for safa market then ask for Mai brown of house 54AF
+H0200096,P0200220,35.04622867,-15.77375324,82,Male,At Zain tower ask for Mr mlange's plot near safa market
+H0200100,P0200215,35.04668415,-15.77295329,36,Male,At Zain tower ask for safa market ask for Mr mussa plot
+H0200100,P0200132,35.04668415,-15.77295329,22,Male,At Zain tower ask for safa market ask for Mr mussa plot
+H0200100,P0200131,35.04668415,-15.77295329,59,Female,At Zain tower ask for safa market ask for Mr mussa plot
+H0200100,P0200216,35.04668415,-15.77295329,71,Male,At Zain tower ask for safa market ask for Mr mussa plot
+H0200102,P0200137,35.04652382,-15.77289262,58,Female,At Zain tower ask for safa market ask for mr robise
+H0200107,P0200152,35.04440544,-15.77576112,22,Female,Ndirande matope zain tower
+H0200108,P0200155,35.04507997,-15.77542684,52,Male,Ndirande matope near zain tower
+H0200111,P0200285,35.04370217,-15.77564,30,Female,Ndirande near Zain tower
+H0200113,P0200287,35.04415863,-15.77490517,45,Female,Ndirande near Zain tower
+H0200115,P0200166,35.0458565,-15.77386737,26,Female,Ndirande matope near soko maize mill
+H0200117,P0200212,35.04682953,-15.77320466,57,Male,Ndirande matope near matwaya kiosk
+H0200117,P0200213,35.04682953,-15.77320466,51,Female,Ndirande matope near matwaya kiosk
+H0200118,P0200217,35.04680178,-15.77288329,68,Female,Ndirande matope near soko maize mill
+H0200127,P0200106,35.04560723,-15.77660093,73,Female,Magodi plot near Zain transformer
+H0200128,P0200108,35.04599171,-15.77637521,32,Female,"Charle,s plot near village head matope"
+H0200132,P0200114,35.04636478,-15.77588475,24,Male,Makiyi plot near matope admarc
+H0200135,P0200117,35.04721594,-15.77594368,52,Female,Phiri plot near mussa mosque
+H0200137,P0200120,35.047312,-15.77654417,51,Female,Mizedya plot near mussa mosque
+H0200137,P0200121,35.047312,-15.77654417,62,Male,Mizedya plot near mussa mosque
+H0200138,P0200123,35.04726347,-15.77652881,51,Female,Mhango plot near mussa mosque
+H0200143,P0200193,35.04667783,-15.77646799,54,Male,Zikusowani plot near mussa mosque
+H0300008,P0300029,35.04234378,-15.77716885,49,Male,Mr Bandawe plot near Utush  Pvt Nursery School
+H0300017,P0300237,35.0443899,-15.77764948,19,Male,Near chigamba maize meal. Daud plot
+H0300017,P0300195,35.0443899,-15.77764948,61,Female,Near chigamba maize meal. Daud plot
+H0300022,P0300207,35.04559122,-15.77775504,23,Male,Near chigamba maize meal.
+H0300033,P0300175,35.04436605,-15.77783023,37,Female,At gunde plot near chilunga ground
+H0300039,P0300071,35.04297318,-15.77721594,38,Female,Smart plot near Bright Foundation Pvt primary school
+H0300040,P0300079,35.04290155,-15.77727221,70,Male,Mrs Smart plot near Bright future Pvt Primary School
+H0300040,P0300075,35.04290155,-15.77727221,50,Female,Mrs Smart plot near Bright future Pvt Primary School
+H0300041,P0300077,35.04269782,-15.77702399,19,Male,Mr Liyaya plot near Bright Foundation Pvt Primary School
+H0300045,P0300269,35.04278444,-15.7774484,25,Female,Mr Tajidi plot near Ndilande Health Centre
+H0300074,P0300120,35.04474327,-15.77633512,72,Female,"Lines Bonomali plot, house#128N"
+H0300085,P0300127,35.04366277,-15.7770169,65,Female,Palemba plot pachipatala pa kasambala
+H0300086,P0300136,35.04354652,-15.77665702,30,Female,"Duwe plot, house#60Q"
+H0300089,P0300109,35.04415722,-15.7763774,54,Female,Nyirenda plot house#101Q
+H0300100,P0300276,35.04144515,-15.77887428,19,Male,Chilombo's plot
+H0300111,P0300143,35.04387,-15.77845662,61,Male,Thengos' plot near pa house maize mill
+H0300113,P0300212,35.04345462,-15.77975276,27,Female,Chembezis plot near Ndilande kachele primary school
+H0300113,P0300147,35.04345462,-15.77975276,51,Female,Chembezis plot near Ndilande kachele primary school
+H0300130,P0300247,35.04415906,-15.77744588,62,Male,Near chikunda ground. Chilokoteni plot
+H0300130,P0300238,35.04415906,-15.77744588,59,Female,Near chikunda ground. Chilokoteni plot
+H0300135,P0300245,35.04541312,-15.77781567,20,Male,Near chief chakana. Nyirenda plot
+H0300136,P0300248,35.04557455,-15.77821102,36,Female,Near chakana chief.kaduwa plot
+H0400001,P0400024,35.04008872,-15.77734369,22,Male,At chifundo hall ask for Mr malunga's plot
+H0400001,P0400001,35.04008872,-15.77734369,24,Female,At chifundo hall ask for Mr malunga's plot
+H0400001,P0400002,35.04008872,-15.77734369,48,Female,At chifundo hall ask for Mr malunga's plot
+H0400003,P0400007,35.04106436,-15.77684625,44,Male,At chifundo hall ask for nelo wa studio hous number 82U
+H0400008,P0400015,35.04107952,-15.77464593,51,Female,At MDF bridge ask for house number 11W
+H0400012,P0400055,35.04198682,-15.77473699,41,Female,At Baghdad bar ask for Mr mkanda's plot
+H0400012,P0400056,35.04198682,-15.77473699,28,Male,At Baghdad bar ask for Mr mkanda's plot
+H0400012,P0400060,35.04198682,-15.77473699,33,Male,At Baghdad bar ask for Mr mkanda's plot
+H0400022,P0400023,35.04040792,-15.77684038,64,Female,Ndirande near chifundo hall ask for mayi ndewere
+H0400023,P0400005,35.04025037,-15.77733104,30,Female,Ndirande near chifudo hall at house number 63U
+H0400031,P0400037,35.04140264,-15.77430761,20,Male,Ndirande near new Baghdad bar at house number 24W
+H0400034,P0400046,35.04179888,-15.77481034,30,Female,Ndirande near new Baghdad bar at Mr matchipisa plot
+H0400035,P0400048,35.04117842,-15.77421164,50,Female,At bridge ya asilikali house number 19W pa agogo
+H0400044,P0400069,35.03880023,-15.77592658,31,Female,Piano plot near madina hospital
+H0400044,P0400071,35.03880023,-15.77592658,56,Male,Piano plot near madina hospital
+H0400044,P0400070,35.03880023,-15.77592658,54,Female,Piano plot near madina hospital
+H0400045,P0400072,35.03891445,-15.77573869,52,Female,Suzakhala plot near ndirande cilinic
+H0400048,P0400080,35.042331,-15.77531421,51,Female,Mdau plot near bwanamkubwa shop
+H0400051,P0400247,35.04290689,-15.77486988,29,Female,Tchado plot near  bagidadi bar
+H0400065,P0400086,35.04003347,-15.77500517,39,Female,Near ndirande market
+H0400066,P0400085,35.03982764,-15.77511371,25,Female,Near ndirande market
+H0400067,P0400206,35.04040316,-15.77560889,22,Male,Near Zion market
+H0400069,P0400196,35.04006193,-15.7754659,25,Female,Near Zion market
+H0400073,P0400199,35.04055672,-15.77466801,39,Female,Near nansolo bridge
+H0400074,P0400095,35.04043278,-15.77489475,36,Female,Ndirande nasolo river
+H0400075,P0400142,35.04074084,-15.77502907,27,Male,Near nansolo bridge
+H0400087,P0400173,35.04276903,-15.77430766,37,Female,Mr kampeni plot
+H0400088,P0400174,35.04245821,-15.77440408,41,Female,Plot of Mr phiri
+H0400089,P0400104,35.04268564,-15.77415089,20,Male,Near Bagdad bar
+H0400089,P0400102,35.04268564,-15.77415089,51,Female,Near Bagdad bar
+H0400090,P0400234,35.04288588,-15.77367083,22,Male,Gondwe plot near back dad bear
+H0400097,P0400122,35.04240985,-15.77466903,32,Female,Anon'gona plot near zaon church
+H0400097,P0400121,35.04240985,-15.77466903,66,Female,Anon'gona plot near zaon church
+H0400098,P0400274,35.04266036,-15.77448275,77,Female,Mkandawire  plot near  Baghdad  bottle store
+H0400105,P0400276,35.04309159,-15.77483867,52,Female,JoJo plot near green land
+H0400111,P0400134,35.04052947,-15.77560394,31,Female,Ndirande near Zion market
+H0400112,P0400137,35.04053677,-15.77561309,19,Male,Ndirande near Zion market
+H0400112,P0400136,35.04053677,-15.77561309,50,Female,Ndirande near Zion market
+H0400112,P0400204,35.04053677,-15.77561309,60,Male,Ndirande near Zion market
+H0400114,P0400251,35.04089306,-15.77455196,30,Male,Ndirande near Zion market
+H0400115,P0400147,35.04041789,-15.77495482,52,Female,Near nsololo bridge
+H0400116,P0400140,35.04055243,-15.77467325,29,Female,Near nansololo bridge
+H0400116,P0400210,35.04055243,-15.77467325,57,Male,Near nansololo bridge
+H0400116,P0400097,35.04055243,-15.77467325,51,Female,Near nansololo bridge
+H0400117,P0400143,35.03946207,-15.77762523,43,Female,Ndirande near Zion market
+H0400129,P0400150,35.04162186,-15.77559038,31,Female,Chakana near chifundo hall.
+H0400131,P0400254,35.04172231,-15.77589246,25,Female,Chakana near ndirande hospital.
+H0400131,P0400153,35.04172231,-15.77589246,36,Female,Chakana near ndirande hospital.
+H0400136,P0400161,35.04262069,-15.76926546,74,Female,Chakana near Greenland.
+H0400136,P0400160,35.04262069,-15.76926546,78,Male,Chakana near Greenland.
+H0400148,P0400120,35.0396495,-15.77566164,46,Female,Chisale plot near ndirande mosque
+H0400149,P0400118,35.03913119,-15.77572738,32,Female,Lipende plot near ndirande mosque
+H0400149,P0400115,35.03913119,-15.77572738,59,Female,Lipende plot near ndirande mosque
+H0400151,P0400109,35.03878084,-15.7759412,34,Female,Lumbe plot ndirande cilinic
+H0500009,P0500018,35.03968883,-15.78245586,19,Male,Mtambalika opposite kusagame bottle store
+H0500027,P0500034,35.04142508,-15.77906808,74,Female,Sibweza plot near utuchi pvt primary school
+H0500028,P0500037,35.041125,-15.77955467,38,Female,Limula plot near Namalimwe open day secondary school
+H0500030,P0500041,35.04071843,-15.77951602,35,Male,Mzumzuma plot near paseli houses
+H0500030,P0500040,35.04071843,-15.77951602,52,Female,Mzumzuma plot near paseli houses
+H0500034,P0500106,35.04038321,-15.77906894,51,Female,Msiska plot behind Ndirande Health center
+H0500034,P0500107,35.04038321,-15.77906894,61,Male,Msiska plot behind Ndirande Health center
+H0500037,P0500153,35.04193358,-15.779608,74,Female,Kadzakalowa plot near utuchi pvt primary school
+H0500043,P0500170,35.04033683,-15.78183592,58,Female,Behind sulani kiosk ask for Mai sulani plot
+H0500059,P0500121,35.03778643,-15.78363756,38,Female,New line ask for house number 518
+H0500068,P0500127,35.04059448,-15.78203009,36,Female,Saudi near kachele school
+H0500079,P0500230,35.04074625,-15.77951045,59,Female,Near tambalika kiosk
+H0500094,P0500274,35.03780848,-15.78415132,42,Male,Near kachere ccap church
+H0500097,P0500277,35.03841047,-15.7841043,56,Male,At st Theresa private school in ndilande new lines ask for the quard's quarters
+H0500098,P0500282,35.03726895,-15.7829249,25,Female,Newlines house number 569
+H0500109,P0500070,35.04053815,-15.78076865,34,Female,Ndirande near namalimwe private school
+H0500109,P0500071,35.04053815,-15.78076865,37,Female,Ndirande near namalimwe private school
+H0500115,P0500082,35.04114864,-15.77961065,20,Female,Near namalimwe private secondary school
+H0500115,P0500080,35.04114864,-15.77961065,33,Female,Near namalimwe private secondary school
+H0500120,P0500207,35.04176787,-15.77995839,34,Female,Near namalimwe open secondary school
+H0500123,P0500051,35.04067859,-15.77998829,19,Male,Near Namalimwe private secondary school
+H0500148,P0500190,35.0353586,-15.78334099,54,Female,Ndirande newlines
+H0500148,P0500191,35.0353586,-15.78334099,67,Female,Ndirande newlines
+H0600003,P0600007,35.03359114,-15.78021152,36,Female,Near Sadik's plot pa mipopi 3 ask for Mr kapombeza plot
+H0600007,P0600016,35.03405096,-15.77941108,85,Female,Near zalanje maize mill ask for Gogo sapangwa
+H0600010,P0600144,35.0283944,-15.78221306,47,Female,Near BSS ask for Mr nyirenda
+H0600031,P0600057,35.03105918,-15.78069943,44,Female,Near Blantyre secondary school
+H0600035,P0600103,35.03095095,-15.78103625,18,Male,Near Blantyre secondary school
+H0600035,P0600102,35.03095095,-15.78103625,80,Female,Near Blantyre secondary school
+H0600036,P0600098,35.03701555,-15.77937499,79,Male,Ndirande near namalimwe primary school
+H0600037,P0600094,35.03635773,-15.77928072,37,Female,Ndirande near namalimwe primary school
+H0600047,P0600121,35.0287415,-15.77985171,29,Female,Behind goliro  trading centre
+H0600047,P0600115,35.0287415,-15.77985171,54,Female,Behind goliro  trading centre
+H0600066,P0600025,35.02907162,-15.78105242,65,Female,Golio at mtiras residence.
+H0600099,P0600039,35.03480394,-15.77982552,23,Female,Near namalimwe primary school
+H0600106,P0600242,35.02984528,-15.77938859,28,Female,Ndirande near golilo market
+H0600107,P0600243,35.02980559,-15.77912576,26,Female,Ndirande near golilo market
+H0600113,P0600148,35.03039097,-15.7790291,70,Male,Ndirande  golilo near ndeketa kiosk
+H0600115,P0600151,35.0303673,-15.77817553,19,Female,Ndirande golilo near Mr chikakwiya plot
+H0600121,P0600228,35.0295625,-15.77929848,65,Female,Ndirande golilo at chief mlanga
+H0600130,P0600230,35.03213104,-15.78073722,50,Male,Phiri residence near Nazarene church
+H0600131,P0600177,35.03242301,-15.78076755,42,Female,Chaola plot near tambala maizemill
+H0600139,P0600189,35.03196411,-15.77972626,24,Female,Kalomba plot near Nazareth church
+H0600141,P0600223,35.03159463,-15.77931475,68,Female,Kathiti plot near Nazareth church
+H0600150,P0600215,35.03388443,-15.78048716,22,Female,Near namalima primary school ask for Mr chikazingwa plot
+H0700001,P0700001,35.03556663,-15.77438985,25,Female,Mr  Chagomelana plot near Kasego maize mill
+H0700001,P0700019,35.03556663,-15.77438985,40,Male,Mr  Chagomelana plot near Kasego maize mill
+H0700002,P0700006,35.03588793,-15.77440115,41,Female,Mwandikola plot near Hala Kiosk
+H0700003,P0700026,35.03639133,-15.77433208,25,Female,Joseph plot near Crezy point
+H0700004,P0700012,35.03698548,-15.77410297,75,Male,Mr F.Wasi plot near Kandile Maize Mill
+H0700004,P0700011,35.03698548,-15.77410297,73,Female,Mr F.Wasi plot near Kandile Maize Mill
+H0700006,P0700202,35.03711436,-15.77486638,30,Male,Temwa Muhango plot near Chiwaya residence
+H0700006,P0700017,35.03711436,-15.77486638,57,Female,Temwa Muhango plot near Chiwaya residence
+H0700007,P0700015,35.03747872,-15.77468039,22,Female,Mr Kaphantego plot near Crezy point
+H0700023,P0700138,35.0376629,-15.77580318,36,Female,Thomson plot near mawindow building
+H0700028,P0700130,35.03276952,-15.77720551,18,Male,Mai Zulu near young master academy
+H0700029,P0700149,35.03267348,-15.77713116,31,Female,Mai makako near young masters academy
+H0700029,P0700150,35.03267348,-15.77713116,75,Female,Mai makako near young masters academy
+H0700030,P0700109,35.03278588,-15.7773677,23,Male,Mdala plot near young masters academy
+H0700032,P0700154,35.0323631,-15.77775327,63,Male,Mambo plot near pakachere bakery
+H0700033,P0700056,35.03569454,-15.77543572,18,Male,Pa mpope wa Devi kwa kanko
+H0700045,P0700047,35.03625341,-15.77608014,77,Female,Pa mpope wa devi plot ya mayi phiri
+H0700045,P0700046,35.03625341,-15.77608014,57,Female,Pa mpope wa devi plot ya mayi phiri
+H0700046,P0700064,35.03634839,-15.77593655,23,Male,Pa mpope wa Devi plot ya mayi kwatani
+H0700048,P0700062,35.03679559,-15.77593651,25,Female,Pa Premier bet ya mawindo kwa iwen
+H0700051,P0700156,35.03144519,-15.77755629,32,Female,Zakeyu plot near bridge ya Themba mkandawire
+H0700052,P0700157,35.03150167,-15.77747047,27,Female,Near Themba bridge
+H0700055,P0700162,35.03170081,-15.77717975,65,Female,Near themba's bridge
+H0700057,P0700165,35.03195321,-15.77733129,46,Male,Msiska's plot  near nasolo bridge
+H0700061,P0700127,35.0328432,-15.77826083,22,Female,Julio's plot near machete tree
+H0700064,P0700085,35.03405219,-15.77682898,32,Male,Banyilas plot near paseli lodge
+H0700065,P0700104,35.03392533,-15.77669028,59,Male,Madondolos plot near paseli lodge
+H0700065,P0700087,35.03392533,-15.77669028,52,Female,Madondolos plot near paseli lodge
+H0700069,P0700091,35.03282967,-15.77656084,20,Male,Bewulas plot near young academy private secondary school
+H0700069,P0700093,35.03282967,-15.77656084,21,Female,Bewulas plot near young academy private secondary school
+H0700069,P0700092,35.03282967,-15.77656084,23,Female,Bewulas plot near young academy private secondary school
+H0700070,P0700096,35.03322341,-15.77610853,28,Male,Njovuyalema's plot behind Paseli's lodge
+H0700076,P0700241,35.03443171,-15.77745639,67,Female,At mdezo near peseli executive lodge
+H0700076,P0700240,35.03443171,-15.77745639,63,Male,At mdezo near peseli executive lodge
+H0700077,P0700169,35.03418911,-15.77745123,23,Female,At mlauzi plot paseli executive lodge
+H0700078,P0700178,35.03413624,-15.77731467,51,Male,At pasele plot near paseli executive lodge
+H0700079,P0700177,35.03386108,-15.7775402,43,Female,At chembezi plot near paseli
+H0700079,P0700173,35.03386108,-15.7775402,59,Female,At chembezi plot near paseli
+H0700085,P0700105,35.03239308,-15.77459475,39,Female,Thoms plot near  pa Thom groceries
+H0700116,P0700213,35.03554842,-15.77427656,47,Male,Mituka near Anglican Church
+H0700117,P0700215,35.0361259,-15.77427945,71,Male,Kuluwila plot near Crezy point
+H0700118,P0700217,35.0366563,-15.77420222,42,Female,Magombo plot near Crezy point
+H0700118,P0700218,35.0366563,-15.77420222,26,Male,Magombo plot near Crezy point
+H0700119,P0700225,35.03749599,-15.77467854,58,Female,Kaphamtengo near Crezy Point
+H0700120,P0700226,35.03725928,-15.77394916,55,Female,Manjombe plot near Crazy Point
+H0700141,P0700270,35.03384718,-15.77803754,47,Male,Near paseri compound. George plot
+H0700142,P0700198,35.03292344,-15.77780123,38,Female,Near galaja.
+H0700144,P0700255,35.033025,-15.7785338,28,Female,"Near galaja ,gwazayani plot"
+H0700145,P0700271,35.03329039,-15.77843304,33,Female,Near magalaja.banda plot
+H0700145,P0700256,35.03329039,-15.77843304,83,Male,Near magalaja.banda plot
+H0700146,P0700263,35.03377586,-15.77834352,36,Female,Near ptc..kawina plot
+H0700146,P0700262,35.03377586,-15.77834352,70,Female,Near ptc..kawina plot
+H0800001,P0800043,35.03427919,-15.7720882,33,Female,Near group village headman makata house
+H0800002,P0800045,35.03372808,-15.77234822,36,Female,Gomano plot near mama boutique
+H0800004,P0800051,35.03404183,-15.77307587,40,Female,Plot of Mr chokera
+H0800010,P0800271,35.0357216,-15.77317545,23,Male,Kwanjonji plot near khoza kiosk
+H0800011,P0800267,35.0363046,-15.77343298,21,Male,Plot of mr dingaliro
+H0800022,P0800262,35.03437606,-15.77211735,71,Female,Sonjola plot near makala galanja
+H0800029,P0800263,35.03553677,-15.77305203,26,Female,Near ndirande christadel church
+H0800029,P0800186,35.03553677,-15.77305203,19,Male,Near ndirande christadel church
+H0800050,P0800205,35.04142441,-15.77041245,59,Female,Ndirande makata house number 47N
+H0800051,P0800141,35.04027441,-15.76869823,23,Male,Ndirande makata near primary school
+H0800051,P0800207,35.04027441,-15.76869823,73,Female,Ndirande makata near primary school
+H0800053,P0800254,35.04037553,-15.7691235,40,Female,Ndirande makata near makata primary school
+H0800057,P0800220,35.04070148,-15.77072519,76,Male,At makata Market ask for pastor ngwira house number 78N
+H0800059,P0800224,35.04114126,-15.77055335,37,Female,At makata Market ask for Mr laudoni house number 85N
+H0800059,P0800027,35.04114126,-15.77055335,62,Female,At makata Market ask for Mr laudoni house number 85N
+H0800060,P0800229,35.04168022,-15.77042722,33,Female,At makata Market ask for makata primary then ask for Mr manjrika plot
+H0800061,P0800143,35.0403364,-15.76927599,20,Male,Ndirande makata near makata primary school
+H0800061,P0800146,35.0403364,-15.76927599,24,Female,Ndirande makata near makata primary school
+H0800064,P0800087,35.03545945,-15.77225454,19,Female,Lickman plot near Makata PIM Church
+H0800074,P0800122,35.03561338,-15.77223589,19,Male,Million plot near Holy Gost Catholic church
+H0800075,P0800111,35.03578557,-15.77263942,32,Female,Lupiya plot near Mapeyala kiosk
+H0800079,P0800123,35.03746656,-15.7722255,38,Male,Tembo plot near ndirande Anglican church
+H0800085,P0800002,35.03760318,-15.77086754,61,Male,Makata  near Khun maize mill
+H0800085,P0800001,35.03760318,-15.77086754,55,Female,Makata  near Khun maize mill
+H0800086,P0800016,35.03689509,-15.77062555,40,Male,Makata near Gogo maize mill
+H0800086,P0800005,35.03689509,-15.77062555,22,Female,Makata near Gogo maize mill
+H0800086,P0800006,35.03689509,-15.77062555,37,Female,Makata near Gogo maize mill
+H0800090,P0800017,35.03677206,-15.77078738,28,Female,Makata near Catholic church
+H0800091,P0800019,35.03683136,-15.77080535,59,Female,Makata near Catholic church.
+H0800109,P0800153,35.03756162,-15.76959114,32,Female,Near orthodox church
+H0800109,P0800065,35.03756162,-15.76959114,75,Male,Near orthodox church
+H0800112,P0800161,35.03490919,-15.77346833,52,Female,Near tamandike road
+H0800130,P0800236,35.03698898,-15.7697084,40,Male,Ndirande near orthodox church
+H0800135,P0800246,35.03476875,-15.77343082,63,Female,Ndirande near market
+H0800135,P0800245,35.03476875,-15.77343082,55,Female,Ndirande near market
+H0800136,P0800035,35.03636958,-15.76995681,53,Female,Near makata market
+H0800149,P0800212,35.03535236,-15.77259026,58,Male,Mmudzi mwa A george ask for Mr Ng'abu of house number 244E
+H0900017,P0900190,35.04073082,-15.77141323,64,Female,59U near shop ya Tiyesi
+H0900021,P0900219,35.0405659,-15.77222498,23,Male,House# 72U behind Yatose
+H0900024,P0900006,35.0405068,-15.77261883,35,Female,Mrs E.Chiumia plot near Chikaoneka PVT Primary School
+H0900025,P0900010,35.04076342,-15.77263712,28,Female,Mr Chiumia plot  near Sante Bar
+H0900026,P0900011,35.04090299,-15.77294942,50,Female,Mr Same plot near Tapacha Kiosk
+H0900043,P0900196,35.04042315,-15.7719481,63,Male,House # 67U behind Yatose
+H0900045,P0900204,35.04173807,-15.77184109,62,Female,House#338U near mitekete bar
+H0900050,P0900220,35.04364309,-15.77203544,19,Male,#167T near upstairs
+H0900064,P0900243,35.03900244,-15.77171843,21,Male,Biyasis plot near Nsika Wa njara
+H0900064,P0900232,35.03900244,-15.77171843,37,Female,Biyasis plot near Nsika Wa njara
+H0900067,P0900241,35.03851863,-15.77186257,25,Female,Mtunduwathas plot near Makata market
+H0900068,P0900245,35.03847336,-15.77198091,19,Female,Khuleyas plot near Makata market
+H0900071,P0900249,35.03991071,-15.7727253,78,Male,Sakwiyas plot near msika wa njala
+H0900076,P0900150,35.04019508,-15.7707946,71,Male,Pa nzikiti wa pongolani
+H0900095,P0900111,35.03922088,-15.77101842,48,Female,Near makata market.daudi plot
+H0900096,P0900279,35.03919689,-15.77086735,29,Female,Near makat market. Mjomb plot
+H0900101,P0900278,35.03931891,-15.77044344,19,Female,Near makata primary.
+H0900111,P0900137,35.04316135,-15.77044679,42,Female,At gift gwiriza plot near   kiosk
+H0900122,P0900046,35.04355691,-15.76995306,20,Male,At makoka plot near Che jiny vgh
+H0900129,P0900199,35.04137212,-15.7721481,68,Female,House #312 near kadzuwa kiosk
+H0900129,P0900201,35.04137212,-15.7721481,51,Male,House #312 near kadzuwa kiosk
+H0900130,P0900169,35.04190317,-15.77183354,40,Female,House#357U near pamitekete bar
+H0900150,P0900081,35.04048573,-15.77261255,41,Male,Kautsi plot near Chikaoneka Primary private school
+H0900151,P0900079,35.0408056,-15.77251318,78,Male,Nyaka Plot near Makata primary school
+H0900151,P0900080,35.0408056,-15.77251318,71,Female,Nyaka Plot near Makata primary school
+H1000004,P1000131,35.04191169,-15.76886092,20,Female,Diversion plot near Nasolo river.
+H1000004,P1000132,35.04191169,-15.76886092,56,Female,Diversion plot near Nasolo river.
+H1000016,P1000278,35.04079244,-15.76754365,51,Male,House# 140p near nasolo River
+H1000020,P1000037,35.04191718,-15.76924987,22,Male,House# 56R
+H1000023,P1000191,35.03950232,-15.76730364,35,Female,Near bgdd bar.malora plot
+H1000024,P1000193,35.03959544,-15.76711049,27,Female,Near bagdad bar. Manda plot
+H1000026,P1000210,35.03922829,-15.76675612,19,Male,Near tizalerana kiosk.chilongosi plot
+H1000030,P1000207,35.03992713,-15.76682319,53,Female,Near masaf kiosk.muwawa
+H1000033,P1000044,35.04005014,-15.76702696,41,Female,Near soweto bar. Bumanda plot
+H1000036,P1000051,35.03984311,-15.7665599,26,Female,Near DPP office.njazi plot
+H1000039,P1000285,35.04072875,-15.76863655,19,Male,Mr makungwa plot near makata ccap
+H1000040,P1000292,35.04100915,-15.76795779,26,Male,House #158p near nasolo River
+H1000045,P1000039,35.04215652,-15.76932425,40,Female,House# 72R near nasolo River
+H1000050,P1000256,35.04206482,-15.77009236,40,Female,House# 14R near nasolo River
+H1000060,P1000022,35.04249644,-15.76812827,49,Female,House# 390R near ndilande primary school
+H1000062,P1000026,35.0416401,-15.76729023,38,Female,House# 172P near nasolo River
+H1000062,P1000027,35.0416401,-15.76729023,23,Female,House# 172P near nasolo River
+H1000063,P1000259,35.04154178,-15.76760659,21,Male,House# 169P near nasolo River
+H1000063,P1000028,35.04154178,-15.76760659,57,Female,House# 169P near nasolo River
+H1000068,P1000224,35.03749468,-15.76686421,51,Male,Kachales plot near Chitsime Primary school
+H1000078,P1000115,35.0394265,-15.76779204,38,Female,Flyson plot near Jordan plot
+H1000078,P1000116,35.0394265,-15.76779204,58,Female,Flyson plot near Jordan plot
+H1000081,P1000121,35.04052224,-15.76757927,24,Female,Nambewe plot near layisani maize Mill
+H1000092,P1000232,35.04017687,-15.76724693,43,Male,At zungu plot near risani maize meal
+H1000093,P1000233,35.0403867,-15.76733744,53,Female,At kamanga plot near risani maize meal
+H1000095,P1000236,35.03951309,-15.76921627,28,Female,At maritinu plot near raisani maize meal
+H1000096,P1000237,35.04054657,-15.76721645,51,Female,At misheki plot near raisani maize meal
+H1000100,P1000088,35.04052187,-15.7661998,75,Male,At mpunga plot near maressure club
+H1000101,P1000089,35.04060228,-15.76600341,33,Female,At chikaonda plot near maressure club
+H1000102,P1000092,35.04098526,-15.76636685,46,Female,At nyasulu near ndilande Hil
+H1000102,P1000243,35.04098526,-15.76636685,58,Male,At nyasulu near ndilande Hil
+H1000106,P1000064,35.04015997,-15.76845492,62,Female,Pa makata CCAP kwa mayi botomani
+H1000127,P1000169,35.04177542,-15.76910653,34,Female,Kamuyanjana near Nasolo river
+H1000131,P1000175,35.04256009,-15.7682683,29,Female,Sukwa plot near Ndilande Hill primary
+H1000134,P1000183,35.04255382,-15.76878881,22,Male,Isa plot near Ndilande Hill primary
+H1100002,P1100014,35.03510048,-15.76737054,53,Female,Nankhunis plot near Chitsime primary school
+H1100005,P1100015,35.03565679,-15.76725773,36,Female,"Ndilande makata, Harry's plot near United apostle church"
+H1100007,P1100017,35.03553489,-15.76721726,40,Female,Banda's plot near United apostle church
+H1100008,P1100234,35.03525616,-15.76729498,55,Female,"Ndilande makata, Dozolas plot near United apostle church"
+H1100023,P1100090,35.03405097,-15.77065188,37,Female,Nawenje kiosk plot kadazi
+H1100028,P1100132,35.03328032,-15.77181485,71,Female,A chipojola plot chikwawa
+H1100031,P1100136,35.03626357,-15.76896719,18,Female,Pa chifila bar  school plot
+H1100031,P1100135,35.03626357,-15.76896719,63,Male,Pa chifila bar  school plot
+H1100033,P1100036,35.03393031,-15.7697497,38,Female,Vikhumbo near satowe
+H1100036,P1100045,35.03471784,-15.76857583,39,Female,Tambala near satowe bar
+H1100036,P1100044,35.03471784,-15.76857583,21,Female,Tambala near satowe bar
+H1100037,P1100048,35.0347892,-15.76913631,47,Female,Hara near satowe bar
+H1100037,P1100047,35.0347892,-15.76913631,54,Male,Hara near satowe bar
+H1100038,P1100052,35.03327759,-15.76877037,35,Female,Mpasu's plot near igwe
+H1100038,P1100057,35.03327759,-15.76877037,34,Male,Mpasu's plot near igwe
+H1100045,P1100153,35.03340827,-15.77114291,55,Female,Khamalatha plot
+H1100050,P1100114,35.03539018,-15.76973232,55,Female,Near authodocs church.kmpeni plot
+H1100065,P1100255,35.03468921,-15.76794003,75,Male,Makonyola plot near Chimwinyo shop
+H1100067,P1100259,35.0350883,-15.76758116,21,Male,Mr G.Mulindiyani plot near Mankhamba SDA Church
+H1100069,P1100264,35.0341385,-15.76826548,47,Male,Kalogwire plot near Chimwinyo shop
+H1100070,P1100268,35.03387789,-15.76862068,65,Female,Makombe plot near Mwinyo shop
+H1100070,P1100267,35.03387789,-15.76862068,69,Male,Makombe plot near Mwinyo shop
+H1100071,P1100269,35.03408113,-15.76858884,35,Male,Mr Master plot near mthombowadona well
+H1100072,P1100280,35.03381321,-15.76736043,25,Female,Mr Mkakala plot near Mr Mawindo Maize Mill
+H1100072,P1100277,35.03381321,-15.76736043,24,Female,Mr Mkakala plot near Mr Mawindo Maize Mill
+H1100107,P1100099,35.03501149,-15.77058213,70,Female,At dimbani plot near holy ghost Catholic church
+H1100109,P1100143,35.03532497,-15.76981343,51,Male,At huwani plot near holy ghost Catholic church
+H1100113,P1100066,35.03451846,-15.77050449,38,Female,At mkandawire holy ghost Catholic church
+H1100119,P1100194,35.03379889,-15.76937999,26,Female,L Phiri near Satowe
+H1100123,P1100190,35.03497832,-15.76885453,40,Female,Sakhama plot near three ways
+H1100132,P1100177,35.03325214,-15.76961223,39,Female,Kamwendo near majiga living waters church
+H1100132,P1100175,35.03325214,-15.76961223,29,Female,Kamwendo near majiga living waters church
+H1100146,P1100275,35.03374527,-15.76767999,22,Female,Nota plot near Ntchombo wa Adona
+H1100151,P1100228,35.03442695,-15.7678061,61,Female,Molosoni plot near Ntchombo wa Adona
+H1200001,P1200001,35.03072911,-15.77239663,45,Male,At bare shop before premier bet shop ask for Mr chisuse plot
+H1200003,P1200176,35.03068799,-15.77151859,61,Male,Behind zambia premier bet shop ask for kukachaso Ku mpanda wa malata then ask for Mr m'dala a telala
+H1200022,P1200022,35.03005666,-15.76909565,32,Female,Nyambadwe area near alihuda mosque
+H1200025,P1200028,35.02909212,-15.76918042,41,Female,Nyambadwe near Che hamindu mosque
+H1200027,P1200034,35.02938537,-15.76889842,27,Female,Nyambadwe near Mr kapito garage
+H1200027,P1200033,35.02938537,-15.76889842,62,Female,Nyambadwe near Mr kapito garage
+H1200028,P1200035,35.02928244,-15.76871508,18,Female,"Nyambadwe near likuda mosque,"
+H1200029,P1200220,35.02966158,-15.76886183,21,Male,Nyambadwe near chigaula plot house number 444A
+H1200030,P1200219,35.02989461,-15.76876383,23,Male,Nyambadwe at Mr binzi plot house number 460A
+H1200030,P1200040,35.02989461,-15.76876383,56,Female,Nyambadwe at Mr binzi plot house number 460A
+H1200032,P1200213,35.02891052,-15.76871219,79,Male,Nyambadwe at Mrs mwale plot house number 58A
+H1200056,P1200250,35.0312451,-15.7716226,43,Male,Mpatama plot near mbwezi bar
+H1200065,P1200173,35.0307884,-15.77167165,54,Female,Behind zambia premier bet ask for kumpanda wamalata Ku kachaso Kwa Mrs damalekani plot
+H1200086,P1200105,35.03214158,-15.77240417,35,Female,Near chinsewu market
+H1200087,P1200095,35.03189283,-15.77210375,23,Female,Near chinsewu market
+H1200092,P1200201,35.03223228,-15.77159588,35,Female,Ndirande chinsewu near market
+H1200109,P1200115,35.03133537,-15.77057482,45,Female,Plot of Mr masanjala
+H1200113,P1200122,35.03077477,-15.77062972,38,Female,Near ?ambia bridge
+H1200115,P1200232,35.03119758,-15.77189214,56,Female,Near premier bet shop
+H1200117,P1200231,35.03097633,-15.77218423,27,Female,Zambia  area near premier belt at chinseu
+H1200117,P1200230,35.03097633,-15.77218423,60,Female,Zambia  area near premier belt at chinseu
+H1200118,P1200252,35.03166305,-15.77170689,39,Male,Cause no plot near Zambia bridge
+H1200119,P1200237,35.03110487,-15.77102874,28,Female,Ndirande Zambia at Mr juma plot house number 466D
+H1200133,P1200135,35.03255427,-15.7703176,69,Female,Zambia near asandikumbe grocery
+H1200137,P1200143,35.03280662,-15.77037521,69,Female,Zambia near chief nawenje
+H1200138,P1200146,35.03292873,-15.77064545,41,Female,Zambia near chief nawenje
+H1200148,P1200089,35.0319178,-15.77248846,28,Female,Near chinsewu market
+H1200151,P1200086,35.03233431,-15.7723897,50,Female,Near chinsewu market
+H1300001,P1300001,35.03242513,-15.76606861,36,Female,Mrs V. Kamuonjora plot near Majiga market
+H1300001,P1300007,35.03242513,-15.76606861,28,Female,Mrs V. Kamuonjora plot near Majiga market
+H1300003,P1300022,35.03235609,-15.76608295,25,Female,Baziliyo plot near Majiga market
+H1300004,P1300027,35.03269294,-15.7658309,18,Male,Mawido plot near Majiga market
+H1300004,P1300005,35.03269294,-15.7658309,22,Female,Mawido plot near Majiga market
+H1300006,P1300028,35.03176357,-15.76603952,56,Male,Jawadu plot near  Majiga market
+H1300007,P1300021,35.03128086,-15.76605164,20,Female,Kanjira plot near Chimwala min shop
+H1300007,P1300024,35.03128086,-15.76605164,18,Male,Kanjira plot near Chimwala min shop
+H1300010,P1300019,35.03213353,-15.76435121,19,Female,Mr Kanyemba plot near Majiga Market
+H1300023,P1300172,35.03098945,-15.76523152,29,Female,Mdoka plot near nasolo River
+H1300023,P1300173,35.03098945,-15.76523152,25,Male,Mdoka plot near nasolo River
+H1300023,P1300171,35.03098945,-15.76523152,61,Female,Mdoka plot near nasolo River
+H1300035,P1300090,35.03150004,-15.76677813,21,Male,Visa plot near Thandeka bar
+H1300036,P1300091,35.03147107,-15.76679512,25,Female,Visa plot near Thandeka bar
+H1300038,P1300096,35.03213024,-15.76670995,47,Female,Kalanda plot near Thandeka bar
+H1300039,P1300100,35.03215378,-15.76669336,42,Female,Chilanga plot near Thandeka bar
+H1300040,P1300101,35.03203856,-15.76676925,34,Female,Mbedza plot near Thandeka bar
+H1300042,P1300104,35.03081321,-15.76643235,64,Male,Kandeu's plot opposite chifundo hall
+H1300044,P1300169,35.03195365,-15.76726442,38,Male,Chiotcha plot near nyozani ba
+H1300045,P1300076,35.03179178,-15.76752297,26,Female,"Davison plot, house #83D"
+H1300046,P1300078,35.03176239,-15.76744415,38,Female,"Davison plot, house #81D"
+H1300069,P1300108,35.0308383,-15.76619911,50,Male,Kachingwe plot near Kandewo residence
+H1300070,P1300109,35.03122988,-15.76609653,36,Female,Botomani plot near Chimwaza min shop
+H1300086,P1300126,35.03246568,-15.76612256,39,Female,Wisiki plot near Window's Maize mill
+H1300096,P1300141,35.03115424,-15.76456144,63,Male,Mweziwinas plot near majiga market
+H1300097,P1300142,35.03183694,-15.76456778,50,Male,Kausiwas plot near majiga market
+H1300107,P1300283,35.03224018,-15.76887841,63,Male,Mtendere soccer centre kwa mdala
+H1300116,P1300217,35.03240262,-15.76839057,21,Female,Near chikondano church.matemba plot
+H1300116,P1300216,35.03240262,-15.76839057,50,Female,Near chikondano church.matemba plot
+H1300117,P1300218,35.03275347,-15.76854311,51,Female,Near chikondano church. Nyakmela plot
+H1300127,P1300200,35.03346189,-15.76934074,55,Female,Jamen plot
+H1300130,P1300205,35.03298033,-15.76890056,28,Male,Chizere plot
+H1300130,P1300224,35.03298033,-15.76890056,56,Female,Chizere plot
+H1300132,P1300208,35.0327295,-15.76908929,49,Female,"Near Catholic,matiyasi plot"
+H1300139,P1300269,35.03174535,-15.76749373,55,Male,At namalanga plot near sacherenga place
+H1300144,P1300234,35.03123281,-15.76845283,51,Male,At Dumbo plot near Zambia market
+H1400002,P1400004,35.0340519,-15.76473489,55,Female,At gamulani ground ask for Mr nahosi the chairman's plot
+H1400002,P1400005,35.0340519,-15.76473489,62,Male,At gamulani ground ask for Mr nahosi the chairman's plot
+H1400003,P1400007,35.03400458,-15.76452521,53,Male,At gamulani ground ask for Mr abeg's plot
+H1400005,P1400028,35.03336332,-15.76455888,37,Female,At gamulani ground ask for mr Kazembe's plot
+H1400005,P1400026,35.03336332,-15.76455888,60,Male,At gamulani ground ask for mr Kazembe's plot
+H1400016,P1400030,35.03488114,-15.76543278,74,Female,At mankhamba SDA church ask for Gogo chipote's plot
+H1400019,P1400125,35.03564563,-15.76454385,33,Male,At gamulani ground ask for the chief's house where you will ask for Mr mkandawire's plot
+H1400019,P1400040,35.03564563,-15.76454385,65,Female,At gamulani ground ask for the chief's house where you will ask for Mr mkandawire's plot
+H1400019,P1400126,35.03564563,-15.76454385,71,Male,At gamulani ground ask for the chief's house where you will ask for Mr mkandawire's plot
+H1400023,P1400066,35.03477831,-15.76231517,27,Female,Dimba plot behind Gamulani ground
+H1400026,P1400079,35.03448277,-15.76263128,46,Male,Ndirande gamulani near nsani hall
+H1400029,P1400054,35.03566472,-15.76260348,18,Female,Ndirande gamulani near kafansiyanji kiosk
+H1400032,P1400061,35.03382173,-15.76261683,24,Female,Ndirande gamulani near mawindo maize mill
+H1400032,P1400060,35.03382173,-15.76261683,18,Female,Ndirande gamulani near mawindo maize mill
+H1400065,P1400235,35.03462595,-15.76243589,87,Male,Dimba plot behind Gamulani ground
+H1400065,P1400234,35.03462595,-15.76243589,80,Female,Dimba plot behind Gamulani ground
+H1400067,P1400237,35.03273619,-15.76133878,25,Male,Mateyu plot near kawere maize meal
+H1400073,P1400214,35.03210695,-15.76134192,42,Female,Mtengo plot near chirimba river
+H1400075,P1400221,35.03193096,-15.76164455,35,Male,Konyani plot near chirimba river
+H1400079,P1400244,35.03318098,-15.76194719,19,Female,Sikita plot near kawere maize meal
+H1400082,P1400271,35.0338802,-15.75853317,40,Female,Viola plot near viola kiosk
+H1400088,P1400172,35.03420979,-15.76281298,51,Male,Ndirande near Hall
+H1400095,P1400192,35.03269101,-15.7623373,37,Female,Near majiga road
+H1400097,P1400197,35.03193388,-15.76299054,40,Female,Near majiga road
+H1400106,P1400127,35.03401927,-15.76364607,62,Male,Chimkondeji near amezin
+H1400108,P1400130,35.0339868,-15.76356009,40,Male,Near majinga market
+H1400113,P1400140,35.03274526,-15.76441945,51,Female,Plot kazembe near magiga ndilande
+H1400127,P1400108,35.03534037,-15.76415619,47,Male,Gamulani opposit gamulani ground.
+H1400127,P1400106,35.03534037,-15.76415619,35,Female,Gamulani opposit gamulani ground.
+H1400129,P1400112,35.03575772,-15.76391186,66,Male,Gamulani near gamulani ground.
+H1400129,P1400111,35.03575772,-15.76391186,53,Female,Gamulani near gamulani ground.
+H1400129,P1400109,35.03575772,-15.76391186,59,Male,Gamulani near gamulani ground.
+H1400135,P1400123,35.03728419,-15.7654164,20,Female,Gamulani near malabada
+H1400149,P0200045,35.04574614,-15.77733202,31,Female,NA

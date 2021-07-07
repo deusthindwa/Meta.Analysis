@@ -37,7 +37,7 @@ B <- pp.labeled %>%
   ggplot(aes(x = factor(educ, levels(factor(educ))[c(2, 3, 4, 1)]), y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 1, fill = brocolors("crayons")["Green Yellow"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "B", x = "Education status", y = "") +
@@ -67,7 +67,7 @@ C <- pp.labeled %>%
   ggplot(aes(x = occupgp, y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 1, fill = brocolors("crayons")["Brick Red"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "C", x = "Occupation status", y = "") +
@@ -85,7 +85,7 @@ D <- pp.labeled %>%
   ggplot(aes(x = sex, y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 1, fill = brocolors("crayons")["Sky Blue"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "D", x = "Sex", y = "") +
@@ -118,7 +118,7 @@ F <- cn.labeled %>% mutate(datex = dmy(str_sub(sdate, 1, 9)), dow = weekdays(dat
   geom_line(color = brocolors("crayons")["Sepia"], size = 0.8) +
   geom_point(aes(size = n), color = brocolors("crayons")["Sepia"]) +
   geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.3, size = 0.1, color = brocolors("crayons")["Sepia"]) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.24, 0.04), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "F", x = "Day of the week", y = "Proportion of contacts") +
@@ -137,7 +137,7 @@ G <- cn.labeled %>% group_by(cnt_no) %>% tally() %>%
   geom_line(color = brocolors("crayons")["Pacific Blue"], size = 0.8) +
   geom_point(aes(size = n), color = brocolors("crayons")["Pacific Blue"]) +
   geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.3, size = 0.1, color = brocolors("crayons")["Pacific Blue"]) +
-  #geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
+  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.3, 0.02), labels = scales::percent_format(accuracy = 1)) + 
   scale_x_continuous(breaks = seq(1, 25, 2)) +
   theme_bw() +
