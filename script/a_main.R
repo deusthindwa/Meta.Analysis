@@ -12,7 +12,6 @@ pacman::p_load(char = c("tidyverse", "lubridate","data.table", "grid","ggrepel",
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())
-annual=356.25
 
 # work out stratified sampling based on SCALE study 
 dev.off()
