@@ -156,13 +156,12 @@ cn.labeled <- cn.unlabel %>% mutate(
 #===========================================================================
 
 # load participants dataset 
-spatial1 <- read_csv(here::here("data", "somipa_coordinates.csv")) %>% filter(!is.na(pid))
+spatial1 <- read_csv(here::here("data", "coordinates_somipa.csv"))
 spatial1 <- select(rename(spatial1, "eplon" = EPAL_LOCATION_LONGITUDE, "eplat" = EPAL_LOCATION_LATITUDE, "jkey" = joining_key), eplon, eplat, jkey)
-spatialX <- left_join(cn.labeled, spatial1)
+spatial1 <- left_join(cn.labeled, spatial1)
 
 # load household dataset 
-spatial2 <- read_csv(here::here("data", "household.csv"))
-spatial2 <- filter(select(rename(spatial2, "hhid" = s2_1, "hh_lon" = s1_5c, "hh_lat" = s1_6c), hhid, hh_lon, hh_lat), !is.na(hhid))
+spatial2 <- read_csv(here::here("data", "coordinates_scale.csv"))
 spatial2 <- distinct(spatial2, hhid, .keep_all = TRUE)
 
 # merge household dataset and participant data
@@ -204,3 +203,4 @@ cnt.m <- cnt.m %>% select(cnt_id, cnt_pid, somipa_pid, everything())
 #rename contact matrix merging variable from somipa_pid to part_id
 part.m <- part.m %>% rename("part_id" = somipa_pid)
 cnt.m <- cnt.m %>% rename("part_id" = somipa_pid)
+

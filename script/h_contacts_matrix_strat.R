@@ -3,6 +3,21 @@
 
 #==========================contact matrix for males participants
 
+# prepare a participant population (for null model of probability of contact under random mixing)
+survey.pops <- read.csv(here::here("data", "survey_pop.csv"))
+survey.pops <- survey.pops %>% 
+  mutate(lower.age.limit = if_else(age >= 0 & age < 1, 0,
+                                   if_else(age >= 1 & age <= 4, 1,
+                                           if_else(age > 4 & age <= 9, 5,
+                                                   if_else(age > 9 & age <= 14, 10,
+                                                           if_else(age > 14 & age <= 19, 15,
+                                                                   if_else(age > 19 & age <= 24, 20,
+                                                                           if_else(age > 24 & age <= 34, 25,
+                                                                                   if_else(age > 34 & age <= 44, 35,
+                                                                                           if_else(age > 44 & age <= 54, 45, 55)))))))))) %>% 
+  group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
+
+
 #create survey object by combining separate male and female part and cnt datasets
 somipa.sexm <- survey(part.m %>% filter(part_sex == "Male"), cnt.m)
 
@@ -10,8 +25,8 @@ somipa.sexm <- survey(part.m %>% filter(part_sex == "Male"), cnt.m)
 somipa.sexm <- contact_matrix(
   somipa.sexm,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.pops,
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -36,8 +51,8 @@ somipa.sexf <- survey(part.m %>% filter(part_sex == "Female"), cnt.m)
 somipa.sexf <- contact_matrix(
   somipa.sexf,
   countries = c("Malawi"),
-  survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  survey.pop = survey.pops,
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -62,7 +77,7 @@ somipa.whh <- contact_matrix(
   somipa.whh,
   countries = c("Malawi"),
   survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -88,7 +103,7 @@ somipa.ohh <- contact_matrix(
   somipa.ohh,
   countries = c("Malawi"),
   survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -114,7 +129,7 @@ somipa.wcom <- contact_matrix(
   somipa.wcom,
   countries = c("Malawi"),
   survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -140,7 +155,7 @@ somipa.ocom <- contact_matrix(
   somipa.ocom,
   countries = c("Malawi"),
   survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  age.limits = c(0, 1, 5, 10, 15, 20, 25, 35, 45, 55),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,

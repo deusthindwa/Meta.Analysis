@@ -24,7 +24,7 @@ A <- pp.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.4, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "A (total = 827)", x = "Age (years)", y = "Proportion of participants") +
+  labs(title = "A (total = 1,201)", x = "Age (years)", y = "Proportion of participants") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
