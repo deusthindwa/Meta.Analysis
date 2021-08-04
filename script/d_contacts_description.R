@@ -33,7 +33,7 @@ B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_fr
 
 # relationship to contacts
 C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel, cnt_type) %>% tally() %>% mutate(cnt_rel_p = n/sum(n)) %>%
-  ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,1,2,4,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
+  ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,2,4,1,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
@@ -51,7 +51,7 @@ D <- cn.labeled %>%
   group_by(cnt_loc, cnt_type) %>% 
   tally() %>% 
   mutate(cnt_loc_p = n/sum(n)) %>% 
-  ggplot(mapping = aes(x = factor(cnt_loc, levels(factor(cnt_loc))[c(8,1,7,6,2,3,10,5,4,9)]), y = cnt_loc_p, color = cnt_type, fill = cnt_type)) + 
+  ggplot(mapping = aes(x = factor(cnt_loc, levels(factor(cnt_loc))[c(1,7,8,2,3,6,5,10,4,9)]), y = cnt_loc_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() + 
@@ -70,7 +70,7 @@ E <- cn.labeled %>%
   group_by(cnt_plc, cnt_type) %>% 
   tally() %>% 
   mutate(cnt_plc_p = n/sum(n)) %>% 
-  ggplot(mapping = aes(x = factor(cnt_plc, levels(factor(cnt_plc))[c(1,2)]), y = cnt_plc_p, color = cnt_type, fill = cnt_type)) + 
+  ggplot(mapping = aes(x = factor(cnt_plc, levels(factor(cnt_plc))[c(2,1)]), y = cnt_plc_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() + 
@@ -102,8 +102,6 @@ F <- cn.labeled %>%
 
 #===========================================================================
 
-(A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1)))
-
-ggsave(here("output", "Fig3_descriptive.tiff"),
+ggsave(here("output", "Fig3_descriptive.png"),
        plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
-       width = 12, height = 7, unit="in", dpi = 200)
+       width = 12, height = 7, unit="in", dpi = 300)

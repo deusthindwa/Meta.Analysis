@@ -18,7 +18,7 @@ survey.poph <- survey.poph %>% group_by(lower.age.limit) %>% tally() %>% rename(
 #==========================contact matrix for HIV positive participants
 
 #create survey object by combining HIV-infected part and cnt datasets
-somipa.pos <- survey(part.m %>% filter(hiv == "Positive on ART"), cnt.m)
+somipa.pos <- survey(part.m %>% filter(part_hiv == "Positive on ART"), cnt.m)
 
 #build a contact matrix via sampling contact survey using bootstrapping
 somipa.pos <- contact_matrix(
@@ -44,7 +44,7 @@ somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix
 #==========================contact matrix for HIV negative participants
 
 # create survey object by combining HIV-uninfected part and cnt datasets
-somipa.neg <- survey(part.m %>% filter(hiv == "Negative"), cnt.m)
+somipa.neg <- survey(part.m %>% filter(part_hiv == "Negative"), cnt.m)
 
 # build a contact matrix via sampling contact survey using bootstrapping
 somipa.neg <- contact_matrix(
@@ -87,6 +87,6 @@ B <- rbind(somipa.neg, somipa.pos) %>%
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig6_matrices.tiff"),
+ggsave(here::here("output", "Fig6_matrices.png"),
        plot = B,
-       width = 14, height = 5, unit="in", dpi = 200)
+       width = 14, height = 5, unit="in", dpi = 300)

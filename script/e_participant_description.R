@@ -111,7 +111,7 @@ E <- hh.labeled %>%
 
 #proportion of contacts by weekday
 
-F <- cn.labeled %>% mutate(datex = dmy(str_sub(sdate, 1, 9)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
+F <- cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex-1)) %>%  group_by(dow) %>% tally() %>% 
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
   
   ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc, group = 1)) + 
@@ -141,7 +141,7 @@ G <- cn.labeled %>% group_by(cnt_no) %>% tally() %>%
   scale_y_continuous(breaks = seq(0, 0.3, 0.02), labels = scales::percent_format(accuracy = 1)) + 
   scale_x_continuous(breaks = seq(1, 25, 2)) +
   theme_bw() +
-  labs(title = "G", x = "Number of contacts per person", y = "Proportion of contacts") +
+  labs(title = "G", x = "Number of participants", y = "Proportion of contacts") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
