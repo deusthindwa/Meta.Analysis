@@ -7,15 +7,15 @@
 if (!require(pacman)){
   install.packages("pacman")
 }
-pacman::p_load(char = c("tidyverse", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs",
-                        "socialmixr","reshape2", "patchwork", "ggpubr", "foreign","forcats", "geosphere", "broman", "here"))
+pacman::p_load(char = c("tidyverse", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
+                        "socialmixr","reshape2", "patchwork", "ggpubr", "foreign","forcats", "geosphere", "boot", "broman", "here"))
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())
 
 # work out stratified sampling based on SCALE study 
 dev.off()
-source(here::here("script", "b_get_clean_data.R"))
+source(here::here("script", "b_get_datasets.R"))
 
 
 # identify determinants of social mixing frequency and mixing types

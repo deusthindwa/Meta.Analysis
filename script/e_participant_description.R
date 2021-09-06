@@ -115,9 +115,9 @@ F <- cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(dat
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
   
   ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc, group = 1)) + 
-  geom_line(color = brocolors("crayons")["Sepia"], size = 0.8) +
+  #geom_line(color = brocolors("crayons")["Sepia"], size = 0.8) +
   geom_point(aes(size = n), color = brocolors("crayons")["Sepia"]) +
-  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.3, size = 0.1, color = brocolors("crayons")["Sepia"]) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), width=0.2, size = 0.8, color = brocolors("crayons")["Sepia"]) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.24, 0.04), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
@@ -151,6 +151,6 @@ G <- cn.labeled %>% group_by(cnt_no) %>% tally() %>%
 #turn on warnings
 options(warn = defaultW)
 
-ggsave(here("output", "Fig2_descriptive.tiff"),
+ggsave(here("output", "Fig2_Participant_description.png"),
        plot = (A | B | C | D | plot_layout(ncol = 4, width = c(2,2,3,1))) / (E | F | G),
-       width = 20, height = 9, unit="in", dpi = 200)
+       width = 20, height = 9, unit="in", dpi = 300)

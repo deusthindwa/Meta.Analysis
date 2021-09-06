@@ -21,3 +21,4 @@ cnt.m <- cnt.m %>% select(cnt_id, cnt_pid, somipa_pid, everything())
 #rename contact matrix merging variable from somipa_pid to part_id
 part.m <- part.m %>% rename("part_id" = somipa_pid)
 cnt.m <- cnt.m %>% rename("part_id" = somipa_pid)
+

@@ -4,7 +4,7 @@
 #===========================================================================
 
 # mixing types
-A <- filter(spatial, !is.na(cnt_type), !is.na(cnt_dist)) %>% 
+A <- filter(cn.unlabel, !is.na(cnt_type), !is.na(cnt_dist)) %>% 
   group_by(cnt_type) %>%
   mutate(cnt_type = if_else(cnt_type == 1, "Physical mixing", "Non-physical mixing"),
          dist_sum = paste0(format(round(median(cnt_dist),1), nsmall=1),"m", ", ", 
@@ -26,7 +26,7 @@ A <- filter(spatial, !is.na(cnt_type), !is.na(cnt_dist)) %>%
 #===========================================================================
 
 # physical contacts by age group
-B <- spatial %>%
+B <- cn.unlabel %>%
   filter(cnt_type == 1 & !is.na(part_age), !is.na(cnt_dist)) %>% 
   mutate(part_agegp = if_else(part_age < 1, "<1y",
                               if_else(part_age >= 1 & part_age < 5, "1-4y",

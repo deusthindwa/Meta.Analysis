@@ -51,7 +51,7 @@ B <- pp.labeled %>%
 
 #proportion of contacts by weekday
 
-C <- pp.labeled %>% mutate(datex = dmy(str_sub(sdate, 1, 9)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
+C <- pp.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
   
   ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc, group = 1)) + 
@@ -89,7 +89,7 @@ D <- pp.labeled %>%
 
 #proportion of contacts by weekday
 
-E <- cn.labeled %>% mutate(datex = dmy(str_sub(sdate, 1, 9)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
+E <- cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex)) %>%  group_by(dow) %>% tally() %>% 
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
   
   ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc, group = 1)) + 
@@ -142,10 +142,10 @@ G <- hh.labeled %>%
 
 # distribution of participant sex
 H <- part.m %>% 
-  filter(!is.na(hiv)) %>% group_by(hiv) %>% tally() %>% 
+  filter(!is.na(part_hiv)) %>% group_by(part_hiv) %>% tally() %>% 
   mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:2], uci = exactci(n, sum(n), 0.95)$conf.int[3:4]) %>%
   
-  ggplot(aes(x = hiv, y = perc)) + 
+  ggplot(aes(x = part_hiv, y = perc)) + 
   geom_bar(stat = "identity", color = "black", size = 1, fill = brocolors("crayons")["Sky Blue"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
@@ -161,6 +161,6 @@ H <- part.m %>%
 #turn on warnings
 options(warn = defaultW)
 
-ggsave(here("output", "Progress.tiff"),
+ggsave(here("output", "Progress.png"),
        plot = (A | B | C | D | plot_layout(ncol = 4, width = c(2,1,3,3))) / (E | F | G | H | plot_layout(ncol = 4, width = c(3,3,2,1))),
        width = 20, height = 9, unit="in", dpi = 200)
