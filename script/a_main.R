@@ -7,8 +7,8 @@
 if (!require(pacman)){
   install.packages("pacman")
 }
-pacman::p_load(char = c("tidyverse", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1", "MASS",
-                        "socialmixr","reshape2", "patchwork", "ggpubr", "foreign","forcats", "geosphere", "boot", "broman", "here"))
+pacman::p_load(char = c("tidyverse", "dplyr", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
+                        "socialmixr","reshape2", "patchwork", "ggpubr", "foreign","forcats", "geosphere", "boot", "broman","MASS", "here"))
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())

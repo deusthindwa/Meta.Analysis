@@ -163,6 +163,6 @@ summary(nb.model4 <- glm(cntno ~ agey + sex + occup + dowgp + hhsize + educ + hi
 pchisq(2*(logLik(nb.model1) - logLik(nb.model3)), df = 1, lower.tail = FALSE)
 pchisq(2*(logLik(nb.model2) - logLik(nb.model4)), df = 1, lower.tail = FALSE)
 
-# get incidence rate ration (IRR) and confidence intervals through profiling Likelihood
+# get incidence rate ratio (IRR) and confidence intervals through profiling Likelihood
 exp(cbind(Estimate = coef(nb.model1), confint(nb.model1)))
 exp(cbind(Estimate = coef(nb.model2), confint(nb.model2))) #for education & HIV only
