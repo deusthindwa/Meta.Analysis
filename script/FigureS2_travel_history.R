@@ -66,7 +66,7 @@ C <- pp.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.6, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "C", x = "Duration of stay outside community", y = "Proportion") +
+  labs(title = "C", x = "Duration of stay outside community", y = "") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 25, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -131,21 +131,22 @@ F <- pp.labeled %>%
   theme(legend.position = "none")
 
 # distribution of potential encounters missed due to COVID-19 by age groups
+#cols <- c("<1y" = "red", "1-4y" = "black", "5-14y" = "green", "15-19y" = "blue", "20-49y" = "orange", "50+y" = "yellow")
 G <- pp.labeled %>%  
   ggplot() + 
-  geom_density(aes(x = cvdinfant), alpha = 0.3, size = 1, color = "red") +
-  geom_density(aes(x = cvdprexool), alpha = 0.3, size = 1, color = "black") +
-  geom_density(aes(x = cvdprixool), alpha = 0.3, size = 1, color = "blue") +
-  geom_density(aes(x = cvdsecxool), alpha = 0.3, size = 1, color = "green") +
-  geom_density(aes(x = cvdadult), alpha = 0.3, size = 1, color = "orange") +
-  geom_density(aes(x = cvdelderly), alpha = 0.3, size = 1, color = "pink") +
+  geom_density(aes(x = cvdinfant, color = "<1y"), alpha = 0.3, size = 1) +
+  geom_density(aes(x = cvdprexool, color = "1-4y"), alpha = 0.3, size = 1) +
+  geom_density(aes(x = cvdprixool, color = "5-14y"), alpha = 0.3, size = 1) +
+  geom_density(aes(x = cvdsecxool, color = "15-19y"), alpha = 0.3, size = 1) +
+  geom_density(aes(x = cvdadult, color = "20-49y"), alpha = 0.3, size = 1) +
+  geom_density(aes(x = cvdelderly, color = "50+y"), alpha = 0.3, size = 1) +
   theme_bw() +
   coord_cartesian(xlim=c(0,5)) +
-  #scale_x_continuous(breaks = seq(1, 11, 2)) +
   labs(title = "G", x = "Missed #encounters due to COVID-19", y = "Probability density") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  theme(legend.position = c(0.6, 0.5)) +
+  guides(color=guide_legend(title="")) 
 
 #===========================================================================
 
@@ -160,21 +161,20 @@ H <- filter(pp.labeled, cvdcnt == "Yes") %>%
                              if_else(question == "cvdhome", "Home",
                                      if_else(question == "cvdmrkt", "Market", 
                                              if_else(question == "cvdothr", "Other",
-                                                     if_else(question == "cvdwork", "Work", "School")))))) %>%
+                                                     if_else(question == "cvdwork", "Work", "School"))))),
+         response = if_else(response == 1, "Yes", "No")) %>%
   
-  ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(2,3,4,1,5,6)]), y = perc, color = response, fill = response)) + 
+  ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(2,3,4,1,5,6)]), y = perc, color = factor(response), fill = factor(response))) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
-  labs(title = "H", x = "Place of missed encounter", y = "Proportion") +
+  labs(title = "H", x = "Potential place of missed encounter", y = "Proportion") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "right")
+  theme(legend.position = "none")
 
-
-
-
+#===========================================================================
 
 #turn on warnings
 options(warn = defaultW)
