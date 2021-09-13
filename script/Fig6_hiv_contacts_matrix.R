@@ -30,7 +30,7 @@ somipa.pos <- contact_matrix(
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = TRUE,
+  symmetric = FALSE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -56,7 +56,7 @@ somipa.neg <- contact_matrix(
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = TRUE,
+  symmetric = FALSE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -77,17 +77,17 @@ B <- filter(rbind(somipa.neg, somipa.pos), !is.na(Mixing.rate)) %>%
   theme_classic() +
   scale_fill_gradient(low="lightgreen", high="red") +
   facet_grid(.~ Category) +
-  labs(title = "", x = "Participants age (years)", y = "Contacts age (years)") +
+  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 14)) +
-  guides(fill=guide_legend(title="Average number\nof daily contacts")) +
+  #guides(fill=guide_legend(title="Average number\nof daily contacts")) +
   theme(legend.position = "right") + 
   scale_color_grey() +
   geom_hline(yintercept = c(2.5, 4.5, 5.5, 7.5), linetype="dashed", color = "black", size = 0.2)
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig6_hiv_contacts__matrix.png"),
+ggsave(here::here("output", "Fig6_hiv_contacts_matrix.png"),
        plot = B,
-       width = 10, height = 5, unit="in", dpi = 300)
+       width = 14, height = 5, unit="in", dpi = 300)

@@ -114,10 +114,9 @@ somipa.verb <- melt(Reduce("+", lapply(somipa.verb$matrices, function(x) {x$matr
 
 # make combined plots
 
-somipa.all <- somipa.all %>% mutate(Category = "A, all contacts")
-somipa.phys <- somipa.phys %>% mutate(Category = "B, physical contacts")
-somipa.verb <- somipa.verb %>% mutate(Category = "C, non-physical contacts")
-
+somipa.all <- somipa.all %>% mutate(Category = "A, All contacts")
+somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical contacts")
+somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical contacts")
 
 A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
@@ -138,14 +137,15 @@ ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,11,3,4,5,6,7,8,9,1
   scale_fill_gradient(low="lightgreen", high="red") +
   facet_grid(.~ Category) +
   theme_bw() +
-  labs(title = "", x = "Participants age (years)", y = "Contacts age (years)") +
+  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 16)) +
-  guides(fill=guide_legend(title="Average number\nof daily contacts")) +
   theme(legend.position = "right") + 
+  #guides(fill=guide_legend(title="Average number of\ndaily mixing events")) +
   geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
   geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
+
 #===========================================================================
 
 ggsave(here::here("output", "Fig4_crude_contact_matrix.png"),

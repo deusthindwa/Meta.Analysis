@@ -15,7 +15,7 @@ A <- pp.labeled %>%
   scale_x_continuous(breaks = seq(0, 87, 10)) +
   scale_y_continuous("Number of participants", sec.axis = sec_axis(~. * 0.001, name = "Probability density"), limits = c(0, 70)) + 
   labs(title = "A", x = "Participant age (years)") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
@@ -55,7 +55,7 @@ C <- cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(dat
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.8), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.24, 0.04), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "C", x = "Day of mixing event", y = "Proportion of contacts") +
+  labs(title = "C", x = "Day of mixing events", y = "Proportion of mixing events") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -69,8 +69,8 @@ D <- cn.labeled %>%
   theme_bw() +
   scale_x_continuous(breaks = seq(0, 87, 10)) +
   scale_y_continuous("Number of contactees", sec.axis = sec_axis(~. * 0.0001, name = "Probability density"), limits = c(0, 1050)) + 
-  labs(title = "D", x = "Contact age (years)") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  labs(title = "D", x = "Contactee age (years)") +
+  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
@@ -91,14 +91,14 @@ E <- cn.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.4, 0.05), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "E", x = "Contact age (years)", y = "Proportion of contactees") +
+  labs(title = "E", x = "Contactee age (years)", y = "Proportion of contactees") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-# number of contacts per person
+# number of contactees per person
 
 F <- cn.labeled %>%  
   ggplot() + 
@@ -107,7 +107,7 @@ F <- cn.labeled %>%
   theme_bw() +
   scale_x_continuous(breaks = seq(1, 25, 2)) +
   scale_y_continuous("Total mixing events", sec.axis = sec_axis(~. * 0.00018, name = "Probability density"), limits = c(0, 1700)) + 
-  labs(title = "F", x = "Number of contacts per person") +
+  labs(title = "F", x = "Number of contactees per person") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")

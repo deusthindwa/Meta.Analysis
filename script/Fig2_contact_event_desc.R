@@ -37,11 +37,12 @@ C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
-  labs(title = "C", x = "Relationship to contact", y = "") +
+  labs(title = "C", x = "Relationship to contactee", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  guides(fill=guide_legend(title="Mixing type")) +
+  theme(legend.position = "right", legend.text=element_text(size=10, face = "bold"))
 
 #===========================================================================
 
@@ -93,15 +94,14 @@ F <- cn.labeled %>%
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() + 
-  labs(title = "F", x = "Contact sex", y = "") + 
+  labs(title = "F", x = "Contactee sex", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
   theme(legend.position = "none")
 
 #===========================================================================
 
-ggsave(here("output", "Fig3_contacts_description.png"),
+ggsave(here("output", "Fig2_contacts_description.png"),
        plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
-       width = 12, height = 7, unit="in", dpi = 300)
+       width = 15, height = 9, unit="in", dpi = 300)
