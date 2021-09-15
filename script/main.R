@@ -34,6 +34,8 @@ cnt.m <- cnt.m %>% dplyr::select(cnt_id, cnt_pid, somipa_pid, everything())
 part.m <- part.m %>% rename("part_id" = somipa_pid)
 cnt.m <- cnt.m %>% rename("part_id" = somipa_pid)
 
+#=================================================================================
+
 # participant and contactees description 
 dev.off()
 source(here::here("script", "Fig1_participant_contact_desc.R"))
@@ -57,6 +59,8 @@ source(here::here("script", "Fig5_strat_contacts_matrix.R"))
 # simulate an outbreak based on estimated mixing rates
 dev.off()
 source(here::here("script", "Fig6_outbreak_simulation.R"))
+
+#=================================================================================
 
 # community and household characteristics
 dev.off()
