@@ -4,7 +4,7 @@
 #===========================================================================
 
 # number of participant (Table 1 column 1)
- pp.gee <- pp.labeled
+ pp.gee <- filter(pp.labeled, cvdcnt == "No")
 
 # age
  pp.gee <- pp.gee %>% 
@@ -39,6 +39,11 @@
   
  pp.gee %>% 
    group_by(occup) %>% 
+   tally()
+ 
+ # education
+ pp.gee %>% 
+   group_by(educ) %>% 
    tally()
 
 # hiv
@@ -174,7 +179,7 @@ exp(cbind(Estimate = coef(glm.nb(cntno ~ hiv, na.action = na.omit, data = glm.ge
 
 summary(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE))
 exp(cbind(Estimate = coef(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
+          confint(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p>0.10
 
 summary(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm.gee, trace = TRUE))
 exp(cbind(Estimate = coef(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)), 
@@ -183,21 +188,16 @@ exp(cbind(Estimate = coef(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm
 # do an iterative negative binomial model fit approach of adding variables and checking their combined AIC
 
 # first iteration ()
-summary(glm.nb(cntno ~ agey + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 7007.7
-summary(glm.nb(cntno ~ agey + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 7011.3
-summary(glm.nb(cntno ~ agey + hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 6980.3
+summary(glm.nb(cntno ~ agey + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 5270
+summary(glm.nb(cntno ~ agey + hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 5229.6
 
-# second iteration
-summary(glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #6973.9
-summary(glm.nb(cntno ~ agey + hhsize + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #6979.5
+# second and final iteration (adjusted model fit)
+summary(glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #5224.5
 
-# third and final iteration (adjusted model fit)
-summary(glm.nb(cntno ~ agey + hhsize + occup + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #6972.6
+exp(cbind(Estimate = coef(glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE)), 
+          confint(glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE))))
 
-exp(cbind(Estimate = coef(glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE))))
-
-model1 <- glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE)
+model1 <- glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE)
 
 # overdispersion parameter and 95%CI
 model1$theta
@@ -205,8 +205,7 @@ model1$theta - 2*model1$SE.theta
 model1$theta + 2*model1$SE.theta
 
 # fit a Poisson model to check assumption of overdispersion
-summary(glm(cntno ~ agey + hhsize + dowgp + occup, family = "poisson", na.action = na.omit, data = glm.gee, trace = TRUE))
-nb.model2 <- glm(cntno ~ agey + hhsize + dowgp + occup, family = "poisson", na.action = na.omit, data = glm.gee, trace = TRUE)
+summary(nb.model2 <- glm(cntno ~ agey + hhsize + dowgp + occup, family = "poisson", na.action = na.omit, data = glm.gee, trace = TRUE))
 pchisq(2*(logLik(nb.model1) - logLik(nb.model2)), df = 1, lower.tail = FALSE)
 
 
