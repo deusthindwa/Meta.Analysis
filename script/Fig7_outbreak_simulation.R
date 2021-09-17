@@ -25,15 +25,9 @@ survey.pop <- read.csv(here::here("data", "survey_pop.csv"))
 survey.pop <- survey.pop %>% 
   mutate(lower.age.limit = if_else(age >= 0 & age < 1, 0,
                                    if_else(age >= 1 & age <= 4, 1,
-                                           if_else(age > 4 & age <= 9, 5,
-                                                   if_else(age > 9 & age <= 14, 10,
-                                                           if_else(age > 14 & age <= 19, 15,
-                                                                   if_else(age > 19 & age <= 24, 20,
-                                                                           if_else(age > 24 & age <= 29, 25,
-                                                                                   if_else(age > 29 & age <= 34, 30,
-                                                                                           if_else(age > 34 & age <= 39, 35,
-                                                                                                   if_else(age > 39 & age <= 44, 40,
-                                                                                                           if_else(age > 44 & age <= 49, 45, 50)))))))))))) %>% 
+                                           if_else(age > 4 & age <= 14, 5,
+                                                   if_else(age > 14 & age <= 19, 15,
+                                                           if_else(age > 19 & age <= 49, 20,50)))))) %>% 
   group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
 # build a contact matrix via sampling contact survey using bootstrapping
@@ -41,7 +35,7 @@ somipa.all <- contact_matrix(
   somipa.all,
   countries = c("Malawi"),
   survey.pop = survey.pop,
-  age.limits = c(0, 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+  age.limits = c(0, 1, 5, 15, 20, 50),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
