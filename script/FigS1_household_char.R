@@ -27,7 +27,7 @@ A <- hh.labeled %>%
   scale_y_continuous(breaks = seq(0, 0.16, 0.02), labels = scales::percent_format(accuracy = 1)) + 
   scale_x_continuous(breaks = seq(1, 14, 1)) + 
   theme_bw() +
-  labs(title = "A", x = "Cluster number", y = "Proportion") +
+  labs(title = "A", x = "Cluster number", y = "Proportion of households") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -39,12 +39,14 @@ B <- hh.labeled %>%
   ggplot() + 
   geom_density(aes(x = room), alpha = 0.3, size = 1, fill = brocolors("crayons")["Goldenrod"]) +
   geom_density(aes(x = sroom), alpha = 0.3, size = 1, fill = brocolors("crayons")["Sky Blue"]) +
+  geom_text(aes(x = 2, y = 0.2, label = "BR"), color = "black", size = 3) +
+  geom_text(aes(x = 4, y = 0.2, label = "HR"), color = "black", size = 3) +
   theme_bw() +
   scale_x_continuous(breaks = seq(1, 12, 1)) +
-  labs(title = "B", x = "Household v bed rooms", y = "Probability density") +
+  labs(title = "B", x = "Houserooms (HR) v bedrooms (BR)", y = "Probability density") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  theme(legend.position = "right")
 
 #===========================================================================
 
@@ -69,7 +71,7 @@ X <- filter(hh.labeled, !is.na(smoke) & smoke !="Dont know") %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 2, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "", x = "Household smokers", y = "Proportion") +
+  labs(title = "", x = "Household smokers", y = "Proportion of households") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -91,13 +93,15 @@ D <- hh.labeled %>%
   
 ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(1,4,3,6,2,5)]), y = perc, color = response, fill = response)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
+  scale_fill_brewer() +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
-  labs(title = "D", x = "Source of household energy", y = "Proportion") +
+  labs(title = "D", x = "Source of household energy", y = "Proportion of households") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  guides(fill = guide_legend(title="")) +
+  theme(legend.position = c(0.58, 0.75))
 
 #===========================================================================
 
@@ -112,7 +116,7 @@ E <- hh.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 1, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "E", x = "Indoor cooking", y = "Proportion") +
+  labs(title = "E", x = "Indoor cooking", y = "Proportion of households") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -129,7 +133,7 @@ F <- filter(hh.labeled, !is.na(vent)) %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 1, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "F", x = "Indoor ventilation", y = "Proportion") +
+  labs(title = "F", x = "Indoor ventilation", y = "Proportion of households") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
