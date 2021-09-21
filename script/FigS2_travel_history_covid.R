@@ -166,13 +166,15 @@ H <- filter(pp.labeled, cvdcnt == "Yes") %>%
   
   ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(2,3,4,1,5,6)]), y = perc, color = factor(response), fill = factor(response))) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
+  scale_fill_brewer() +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
   labs(title = "H", x = "Potential place of missed encounter", y = "Proportion") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  guides(fill = guide_legend(title="")) +
+  theme(legend.position = c(0.9, 0.75))
 
 #===========================================================================
 
