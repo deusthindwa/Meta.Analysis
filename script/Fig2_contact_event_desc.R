@@ -8,6 +8,7 @@ A <- filter(cn.labeled, !is.na(cnt_dur) & !is.na(cnt_type)) %>% group_by(cnt_dur
 ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), y = cnt_dur_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() +
   labs(title = "A", x = "Mixing duration", y = "Proportion of mixing events") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
@@ -22,6 +23,7 @@ B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_fr
   ggplot(mapping = aes(x = factor(cnt_freq, levels(factor(cnt_freq))[c(4,2,1,3,5)]), y = cnt_freq_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() +
   labs(title = "B", x = "Mixing frequency", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
@@ -36,6 +38,7 @@ C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel
   ggplot(mapping = aes(x = factor(cnt_rel, levels(factor(cnt_rel))[c(3,2,4,1,5)]), y = cnt_rel_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() +
   labs(title = "C", x = "Relationship to contactee", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
@@ -55,6 +58,7 @@ D <- cn.labeled %>%
   ggplot(mapping = aes(x = factor(cnt_loc, levels(factor(cnt_loc))[c(1,7,8,2,3,6,5,10,4,9)]), y = cnt_loc_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() + 
   labs(title = "D", x = "Location of mixing events", y = "Proportion of mixing events") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
@@ -74,6 +78,7 @@ E <- cn.labeled %>%
   ggplot(mapping = aes(x = factor(cnt_plc, levels(factor(cnt_plc))[c(2,1)]), y = cnt_plc_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() + 
   labs(title = "E", x = "Community boundary", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
@@ -93,6 +98,7 @@ F <- cn.labeled %>%
   ggplot(mapping = aes(x = cnt_sex, y = cnt_sex_p, color = cnt_type, fill = cnt_type)) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) + 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
+  scale_fill_brewer() +
   theme_bw() + 
   labs(title = "F", x = "Contactee sex", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 

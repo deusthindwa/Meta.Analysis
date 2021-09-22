@@ -9,9 +9,7 @@ options(warn = -1)
 
 # distribution of all contacts by age group with or without COVID-19 restrictions
 A <- rbind((pp.labeled %>% 
-  mutate(cvdnor = if_else(is.na(cvdno), 0, cvdno),
-         totcnt = cntno + cvdnor,
-         agegp = if_else(agey < 1, "<1y", 
+  mutate(agegp = if_else(agey < 1, "<1y", 
                         if_else(agey >= 1 & agey < 5, "1-4y", 
                                 if_else(agey >= 5 & agey < 15, "5-14y", 
                                         if_else(agey >= 15 & agey < 20, "15-19y", 
@@ -20,8 +18,8 @@ A <- rbind((pp.labeled %>%
   dplyr::select(agegp, cntno, cat)),
 
 (pp.labeled %>% 
-  mutate(cvdno2 = if_else(is.na(cvdno), 0, cvdno),
-         totcnt = cntno + cvdno2,
+  mutate(cvdnor = if_else(is.na(cvdno), 0, cvdno),
+         totcnt = cntno + cvdnor,
          agegp = if_else(agey < 1, "<1y", 
                          if_else(agey >= 1 & agey < 5, "1-4y", 
                                  if_else(agey >= 5 & agey < 15, "5-14y", 
@@ -35,7 +33,7 @@ A <- rbind((pp.labeled %>%
   geom_boxplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = cntno, 
                    fill = cat), notch = FALSE, color = "gray50", size = 0.6, position=position_dodge(width=0.8), width = 0.6) + 
   theme_bw() +
-  labs(title = "A, All contacts", x = "", y = "Number of reported mixing events") +
+  labs(title = "A, All mixing events", x = "", y = "Number of reported mixing events") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
@@ -160,7 +158,7 @@ D <- rbind(
   geom_boxplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = cntno, 
                    fill = cat), notch = FALSE, color = "gray50", size = 0.6, position=position_dodge(width=0.8), width = 0.6) + 
   theme_bw() +
-  labs(title = "D, Physical contacts", x = "Participant age in years (y)", y = "Number of reported mixing events") +
+  labs(title = "D, Physical mixing", x = "Participant age in years (y)", y = "Number of reported mixing events") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +

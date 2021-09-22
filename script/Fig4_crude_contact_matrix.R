@@ -114,9 +114,9 @@ somipa.verb <- melt(Reduce("+", lapply(somipa.verb$matrices, function(x) {x$matr
 
 # make combined plots
 
-somipa.all <- somipa.all %>% mutate(Category = "A, All contacts")
-somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical contacts")
-somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical contacts")
+somipa.all <- somipa.all %>% mutate(Category = "A, All mixing events")
+somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical mixing")
+somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical mixing")
 
 A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
