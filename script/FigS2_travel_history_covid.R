@@ -18,7 +18,7 @@ A <- pp.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 0.7, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "A", x = "Travel outside community", y = "Proportion") +
+  labs(title = "A", x = "Travel outside community", y = "Proportion of participants") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -112,7 +112,7 @@ E <- filter(pp.labeled, !is.na(cvdcnt)) %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
   scale_y_continuous(breaks = seq(0, 1, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "E", x = "Reduced contacts due to COVID-19", y = "Proportion") +
+  labs(title = "E", x = "Low mixing due to COVID-19", y = "Proportion of participants") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -125,7 +125,7 @@ F <- pp.labeled %>%
   geom_density(aes(x = cvdno), alpha = 0.3, size = 1, fill = brocolors("crayons")["Sky Blue"]) +
   theme_bw() +
   scale_x_continuous(breaks = seq(1, 20, 2)) +
-  labs(title = "F", x = "Missed #encounters due to COVID-19", y = "Probability density") +
+  labs(title = "F", x = "Missed # of contactees due to COVID-19", y = "Probability density") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
@@ -141,8 +141,8 @@ G <- pp.labeled %>%
   geom_density(aes(x = cvdadult, color = "20-49y"), alpha = 0.3, size = 1) +
   geom_density(aes(x = cvdelderly, color = "50+y"), alpha = 0.3, size = 1) +
   theme_bw() +
-  coord_cartesian(xlim=c(0,5)) +
-  labs(title = "G", x = "Missed #encounters due to COVID-19", y = "Probability density") +
+  #coord_cartesian(xlim=c(0,5)) +
+  labs(title = "G", x = "Missed # of contactees due to COVID-19", y = "Probability density") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = c(0.6, 0.5)) +
@@ -166,13 +166,15 @@ H <- filter(pp.labeled, cvdcnt == "Yes") %>%
   
   ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(2,3,4,1,5,6)]), y = perc, color = factor(response), fill = factor(response))) + 
   geom_bar(stat = "identity", color = "black", size = 0.7) +
+  scale_fill_brewer() +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
-  labs(title = "H", x = "Potential place of missed encounter", y = "Proportion") +
+  labs(title = "H", x = "Potential place of missed mixing", y = "Proportion of participants") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  guides(fill = guide_legend(title="")) +
+  theme(legend.position = c(0.9, 0.75))
 
 #===========================================================================
 
