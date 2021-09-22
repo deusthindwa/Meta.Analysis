@@ -156,6 +156,15 @@ summary(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE))
 exp(cbind(Estimate = coef(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)), 
           confint(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
 
+
+summary(glmer.nb(cntno ~ (1|somipa_hhid) + agey, na.action = na.omit, data = glm.gee, verbose=TRUE, initCtrl=list(limit=1000) ))
+exp(cbind(Estimate = coef(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)), 
+          confint(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
+
+
+
+
+
 summary(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE))
 exp(cbind(Estimate = coef(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE)), 
           confint(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p>0.10
