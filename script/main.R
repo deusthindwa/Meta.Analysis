@@ -3,12 +3,16 @@
 
 #=================================================================================
 
+#install the following packages only once
+#install.packages("R.rsp")
+#install_github("nyiuab/NBZIMM", force=T, build_vignettes=T)
+
 # load the require packages
 if (!require(pacman)){
   install.packages("pacman")
 }
-pacman::p_load(char = c("tidyverse", "dplyr", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
-                        "socialmixr","reshape2", "patchwork", "naniar", "ggpubr", "foreign","forcats", "geosphere", "boot", "broman","MASS", "lme4", "here"))
+pacman::p_load(char = c("tidyverse", "remotes", "NBZIMM", "dplyr", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
+                        "socialmixr","reshape2", "patchwork", "naniar", "ggpubr", "deSolve", "foreign","forcats", "geosphere", "boot", "broman","MASS", "here"))
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())

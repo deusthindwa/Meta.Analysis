@@ -53,6 +53,11 @@ pp.gee <- pp.gee %>%
 pp.gee %>% group_by(dowgp) %>% 
   tally()
 
+# COVID19 behavioural change
+pp.gee %>% 
+  group_by(cvdcnt) %>%
+  tally()
+
 # number of household members
 hh.gee <- hh.labeled %>% 
   dplyr::select(hhid, nlive) %>% 
@@ -68,7 +73,7 @@ glm.gee %>% group_by(hhsize) %>%
 
 # final dataset
 glm.gee <- glm.gee %>% 
-  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, hhsize)
+  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, cvdcnt, hhsize)
 
 
 #===========================================================================
@@ -82,6 +87,7 @@ gee_occup <- c("Business", "Workers", "Preschool", "School", "Retired", "Unemplo
 gee_educ <- c("No education", "Primary", "Secondary", "College")
 gee_hiv <- c("Negative", "Positive on ART")
 gee_dowgp <- c("Weekday", "Weekend")
+gee_cvd <- c("No", "Yes")
 gee_hhsize <- c("1-3", "4-5", "6", "7+")
 
 for(i in gee_agey){
@@ -132,6 +138,14 @@ for(i in gee_dowgp){
   print("-----------------------------------------------------------")
 }
 
+for(i in gee_cvd){
+  set.seed(1988)
+  j = boot(subset(glm.gee, cvdcnt == i)$cntno, function(x,i) mean(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
+  print("-----------------------------------------------------------")
+}
+
 for(i in gee_hhsize){
   set.seed(1988)
   j = boot(subset(glm.gee, hhsize == i)$cntno, function(x,i) mean(x[i]), R = 1000)
@@ -149,73 +163,34 @@ with(glm.gee, tapply(cntno, occup, function(x){sprintf("M (SD) = %1.2f (%1.2f)",
 with(glm.gee, tapply(cntno, educ, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hiv, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, dowgp, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
+with(glm.gee, tapply(cntno, cvdcnt, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hhsize, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 
 # fit model for crude incidence rate ratio (IRR)
-summary(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
+cmodel <- glmm.nb(cntno ~ agey, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
+cmodel <- glmm.nb(cntno ~ sex, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
-summary(glmer.nb(cntno ~ (1|somipa_hhid) + agey, na.action = na.omit, data = glm.gee, verbose=TRUE, initCtrl=list(limit=1000) ))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ agey, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
+cmodel <- glmm.nb(cntno ~ occup, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
+cmodel <- glmm.nb(cntno ~ educ, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
+cmodel <- glmm.nb(cntno ~ hiv, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
+cmodel <- glmm.nb(cntno ~ dowgp, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
+cmodel <- glmm.nb(cntno ~ cvdcnt, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
-summary(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ sex, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p>0.10
+cmodel <- glmm.nb(cntno ~ hhsize, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
 
-summary(glm.nb(cntno ~ occup, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ occup, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ occup, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
-
-summary(glm.nb(cntno ~ educ, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ educ, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ educ, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p>0.10
-
-summary(glm.nb(cntno ~ hiv, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ hiv, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ hiv, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p>0.10
-
-summary(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
-
-summary(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm.gee, trace = TRUE))
-exp(cbind(Estimate = coef(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)))) #p<0.10
-
-# do an iterative negative binomial model fit approach of adding variables and checking their combined AIC
-
-# first iteration ()
-summary(glm.nb(cntno ~ agey + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 7007.7
-summary(glm.nb(cntno ~ agey + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 7011.3
-summary(glm.nb(cntno ~ agey + hhsize, na.action = na.omit, data = glm.gee, trace = TRUE)) #AIC 6980.3
-
-# second iteration
-summary(glm.nb(cntno ~ agey + hhsize + occup, na.action = na.omit, data = glm.gee, trace = TRUE)) #6973.9
-summary(glm.nb(cntno ~ agey + hhsize + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #6979.5
-
-# third and final iteration (adjusted model fit)
-summary(glm.nb(cntno ~ agey + hhsize + occup + dowgp, na.action = na.omit, data = glm.gee, trace = TRUE)) #6972.6
-
-exp(cbind(Estimate = coef(glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE)), 
-          confint(glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE))))
-
-model1 <- glm.nb(cntno ~ agey + hhsize + dowgp + occup, na.action = na.omit, data = glm.gee, trace = TRUE)
-
-# overdispersion parameter and 95%CI
-model1$theta
-model1$theta - 2*model1$SE.theta
-model1$theta + 2*model1$SE.theta
-
-# fit a Poisson model to check assumption of overdispersion
-summary(glm(cntno ~ agey + hhsize + dowgp + occup, family = "poisson", na.action = na.omit, data = glm.gee, trace = TRUE))
-nb.model2 <- glm(cntno ~ agey + hhsize + dowgp + occup, family = "poisson", na.action = na.omit, data = glm.gee, trace = TRUE)
-pchisq(2*(logLik(nb.model1) - logLik(nb.model2)), df = 1, lower.tail = FALSE)
-
-
+# fit adjusted negative binomial mixed model
+cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize , random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
