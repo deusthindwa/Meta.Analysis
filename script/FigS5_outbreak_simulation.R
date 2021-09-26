@@ -109,8 +109,8 @@ I = rep(0, n)
 S[2] = S[2] - 1e-6
 I[2] = I[2] + 1e-6
 init <- c(S = S, I = I)
-parms <- list(n = n, beta = B*0.15, gamma = c(1/56.3, 1/56.3, 1/17.9, 1/17.9, 1/6.0, 1/6.0))
-times <- seq(0, 20, by = 0.01)
+parms <- list(n = n, beta = B*0.03, gamma = c(1/56.3, 1/56.3, 1/17.9, 1/17.9, 1/6.0, 1/6.0))
+times <- seq(0, 100, by = 0.01)
 
 #run the model
 out <- as.data.frame(lsoda(y = init, times = times, func = SISmat, parms = parms))
@@ -127,7 +127,7 @@ B <- out %>%
   group_by(time, agegp) %>%
   
   ggplot(aes(time, value, color = agegp)) +
-  geom_line(size = 0.5) +
+  geom_line(size = 0.8) +
   theme_bw() +
   labs(title = "B, Infected over time", x = "Time (days)", y = "Proportion infected") + 
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
@@ -163,7 +163,7 @@ D <- left_join(out %>%
                                  if_else(age == "I3", "5-14y",
                                          if_else(age == "I4", "15-19y",
                                                  if_else(age == "I5", "20-49y", "50+y")))))) %>%
-  dplyr::filter(time == 20),
+  dplyr::filter(time == 100),
 
 survey.pop %>%
   mutate(agegp = if_else(lower.age.limit == 0, "<1y",
@@ -181,11 +181,10 @@ survey.pop %>%
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(legend.position = "none")
 
-
 #reshape the output data frame and plot epidemic by age groups
 X <- out %>% pivot_longer(cols = I1:I6, names_to = "age") %>%
   dplyr::select(time, age, value) %>%
-  dplyr::filter(time == 20) %>%
+  dplyr::filter(time == 60) %>%
   mutate(agegp = if_else(age == "I1", "<1y",
                          if_else(age == "I2", "1-4y",
                                  if_else(age == "I3", "5-14y",
@@ -193,11 +192,9 @@ X <- out %>% pivot_longer(cols = I1:I6, names_to = "age") %>%
                                                  if_else(age == "I5", "20-49y", "50+y"))))),
          Rnote = 1/(1-value)) %>%
   
-
-
 #===========================================================================
 
 ggsave(here::here("output", "FigS5_outbreak_simulation.png"),
-       plot = A | B | C | D,
+       plot = (A | B | C | D),
        width = 21, height = 6, unit="in", dpi = 300)
 
