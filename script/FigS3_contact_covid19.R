@@ -232,7 +232,7 @@ F <- rbind((filter(pp.labeled, occup != "School") %>%
   geom_boxplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = cntno, 
                    fill = cat), notch = FALSE, color = "gray50", size = 0.6, position=position_dodge(width=0.8), width = 0.5) + 
   theme_bw() +
-  labs(title = "F, Others", x = "Participant age in years (y)", y = "") +
+  labs(title = "F, Other occupation", x = "Participant age in years (y)", y = "") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
@@ -245,6 +245,6 @@ F <- rbind((filter(pp.labeled, occup != "School") %>%
 options(warn = defaultW)
 
 #combined plots
-ggsave(here("output", "FigS4_contact_covid19.png"),
+ggsave(here("output", "FigS3_contact_covid19.png"),
        plot = (A | B | C) / (D | E | F),
        width = 19, height = 10, unit="in", dpi = 300)

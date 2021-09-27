@@ -117,7 +117,7 @@ somipa.verb <- melt(Reduce("+", lapply(somipa.verb$matrices, function(x) {x$matr
 somipa.all <- somipa.all %>% mutate(Category = "A, All contacts")
 somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical contacts")
 somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical contacts")
-A <- rbind(somipa.all, somipa.phys, somipa.verb) %>% mutate(subtit = "COVID19 restricted")
+A <- rbind(somipa.all, somipa.phys, somipa.verb) %>% mutate(subtit = "COVID19 restriction")
 
 #=============================================================================================
 #=============================================================================================
@@ -250,7 +250,7 @@ B <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
                                                                                     if_else(Participant.age == 9L, "[35,40)",
                                                                                             if_else(Participant.age == 10L, "[40,45)",
                                                                                                     if_else(Participant.age == 11L, "[45,50)", "50+"))))))))))),
-         subtit = "Not COVID19 restricted")
+         subtit = "No COVID19 restriction")
   
 
 #=============================================================================================
@@ -272,6 +272,6 @@ ggplot(aes(x = Participant.age, y = Contact.age, fill = Mixing.rate)) +
 
 #===========================================================================
 
-ggsave(here::here("output", "FigS5_crude_contact_matrix.png"),
+ggsave(here::here("output", "FigS4_crude_contact_matrix.png"),
        plot = X,
        width = 18, height = 9, unit="in", dpi = 300)

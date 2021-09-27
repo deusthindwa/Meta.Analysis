@@ -25,6 +25,10 @@ pp.labeled <- read_csv(here::here("data", "pp.labeled.csv"))
 cn.unlabel <- read_csv(here::here("data", "cn.unlabel.csv"))
 cn.labeled <- read_csv(here::here("data", "cn.labeled.csv"))
 
+#update number of contacts in pp datasets
+pp.unlabel <- pp.unlabel %>% left_join(cn.labeled %>% group_by(somipa_pid) %>% tally()) %>% dplyr::select(scale_pid:transdk, n, hiv:cvdelderly) %>% rename("cntno" = n)
+pp.labeled <- pp.labeled %>% left_join(cn.labeled %>% group_by(somipa_pid) %>% tally()) %>% dplyr::select(scale_pid:transdk, n, hiv:cvdelderly) %>% rename("cntno" = n)
+
 # create survey object by combining participants and contacts datasets
 part.m <- rename(dplyr::select(pp.labeled, date, somipa_pid, scale_pid, agey, sex, cvdcnt, hiv), "part_age" = agey, "part_sex" = sex, "part_cvd" = cvdcnt, "part_hiv" = hiv)
 part.m <- part.m %>% mutate(country = "Malawi", year = 2021, dayofweek = wday(dmy_hm(date)))
