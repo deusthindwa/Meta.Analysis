@@ -109,8 +109,13 @@ I = rep(0, n)
 S[2] = S[2] - 1e-6
 I[2] = I[2] + 1e-6
 init <- c(S = S, I = I)
+<<<<<<< HEAD
 parms <- list(n = n, beta = B*0.014, gamma = c(1/56.3, 1/56.3, 1/17.9, 1/17.9, 1/6.0, 1/6.0))
 times <- seq(0, 300, by = 0.01)
+=======
+parms <- list(n = n, beta = B*0.03, gamma = c(1/56.3, 1/56.3, 1/17.9, 1/17.9, 1/6.0, 1/6.0))
+times <- seq(0, 100, by = 0.01)
+>>>>>>> efd5b8526aab221f6a1382b081e10617b0cddefb
 
 #run the model
 out <- as.data.frame(lsoda(y = init, times = times, func = SISmat, parms = parms))
@@ -127,7 +132,11 @@ B <- out %>%
   group_by(time, agegp) %>%
   
   ggplot(aes(time, value, color = agegp)) +
+<<<<<<< HEAD
   geom_line(size = 1) +
+=======
+  geom_line(size = 0.8) +
+>>>>>>> efd5b8526aab221f6a1382b081e10617b0cddefb
   theme_bw() +
   labs(title = "B, Steady state proportion infected", x = "Time (days)", y = "Proportion infected") + 
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
@@ -164,7 +173,11 @@ C <- left_join(out %>%
                                  if_else(age == "I3", "5-14y",
                                          if_else(age == "I4", "15-19y",
                                                  if_else(age == "I5", "20-49y", "50+y")))))) %>%
+<<<<<<< HEAD
   dplyr::filter(time == 300),
+=======
+  dplyr::filter(time == 100),
+>>>>>>> efd5b8526aab221f6a1382b081e10617b0cddefb
 
 survey.pop %>%
   mutate(agegp = if_else(lower.age.limit == 0, "<1y",
@@ -185,7 +198,11 @@ survey.pop %>%
 #reshape the output data frame and plot epidemic by age groups
 D <- out %>% pivot_longer(cols = I1:I6, names_to = "age") %>%
   dplyr::select(time, age, value) %>%
+<<<<<<< HEAD
   dplyr::filter(time == max(time)) %>%
+=======
+  dplyr::filter(time == 60) %>%
+>>>>>>> efd5b8526aab221f6a1382b081e10617b0cddefb
   mutate(agegp = if_else(age == "I1", "<1y",
                          if_else(age == "I2", "1-4y",
                                  if_else(age == "I3", "5-14y",
@@ -193,6 +210,7 @@ D <- out %>% pivot_longer(cols = I1:I6, names_to = "age") %>%
                                                  if_else(age == "I5", "20-49y", "50+y"))))),
          Rnote = 1/(1-value)) %>%
   
+<<<<<<< HEAD
   ggplot(aes(factor(agegp, levels(factor(agegp))[c(1,2,5,3,4,6)]), Rnote, color = agegp)) +
   geom_point(size = 2.8, fill = "black") +
   theme_bw() +
@@ -208,4 +226,11 @@ D <- out %>% pivot_longer(cols = I1:I6, names_to = "age") %>%
 ggsave(here::here("output", "FigS5_outbreak_simulation.png"),
        plot = (A | B | inset_element(X, right = 0.5, left = 0.01, bottom = 0.3, top = 0.95) | C | D | plot_layout(ncol = 4, width = c(3,4,2,2))),
        width = 22, height = 6, unit="in", dpi = 300)
+=======
+#===========================================================================
+
+ggsave(here::here("output", "FigS5_outbreak_simulation.png"),
+       plot = (A | B | C | D),
+       width = 21, height = 6, unit="in", dpi = 300)
+>>>>>>> efd5b8526aab221f6a1382b081e10617b0cddefb
 
