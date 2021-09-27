@@ -140,7 +140,7 @@ ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,11,3,4,5,6,7,8,9,1
   labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
-  theme(strip.text.x = element_text(size = 16)) +
+  theme(strip.text.x = element_text(size = 16), strip.background=element_rect(fill="white")) +
   theme(legend.position = "right") + 
   #guides(fill=guide_legend(title="Average number of\ndaily mixing events")) +
   geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +

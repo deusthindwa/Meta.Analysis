@@ -175,14 +175,16 @@ somipa.ocom <- melt(Reduce("+", lapply(somipa.ocom$matrices, function(x) {x$matr
 #==========================combine all the datasets for ggplotting
 
 # ggplotting the matrices
-somipa.sexm <- somipa.sexm %>% mutate(Category = "A, Male")
-somipa.sexf <- somipa.sexf %>% mutate(Category = "B, Female")
-somipa.whh <- somipa.whh %>% mutate(Category = "C, Within household")
-somipa.ohh <- somipa.ohh %>% mutate(Category = "D, Outside household")
-somipa.wcom <- somipa.wcom %>% mutate(Category = "E, Within community")
-somipa.ocom <- somipa.ocom %>% mutate(Category = "F, Outside community")
+somipa.sexm <- somipa.sexm %>% mutate(Category = "A, Male | female", subtitle = "Category 1")
+somipa.sexf <- somipa.sexf %>% mutate(Category = "A, Male | female", subtitle = "Category 2")
+somipa.whh <- somipa.whh %>% mutate(Category = "B, Within | outside household", subtitle = "Category 1")
+somipa.ohh <- somipa.ohh %>% mutate(Category = "B, Within | outside household", subtitle = "Category 2")
+somipa.wcom <- somipa.wcom %>% mutate(Category = "C, Within | outside community", subtitle = "Category 1")
+somipa.ocom <- somipa.ocom %>% mutate(Category = "C, Within | outside community", subtitle = "Category 2")
+somipa1 <- rbind(somipa.sexm, somipa.whh, somipa.wcom)
+somipa2 <- rbind(somipa.sexf, somipa.ohh, somipa.ocom)
 
-A <- rbind(somipa.sexm, somipa.whh, somipa.wcom) %>%
+A <- rbind(somipa1, somipa2) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
                             if_else(Participant.age == 2L, "[1,5)",
                                     if_else(Participant.age == 3L, "[5,10)",
@@ -191,53 +193,26 @@ A <- rbind(somipa.sexm, somipa.whh, somipa.wcom) %>%
                                                             if_else(Participant.age == 6L, "[20,25)",
                                                                     if_else(Participant.age == 7L, "[25,30)",
                                                                             if_else(Participant.age == 8L, "[30,40)",
-                                                                                            if_else(Participant.age == 9L, "[40,45)",
-                                                                                                    if_else(Participant.age == 10L, "[45,50)", "50+"))))))))))) %>%
+                                                                                    if_else(Participant.age == 9L, "[40,45)",
+                                                                                            if_else(Participant.age == 10L, "[45,50)", "50+"))))))))))) %>%
   
   ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,10,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = Mixing.rate)) + 
   geom_tile(color = "white") + 
   geom_text(aes(label = sprintf("%1.2f", Mixing.rate)), color = "white", size = 2) +
-  theme_bw() +
   scale_fill_gradient(low="lightgreen", high="red") +
-  facet_grid(.~ Category) +
-  labs(title = "", x = "", y = "Contactee age") +
+  facet_grid(subtitle ~ Category) +
+  theme_bw() +
+  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
-  theme(strip.text.x = element_text(size = 14)) +
-  #guides(fill=guide_legend(title="Average number\nof daily contacts")) +
+  theme(strip.text.x = element_text(size = 14), strip.text.y = element_text(size = 14), strip.background=element_rect(fill="white")) +
   theme(legend.position = "right") +
   geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
   geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
 
-B <- rbind(somipa.sexf, somipa.ohh, somipa.ocom) %>%
-  mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
-                            if_else(Participant.age == 2L, "[1,5)",
-                                    if_else(Participant.age == 3L, "[5,10)",
-                                            if_else(Participant.age == 4L, "[10,15)",
-                                                    if_else(Participant.age == 5L, "[15,20)",
-                                                            if_else(Participant.age == 6L, "[20,25)",
-                                                                    if_else(Participant.age == 7L, "[25,30)",
-                                                                            if_else(Participant.age == 8L, "[30,40)",
-                                                                                            if_else(Participant.age == 9L, "[40,45)",
-                                                                                                    if_else(Participant.age == 10L, "[45,50)", "50+"))))))))))) %>%
-  
-  ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,10,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = Mixing.rate)) + 
-  geom_tile(color = "white") + 
-  geom_text(aes(label = sprintf("%1.2f", Mixing.rate)), color = "white", size = 2) +
-  theme_bw() +
-  scale_fill_gradient(low="lightgreen", high="red") +
-  facet_grid(.~ Category) +
-  labs(title = "", x = "Participant age", y = "Contactee age") +
-  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
-  theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
-  theme(strip.text.x = element_text(size = 14)) +
-  #guides(fill=guide_legend(title="Average number\nof daily contacts")) +
-  theme(legend.position = "right") + 
-  geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
-  geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
 
 #===========================================================================
 
 ggsave(here::here("output", "Fig5_strat_contacts_matrix.png"),
-       plot = (A / B),
-       width = 18, height = 9, unit="in", dpi = 300)
+       plot = (A),
+       width = 19, height = 9, unit="in", dpi = 300)
