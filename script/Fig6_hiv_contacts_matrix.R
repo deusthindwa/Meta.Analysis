@@ -9,9 +9,11 @@ survey.poph$lower.age.limit <- if_else(survey.poph$age >= 0 & survey.poph$age < 
                                               if_else(survey.poph$age > 4 & survey.poph$age <= 9, 5, 
                                                       if_else(survey.poph$age > 9 & survey.poph$age <= 17, 10, 
                                                               if_else(survey.poph$age > 17 & survey.poph$age <= 29, 18, 
-                                                                      if_else(survey.poph$age > 29 & survey.poph$age <= 39, 30, 
-                                                                              if_else(survey.poph$age > 39 & survey.poph$age <= 49, 40, 
-                                                                                      if_else(survey.poph$age > 49 & survey.poph$age <= 59, 50, 60))))))))
+                                                                      if_else(survey.poph$age > 29 & survey.poph$age <= 34, 30, 
+                                                                              if_else(survey.poph$age >34 & survey.poph$age <= 39, 35,
+                                                                                      if_else(survey.poph$age > 39 & survey.poph$age <= 44, 40,
+                                                                                              if_else(survey.poph$age > 44 & survey.poph$age <= 49, 45, 
+                                                                                                      if_else(survey.poph$age > 49 & survey.poph$age <= 59, 50, 60))))))))))
 
 survey.poph <- survey.poph %>% group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
@@ -25,7 +27,7 @@ somipa.pos <- contact_matrix(
   somipa.pos,
   countries = c("Malawi"),
   survey.pop = survey.poph,
-  age.limits = c(0, 1, 5, 10, 18, 30, 40, 50, 60),
+  age.limits = c(0, 1, 5, 10, 18, 30, 35, 40, 45, 50, 60),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
@@ -51,7 +53,7 @@ somipa.neg <- contact_matrix(
   somipa.neg,
   countries = c("Malawi"),
   survey.pop = survey.poph,
-  age.limits = c(0, 1, 5, 10, 18, 30, 40, 50, 60),
+  age.limits = c(0, 1, 5, 10, 18, 30, 35, 40, 45, 50, 60),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
