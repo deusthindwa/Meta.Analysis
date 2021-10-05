@@ -111,7 +111,7 @@ I[2] = I[2] + 1e-6
 init <- c(S = S, I = I)
 
 parms <- list(n = n, beta = B*0.014, gamma = c(1/56.3, 1/56.3, 1/17.9, 1/17.9, 1/6.0, 1/6.0))
-times <- seq(0, 300, by = 0.01)
+times <- seq(0, 1000, by = 0.01)
 
 #run the model
 out <- as.data.frame(lsoda(y = init, times = times, func = SISmat, parms = parms))
@@ -130,6 +130,7 @@ B <- out %>%
   ggplot(aes(time, value, color = agegp)) +
   geom_line(size = 1) +
   theme_bw() +
+  xlim(0,350) +
   labs(title = "B, Steady state proportion infected", x = "Time (days)", y = "Proportion infected") + 
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
@@ -165,7 +166,7 @@ C <- left_join(out %>%
                                  if_else(age == "I3", "5-14y",
                                          if_else(age == "I4", "15-19y",
                                                  if_else(age == "I5", "20-49y", "50+y")))))) %>%
-  dplyr::filter(time == 300),
+  dplyr::filter(time == 1000),
 survey.pop %>%
   mutate(agegp = if_else(lower.age.limit == 0, "<1y",
                          if_else(lower.age.limit == 1, "1-4y",

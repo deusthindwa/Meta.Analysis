@@ -37,6 +37,7 @@ survey.pop <- survey.pop %>%
   group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
 # build a contact matrix via sampling contact survey using bootstrapping
+set.seed = 1988
 somipa.all <- contact_matrix(
   somipa.all,
   countries = c("Malawi"),
@@ -53,6 +54,21 @@ somipa.all <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.all$matrices[[i]]$matrix))-1)/(dim(somipa.all$matrices[[i]]$matrix)[1]*dim(somipa.all$matrices[[i]]$matrix)[2]-1)
+  }
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+  tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean mixing rate of matrices generated through bootstrapping for uncertainty
 somipa.all <- melt(Reduce("+", lapply(somipa.all$matrices, function(x) {x$matrix})) / length(somipa.all$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -64,6 +80,7 @@ somipa.all <- melt(Reduce("+", lapply(somipa.all$matrices, function(x) {x$matrix
 somipa.phys <- survey(part.m, cnt.m %>% filter(cnt_type == "Physical"))
 
 # build a contact matrix via sampling contact survey using bootstrapping
+set.seed = 1988
 somipa.phys <- contact_matrix(
   somipa.phys,
   countries = c("Malawi"),
@@ -80,6 +97,21 @@ somipa.phys <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.phys$matrices[[i]]$matrix))-1)/(dim(somipa.phys$matrices[[i]]$matrix)[1]*dim(somipa.phys$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.phys <- melt(Reduce("+", lapply(somipa.phys$matrices, function(x) {x$matrix})) / length(somipa.phys$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -91,6 +123,7 @@ somipa.phys <- melt(Reduce("+", lapply(somipa.phys$matrices, function(x) {x$matr
 somipa.verb <- survey(part.m, cnt.m %>% filter(cnt_type == "Non-physical"))
 
 # build a contact matrix via sampling contact survey using bootstrapping
+set.seed = 1988
 somipa.verb <- contact_matrix(
   somipa.verb,
   countries = c("Malawi"),
@@ -107,6 +140,21 @@ somipa.verb <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.verb$matrices[[i]]$matrix))-1)/(dim(somipa.verb$matrices[[i]]$matrix)[1]*dim(somipa.verb$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.verb <- melt(Reduce("+", lapply(somipa.verb$matrices, function(x) {x$matrix})) / length(somipa.verb$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -114,9 +162,9 @@ somipa.verb <- melt(Reduce("+", lapply(somipa.verb$matrices, function(x) {x$matr
 
 # make combined plots
 
-somipa.all <- somipa.all %>% mutate(Category = "A, All mixing events")
-somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical mixing")
-somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical mixing")
+somipa.all <- somipa.all %>% mutate(Category = "A, All mixing events (Q=0.162)")
+somipa.phys <- somipa.phys %>% mutate(Category = "B, Physical mixing (Q=0.109)")
+somipa.verb <- somipa.verb %>% mutate(Category = "C, Non-physical mixing (Q=0.045)")
 
 A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,1)",
@@ -142,7 +190,6 @@ ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,11,3,4,5,6,7,8,9,1
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 16), strip.background=element_rect(fill="white")) +
   theme(legend.position = "right") + 
-  #guides(fill=guide_legend(title="Average number of\ndaily mixing events")) +
   geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
   geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
 
@@ -150,4 +197,4 @@ ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,2,11,3,4,5,6,7,8,9,1
 
 ggsave(here::here("output", "Fig4_crude_contact_matrix.png"),
        plot = A,
-       width = 18, height = 6, unit="in", dpi = 300)
+       width = 19, height = 6, unit="in", dpi = 300)

@@ -40,6 +40,21 @@ somipa.sexm <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.sexm$matrices[[i]]$matrix))-1)/(dim(somipa.sexm$matrices[[i]]$matrix)[1]*dim(somipa.sexm$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 #calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.sexm <- melt(Reduce("+", lapply(somipa.sexm$matrices, function(x) {x$matrix})) / length(somipa.sexm$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -66,6 +81,21 @@ somipa.sexf <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.sexf$matrices[[i]]$matrix))-1)/(dim(somipa.sexf$matrices[[i]]$matrix)[1]*dim(somipa.sexf$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.sexf <- melt(Reduce("+", lapply(somipa.sexf$matrices, function(x) {x$matrix})) / length(somipa.sexf$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -90,6 +120,21 @@ somipa.whh <- contact_matrix(
   sample.all.age.groups = FALSE,
   quiet = FALSE
 )
+
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.whh$matrices[[i]]$matrix))-1)/(dim(somipa.whh$matrices[[i]]$matrix)[1]*dim(somipa.whh$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
 
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.whh <- melt(Reduce("+", lapply(somipa.whh$matrices, function(x) {x$matrix})) / length(somipa.whh$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
@@ -117,6 +162,21 @@ somipa.ohh <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.ohh$matrices[[i]]$matrix))-1)/(dim(somipa.ohh$matrices[[i]]$matrix)[1]*dim(somipa.ohh$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.ohh <- melt(Reduce("+", lapply(somipa.ohh$matrices, function(x) {x$matrix})) / length(somipa.ohh$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -142,6 +202,21 @@ somipa.wcom <- contact_matrix(
   sample.all.age.groups = FALSE,
   quiet = FALSE
 )
+
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.wcom$matrices[[i]]$matrix))-1)/(dim(somipa.wcom$matrices[[i]]$matrix)[1]*dim(somipa.wcom$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
 
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.wcom <- melt(Reduce("+", lapply(somipa.wcom$matrices, function(x) {x$matrix})) / length(somipa.wcom$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
@@ -169,18 +244,33 @@ somipa.ocom <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.ocom$matrices[[i]]$matrix))-1)/(dim(somipa.ocom$matrices[[i]]$matrix)[1]*dim(somipa.ocom$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.ocom <- melt(Reduce("+", lapply(somipa.ocom$matrices, function(x) {x$matrix})) / length(somipa.ocom$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 #==========================combine all the datasets for ggplotting
 
 # ggplotting the matrices
-somipa.sexm <- somipa.sexm %>% mutate(Category = "A, Male | female", subtitle = "Category 1")
-somipa.sexf <- somipa.sexf %>% mutate(Category = "A, Male | female", subtitle = "Category 2")
-somipa.whh <- somipa.whh %>% mutate(Category = "B, Within | outside household", subtitle = "Category 1")
-somipa.ohh <- somipa.ohh %>% mutate(Category = "B, Within | outside household", subtitle = "Category 2")
-somipa.wcom <- somipa.wcom %>% mutate(Category = "C, Within | outside community", subtitle = "Category 1")
-somipa.ocom <- somipa.ocom %>% mutate(Category = "C, Within | outside community", subtitle = "Category 2")
+somipa.sexm <- somipa.sexm %>% mutate(Category = "A, Male (Q=0.206) | Female (Q=0.182)", subtitle = "Category 1")
+somipa.sexf <- somipa.sexf %>% mutate(Category = "A, Male (Q=0.206) | Female (Q=0.182)", subtitle = "Category 2")
+somipa.whh <- somipa.whh %>% mutate(Category = "B, Within (Q=0.113) | Outside household (Q=0.070)", subtitle = "Category 1")
+somipa.ohh <- somipa.ohh %>% mutate(Category = "B, Within (Q=0.113) | Outside household (Q=0.070)", subtitle = "Category 2")
+somipa.wcom <- somipa.wcom %>% mutate(Category = "C, Within (Q=0.182) | Outside community (Q=0.001)", subtitle = "Category 1")
+somipa.ocom <- somipa.ocom %>% mutate(Category = "C, Within (Q=0.182) | Outside community (Q=0.001)", subtitle = "Category 2")
 somipa1 <- rbind(somipa.sexm, somipa.whh, somipa.wcom)
 somipa2 <- rbind(somipa.sexf, somipa.ohh, somipa.ocom)
 

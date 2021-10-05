@@ -39,6 +39,22 @@ somipa.pos <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.pos$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.pos$matrices[[i]]$matrix)[1]*dim(somipa.pos$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
+
 #calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix})) / length(somipa.pos$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
@@ -65,12 +81,28 @@ somipa.neg <- contact_matrix(
   quiet = FALSE
 )
 
+# compute assortative index Q
+Q_vec <- NA
+for(i in 1:1000){
+  Q_vec[i] <- (sum(diag(somipa.neg$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.neg$matrices[[i]]$matrix)[1]*dim(somipa.neg$matrices[[i]]$matrix)[2]-1)
+}
+Q_vec <- as.data.frame(Q_vec)
+
+QConf <- function (x, ci = 0.95){
+  Margin_Error <- abs(qnorm((1-ci)/2))* sd(x)/sqrt(length(x))
+  df_out <- data.frame( Mean=mean(x), 'LCI' = (mean(x) - Margin_Error), 'UCI' = (mean(x) + Margin_Error)) %>% 
+    tidyr::pivot_longer(names_to = "Measurements", values_to ="values", 1:3 )
+  return(df_out)
+}
+QConf(Q_vec$Q_vec)
+
+
 # calculate the mean of matrices generated through bopostrapping for uncertainty
 somipa.neg <- melt(Reduce("+", lapply(somipa.neg$matrices, function(x) {x$matrix})) / length(somipa.neg$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 # ggplotting the matrices
-somipa.neg <- somipa.neg %>% mutate(Category = "A, HIV-uninfected")
-somipa.pos <- somipa.pos %>% mutate(Category = "B, HIV-infected on ART")
+somipa.neg <- somipa.neg %>% mutate(Category = "A, HIV-uninfected (Q=0.111)")
+somipa.pos <- somipa.pos %>% mutate(Category = "B, HIV-infected on ART (Q=0.114)")
 
 A <- filter(rbind(somipa.neg, somipa.pos), !is.na(Mixing.rate)) %>%
   ggplot(aes(x = Participant.age, y = Contact.age, fill = Mixing.rate)) + 
