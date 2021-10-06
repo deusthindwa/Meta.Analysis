@@ -12,7 +12,8 @@ if (!require(pacman)){
   install.packages("pacman")
 }
 pacman::p_load(char = c("tidyverse", "remotes", "NBZIMM", "dplyr", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
-                        "socialmixr","reshape2", "patchwork", "naniar", "scales", "ggpubr", "deSolve", "foreign","forcats", "geosphere", "boot", "broman","MASS", "here"))
+                        "socialmixr","reshape2", "patchwork", "naniar", "scales", "ggpubr", "deSolve", "foreign","forcats", "geosphere", "boot", "broman",
+                        "ggmap", "rgeos", "tmap", "maptools", "maps", "ggfortify", "sf", "broom", "raster", "MASS", "here"))
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())

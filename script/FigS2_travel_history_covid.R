@@ -181,6 +181,6 @@ H <- filter(pp.labeled, cvdcnt == "Yes") %>%
 #turn on warnings
 options(warn = defaultW)
 
-ggsave(here("output", "FigS2_travel_history.png"),
+ggsave(here("output", "FigS2_travel_history_covid.png"),
        plot = (A | B | C | D | plot_layout(ncol = 4, width = c(1,2,3,2))) / (E | F | G | H | plot_layout(ncol = 4, width = c(1,2,2,3))),
        width = 21, height = 10, unit="in", dpi = 300)

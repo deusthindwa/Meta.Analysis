@@ -4,35 +4,31 @@
 # prepare a participant population (for null model of probability of contact under random mixing)
 survey.poph <- read.csv(here::here("data", "survey_pop.csv"))
 
-survey.poph$lower.age.limit <- if_else(survey.poph$age >= 0 & survey.poph$age < 1, 0,
-                                      if_else(survey.poph$age >= 1 & survey.poph$age <= 4, 1,
-                                              if_else(survey.poph$age > 4 & survey.poph$age <= 9, 5, 
-                                                      if_else(survey.poph$age > 9 & survey.poph$age <= 17, 10, 
-                                                              if_else(survey.poph$age > 17 & survey.poph$age <= 29, 18, 
-                                                                      if_else(survey.poph$age > 29 & survey.poph$age <= 34, 30, 
-                                                                              if_else(survey.poph$age >34 & survey.poph$age <= 39, 35,
-                                                                                      if_else(survey.poph$age > 39 & survey.poph$age <= 44, 40,
-                                                                                              if_else(survey.poph$age > 44 & survey.poph$age <= 49, 45, 
-                                                                                                      if_else(survey.poph$age > 49 & survey.poph$age <= 59, 50, 60))))))))))
-
+survey.poph <- survey.poph %>% mutate(lower.age.limit = if_else(age >= 0 & age < 5, 0,
+                                                                if_else(age >= 5 & age < 16, 5,
+                                                                        if_else(age >= 16 & age < 20, 16,
+                                                                                if_else(age >= 20 & age < 30, 20,
+                                                                                        if_else(age >= 30 & age < 40, 30,
+                                                                                                if_else(age >= 40 & age <50, 40, 50)))))))
+  
 survey.poph <- survey.poph %>% group_by(lower.age.limit) %>% tally() %>% rename("population" = n)
 
-#==========================contact matrix for HIV positive participants
+#==========================contact matrix for low COVID-19 incidence
 
-#create survey object by combining HIV-infected part and cnt datasets
-somipa.pos <- survey(part.m %>% filter(part_hiv == "Positive on ART"), cnt.m)
+#create survey object by combining part and cnt datasets
+somipa.c19no <- survey(part.m %>% mutate(datex = dmy(substr(date, 1, 10))) %>% filter(datex < date('2021-06-14')), cnt.m)
 
 #build a contact matrix via sampling contact survey using bootstrapping
-somipa.pos <- contact_matrix(
-  somipa.pos,
+somipa.c19no <- contact_matrix(
+  somipa.c19no,
   countries = c("Malawi"),
   survey.pop = survey.poph,
-  age.limits = c(0, 1, 5, 10, 18, 30, 35, 40, 45, 50, 60),
+  age.limits = c(0, 5, 16, 20, 30, 40, 50),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -42,7 +38,7 @@ somipa.pos <- contact_matrix(
 # compute assortative index Q
 Q_vec <- NA
 for(i in 1:1000){
-  Q_vec[i] <- (sum(diag(somipa.pos$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.pos$matrices[[i]]$matrix)[1]*dim(somipa.pos$matrices[[i]]$matrix)[2]-1)
+  Q_vec[i] <- (sum(diag(somipa.c19no$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.c19no$matrices[[i]]$matrix)[1]*dim(somipa.c19no$matrices[[i]]$matrix)[2]-1)
 }
 Q_vec <- as.data.frame(Q_vec)
 
@@ -56,25 +52,25 @@ QConf(Q_vec$Q_vec)
 
 
 #calculate the mean of matrices generated through bopostrapping for uncertainty
-somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix})) / length(somipa.pos$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
+somipa.c19no <- melt(Reduce("+", lapply(somipa.c19no$matrices, function(x) {x$matrix})) / length(somipa.c19no$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 
 #==========================contact matrix for HIV negative participants
 
 # create survey object by combining HIV-uninfected part and cnt datasets
-somipa.neg <- survey(part.m %>% filter(part_hiv == "Negative"), cnt.m)
+somipa.c19yes <- survey(part.m %>% mutate(datex = dmy(substr(date, 1, 10))) %>% filter(datex >= date('2021-06-14')), cnt.m)
 
 # build a contact matrix via sampling contact survey using bootstrapping
-somipa.neg <- contact_matrix(
-  somipa.neg,
+somipa.c19yes <- contact_matrix(
+  somipa.c19yes,
   countries = c("Malawi"),
   survey.pop = survey.poph,
-  age.limits = c(0, 1, 5, 10, 18, 30, 35, 40, 45, 50, 60),
+  age.limits = c(0, 5, 16, 20, 30, 40, 50),
   filter = FALSE,
   n = 1000,
   bootstrap = TRUE,
   counts = FALSE,
-  symmetric = FALSE,
+  symmetric = TRUE,
   split = FALSE,
   weigh.dayofweek = TRUE,
   sample.all.age.groups = FALSE,
@@ -84,7 +80,7 @@ somipa.neg <- contact_matrix(
 # compute assortative index Q
 Q_vec <- NA
 for(i in 1:1000){
-  Q_vec[i] <- (sum(diag(somipa.neg$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.neg$matrices[[i]]$matrix)[1]*dim(somipa.neg$matrices[[i]]$matrix)[2]-1)
+  Q_vec[i] <- (sum(diag(somipa.c19yes$matrices[[i]]$matrix), na.rm = TRUE)-1)/(dim(somipa.c19yes$matrices[[i]]$matrix)[1]*dim(somipa.c19yes$matrices[[i]]$matrix)[2]-1)
 }
 Q_vec <- as.data.frame(Q_vec)
 
@@ -98,14 +94,22 @@ QConf(Q_vec$Q_vec)
 
 
 # calculate the mean of matrices generated through bopostrapping for uncertainty
-somipa.neg <- melt(Reduce("+", lapply(somipa.neg$matrices, function(x) {x$matrix})) / length(somipa.neg$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
+somipa.c19yes <- melt(Reduce("+", lapply(somipa.c19yes$matrices, function(x) {x$matrix})) / length(somipa.c19yes$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 # ggplotting the matrices
-somipa.neg <- somipa.neg %>% mutate(Category = "A, HIV-uninfected (Q=0.111)")
-somipa.pos <- somipa.pos %>% mutate(Category = "B, HIV-infected on ART (Q=0.114)")
+somipa.c19no <- somipa.c19no %>% mutate(Category = "A, During low COVID-19 incidence (Q=0.383)")
+somipa.c19yes <- somipa.c19yes %>% mutate(Category = "B, During high COVID-19 incidence (Q=0.407)")
 
-A <- filter(rbind(somipa.neg, somipa.pos), !is.na(Mixing.rate)) %>%
-  ggplot(aes(x = Participant.age, y = Contact.age, fill = Mixing.rate)) + 
+
+A <- rbind(somipa.c19no, somipa.c19yes) %>%
+  mutate(Participant.age = if_else(Participant.age == 2L, "[0,5)",
+                                   if_else(Participant.age == 3L, "[5,16)",
+                                           if_else(Participant.age == 4L, "[16,20)",
+                                                   if_else(Participant.age == 5L, "[20,30)",
+                                                           if_else(Participant.age == 6L, "[30,40)",
+                                                                   if_else(Participant.age == 7L, "[40,50)", "50+"))))))) %>%
+         
+  ggplot(aes(x = factor(Participant.age,levels(factor(Participant.age))[c(1,6,2,3,4,5,7)]), y = Contact.age, fill = Mixing.rate)) + 
   geom_tile(color = "white") + 
   geom_text(aes(label = sprintf("%1.2f", Mixing.rate)), color = "white", size = 2) +
   theme_bw() +
@@ -120,6 +124,6 @@ A <- filter(rbind(somipa.neg, somipa.pos), !is.na(Mixing.rate)) %>%
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig6_hiv_contacts_matrix.png"),
+ggsave(here::here("output", "FigS5_covid_contacts_matrix.png"),
        plot = A,
        width = 14, height = 5, unit="in", dpi = 300)

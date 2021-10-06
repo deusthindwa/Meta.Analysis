@@ -245,6 +245,6 @@ F <- rbind((filter(pp.labeled, occup != "School") %>%
 options(warn = defaultW)
 
 #combined plots
-ggsave(here("output", "FigS3_contact_covid19.png"),
+ggsave(here("output", "FigS3_covid_number_contact.png"),
        plot = (A | B | C) / (D | E | F),
        width = 19, height = 10, unit="in", dpi = 300)

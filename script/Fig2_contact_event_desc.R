@@ -108,6 +108,6 @@ F <- cn.labeled %>%
 
 #===========================================================================
 
-ggsave(here("output", "Fig2_contacts_description.png"),
+ggsave(here("output", "Fig2_contact_event_desc.png"),
        plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
        width = 15, height = 9, unit="in", dpi = 300)

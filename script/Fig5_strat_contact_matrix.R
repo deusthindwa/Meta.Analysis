@@ -303,6 +303,6 @@ A <- rbind(somipa1, somipa2) %>%
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig5_strat_contacts_matrix.png"),
+ggsave(here::here("output", "Fig5_strat_contact_matrix.png"),
        plot = (A),
        width = 19, height = 9, unit="in", dpi = 300)
