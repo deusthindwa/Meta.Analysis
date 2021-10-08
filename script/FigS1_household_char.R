@@ -6,7 +6,9 @@ defaultW <- getOption("warn")
 options(warn = -1)
 
 #----------convert shape file map into dataframe for ggplot.
-Ndix_map <- st_read(here("data", "map", "bt_scale_ndirande.shp"))
+Ndix_map <- rgdal::readOGR(here("data", "map", "bt_scale_ndirande.shp"))
+
+
 Ndix_map <- tibble(Ndix_map, region = "Ndirande")
 
 Ndix_map <- tibble(Ndix_map, region = "Ndirande")
