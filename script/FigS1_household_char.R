@@ -5,83 +5,13 @@
 defaultW <- getOption("warn")
 options(warn = -1)
 
-#----------convert shape file map into dataframe for ggplot.
-dlnmtmp <- tempfile()
-download.file("https://raw.githubusercontent.com/deusthindwa/social.contact.rates.estimation.hiv.malawi/master/data/ndix_map.zip", destfile = dlnmtmp)
-unzip(dlnmtmp, exdir = ".")
-ndix.map <- rgdal::readOGR(".","ndix_map")
+#map ndirande
+ndix_map  <- st_read(here("data", "ndix_map", "bt_scale_ndirande.shp"))
 
-
-  
-  
-  
-  
-  
-  
-  #----------load shape file of malawi map.
-  dlnmtmp <- tempfile()
-  download.file("https://raw.githubusercontent.com/deusthindwa/dlnm.typhoid.nts.climate.blantyre.malawi/master/data/malawi_map.zip", destfile=dlnmtmp)
-  unzip(dlnmtmp, exdir = ".")
-  malawi.map <- rgdal::readOGR(".","malawi_map")
-  
-  
-  #----------subsetting to get blantyre map only.
-  blantyre1.map <- malawi.map@data$OBJECTID >289 & malawi.map@data$OBJECTID <297 #id from 290 to 296 
-  blantyre2.map <- malawi.map@data$OBJECTID >308 & malawi.map@data$OBJECTID <311 #id from 309 to 310
-  blantyre3.map <- malawi.map@data$OBJECTID >342  #id fom 243
-  
-  
-  #----------convert shape file map into dataframe for ggplot.
-  blantyre.map <- rbind(fortify(malawi.map[blantyre1.map,]), fortify(malawi.map[blantyre2.map,]), fortify(malawi.map[blantyre3.map,]))
-  blantyre.map$id <- as.integer(blantyre.map$id)
-  
-  #----------merge blantyre map dataset with location attributes dataset.
-  blantyre.demog <- read.csv(curl("https://raw.githubusercontent.com/deusthindwa/dlnm.typhoid.nts.climate.blantyre.malawi/master/data/blantyre_demog.csv"))
-  map.features <- read.csv(curl("https://raw.githubusercontent.com/deusthindwa/dlnm.typhoid.nts.climate.blantyre.malawi/master/data/blantyre_features.csv"))
-  blantyre.demog$id <- as.integer(blantyre.demog$id)
-  map.all <- merge(x=blantyre.map, y=blantyre.demog, by="id", x.all=TRUE)
-  rm(list = ls()[grep("^blantyre", ls())])
-  
-  #----------plot blantyre map with 1998-2008 population census.
-  ggplot() + 
-    geom_polygon(data=map.all, aes(x=long, y=lat, group=group, fill=popc), colour="gray50") + 
-    theme_classic() + 
-    theme(axis.text.x = element_text(face="bold", size=10, color="black"), axis.text.y = element_text(face="bold", size=10, color="black")) + 
-    labs(fill="(1998 - 2008) Population censuses") + xlab("Longitude") + ylab("Latitude") + 
-    geom_point(data=map.features, aes(x =long, y =lat, shape=Geolocation, size=Geolocation), color="black") +
-    scale_shape_manual(values=c(17, 16, 3)) +
-    scale_size_manual(values=c(2,4,3)) + 
-    theme(legend.key.height=unit(0.8,"line")) + 
-    theme(legend.key.width=unit(0.8,"line"))
-  
-  
-  
-  
-  
-  
-  
-
-#----------plot blantyre map with 1998-2008 population census.
-ggplot() + 
-  geom_polygon(data=Ndix_map, aes(x=cluster, y=geometry), colour="gray50") + 
-  theme_classic() + 
-  theme(axis.text.x = element_text(face="bold", size=10, color="black"), axis.text.y = element_text(face="bold", size=10, color="black")) + 
-  labs(fill="(1998 - 2008) Population censuses") + xlab("Longitude") + ylab("Latitude")  
-  #geom_point(data=map.features, aes(x =long, y =lat, shape=Geolocation, size=Geolocation), color="black") +
-  #scale_shape_manual(values=c(17, 16, 3)) + 
-  #scale_size_manual(values=c(2,4,3)) + 
-  #theme(legend.key.height=unit(0.8,"line")) + 
-  #theme(legend.key.width=unit(0.8,"line"))
-
-Ndix_map$geometry
-
-
-
-
-
-
-
-
+ggplot(data = ndix_map) +
+  geom_sf() + 
+  coord_sf(expand = FALSE) +
+  theme_bw() 
 
 
 #===========================================================================
