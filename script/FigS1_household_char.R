@@ -9,16 +9,25 @@ options(warn = -1)
 Ndix_map <- st_read(here("data", "map", "bt_scale_ndirande.shp"))
 Ndix_map <- tibble(Ndix_map, region = "Ndirande")
 
+Ndix_map <- tibble(Ndix_map, region = "Ndirande")
+
+
+ggplot(data = Ndix_map) +
+  geom_sf(aes(region, geometry)) +
+  coord_sf(xlim = c(35.02552, 35.05242), ylim = c(-15.78764, -15.7554), expand = FALSE)
+  theme_bw()
+  
+  summary(Ndix_map@data)
 
 #----------plot blantyre map with 1998-2008 population census.
 ggplot() + 
-  geom_polygon(data=Ndix_map, aes(x=long, y=lat), colour="gray50") + 
+  geom_polygon(data=Ndix_map, aes(x=cluster, y=geometry), colour="gray50") + 
   theme_classic() + 
   theme(axis.text.x = element_text(face="bold", size=10, color="black"), axis.text.y = element_text(face="bold", size=10, color="black")) + 
   labs(fill="(1998 - 2008) Population censuses") + xlab("Longitude") + ylab("Latitude")  
   #geom_point(data=map.features, aes(x =long, y =lat, shape=Geolocation, size=Geolocation), color="black") +
-  #scale_shape_manual(values=c(17, 16, 3)) +
-  #scale_size_manual(values=c(2,4,3)) +
+  #scale_shape_manual(values=c(17, 16, 3)) + 
+  #scale_size_manual(values=c(2,4,3)) + 
   #theme(legend.key.height=unit(0.8,"line")) + 
   #theme(legend.key.width=unit(0.8,"line"))
 
