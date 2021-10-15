@@ -5,41 +5,65 @@
 defaultW <- getOption("warn")
 options(warn = -1)
 
-#map ndirande
-ndix_map  <- st_read(here("data", "ndix_map", "bt_scale_ndirande.shp"))
-
-ggplot(data = ndix_map) +
-  geom_sf() + 
-  coord_sf(expand = FALSE) +
-  theme_bw() 
-
-
-#===========================================================================
-
-# distribution of household cluster
+# distribution of household clusters to inform plot A
 clustersize <- tibble(cluster = c(1, 2, 3,4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14),
                       N = c(193, 208, 151, 211, 195, 211, 197, 210, 140, 174, 175, 201, 170, 190))
 
-A <- hh.labeled %>%
+hh.labeled %>%
   filter(!is.na(cluster)) %>% group_by(cluster) %>% tally() %>%
   left_join(clustersize) %>%
   mutate(perc = n/sum(n), 
          lci = exactci(n, sum(n), 0.95)$conf.int[1:14], 
          uci = exactci(n, sum(n), 0.95)$conf.int[15:28],
-         p = sprintf("%1.1f%%", n/N*100)) %>%
-  
-  ggplot(aes(x = cluster, y = perc)) + 
-  geom_bar(stat = "identity", color = "black", size = 1, fill = brocolors("crayons")["Tan"]) +
-  geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
-  geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
-  geom_text(aes(label = p), color = "black", position = position_stack(vjust = 0.4), size = 3) +
-  scale_y_continuous(breaks = seq(0, 0.16, 0.02), labels = scales::percent_format(accuracy = 1)) + 
-  scale_x_continuous(breaks = seq(1, 14, 1)) + 
+         p = sprintf("%1.1f%%", n/N*100))
+
+#map ndirande
+ndix_map  <- st_read(here("data", "ndix_map", "bt_scale_ndirande.shp"))
+
+A <- ndix_map %>% 
+  mutate(num = if_else(cluster == "c1", "38 (10.1%)",
+                       if_else(cluster == "c2", "38 (10.1%)",
+                               if_else(cluster == "c3", "19 (5.0%)",
+                                       if_else(cluster == "c4", "34 (9.0%)",
+                                               if_else(cluster == "c5", "20 (5.3%)",
+                                                       if_else(cluster == "c6", "27 (7.1%)",
+                                                               if_else(cluster == "c7", "37 (9.8%)",
+                                                                       if_else(cluster == "c8", "27 (7.1%)",
+                                                                               if_else(cluster == "c9", "20 (5.3%)",
+                                                                                       if_else(cluster == "c10", "24 (6.4%)",
+                                                                                               if_else(cluster == "c11", "21 (5.6%)",
+                                                                                                       if_else(cluster == "c12", "30 (7.9%)",
+                                                                                                               if_else(cluster == "c13", "28 (7.4%)", "15 (4.0%)"))))))))))))),
+         nump = if_else(cluster == "c1", "19.7%",
+                       if_else(cluster == "c2", "18.3%",
+                               if_else(cluster == "c3", "12.6%",
+                                       if_else(cluster == "c4", "16.1%",
+                                               if_else(cluster == "c5", "10.3%",
+                                                       if_else(cluster == "c6", "12.8%",
+                                                               if_else(cluster == "c7", "18.8%",
+                                                                       if_else(cluster == "c8", "12.9%",
+                                                                               if_else(cluster == "c9", "14.3%",
+                                                                                       if_else(cluster == "c10", "13.8%",
+                                                                                               if_else(cluster == "c11", "12.0%",
+                                                                                                       if_else(cluster == "c12", "14.9%",
+                                                                                                               if_else(cluster == "c13", "16.5%", "7.9%"))))))))))))) ) %>%
+ggplot() +
+  geom_sf() + 
+  coord_sf(expand = TRUE) +
+  geom_sf(aes(fill = num)) +
+  geom_sf_label(aes(label = nump), label.size = 0.05) +
+  labs(title = "A", x = "Longitude", y = "Latitude") +
+  annotation_scale(location = "bl", width_hint = 0.5) +
+  annotation_north_arrow(location = "bl", which_north = "true", 
+                         pad_x = unit(0.25, "in"), pad_y = unit(0.2, "in"),
+                         style = north_arrow_fancy_orienteering) +
   theme_bw() +
-  labs(title = "A", x = "Cluster number", y = "Proportion of households") +
-  theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
+  guides(fill = guide_legend(title = "Households included\nacross clusters")) + 
+  theme(legend.position = c(0.8, 0.75)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11))
+  #guides(fill = guide_legend(title = "Sample"), shape = guide_legend(override.aes = list(size = 9)), color = guide_legend(override.aes = list(size = 9))) +
+  #theme(legend.title = element_text(size = 9), legend.text  = element_text(size = 9), legend.key.size = unit(0.9, "lines"))
 
 #===========================================================================
 
@@ -50,7 +74,7 @@ B <- hh.labeled %>%
   geom_density(aes(x = sroom), alpha = 0.3, size = 1, fill = brocolors("crayons")["Sky Blue"]) +
   geom_text(aes(x = 2, y = 0.2, label = "BR"), color = "black", size = 3) +
   geom_text(aes(x = 4, y = 0.2, label = "HR"), color = "black", size = 3) +
-  theme_bw() +
+  theme_bw() + 
   scale_x_continuous(breaks = seq(1, 12, 1)) +
   labs(title = "B", x = "Houserooms (HR) v bedrooms (BR)", y = "Probability density") +
   theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
@@ -154,5 +178,6 @@ options(warn = defaultW)
 
 #combined plots
 ggsave(here("output", "FigS1_household_char.png"),
-       plot = (A | B | plot_layout(ncol = 2, width = c(4,2))) / (C | inset_element(X, right = 0.9, left = 0.6, bottom = 0.2, top = 0.9) | D | E | F | plot_layout(ncol = 4, width = c(3,3,1,1))),
+       plot = (A | ((B | (C | inset_element(X, right = 0.9, left = 0.6, bottom = 0.2, top = 0.9)))) / (D | E | F | plot_layout(ncol = 3, width = c(3,1,1)))),
        width = 21, height = 11, unit="in", dpi = 300)
+
