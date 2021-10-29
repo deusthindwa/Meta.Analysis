@@ -82,17 +82,21 @@ Y <- cn.labeled %>%
 
 #proportion of contacts by weekday
 
-C <- cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex-1)) %>%  group_by(dow) %>% tally() %>% 
-  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]) %>%
+
+
+C <- left_join(pp.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex-1)) %>%  group_by(dow) %>% tally() %>% 
+  mutate(perc = n/sum(n), lci = exactci(n, sum(n), 0.95)$conf.int[1:7], uci = exactci(n, sum(n), 0.95)$conf.int[8:14]),
+cn.labeled %>% mutate(datex = dmy(str_sub(date, 1, 10)), dow = weekdays(datex-1)) %>%  group_by(dow) %>% tally() %>% rename("n2"="n")) %>%
   
   ggplot(aes(x = factor(dow, levels(factor(dow))[c(2, 6, 7, 5, 1, 3, 4)]), y = perc, group = 1)) + 
   geom_bar(stat = "identity", color = "black", size = 1, fill =  brocolors("crayons")["Goldenrod"]) +
   geom_errorbar(aes(ymin = lci, ymax = uci), width = 0.3, position = position_dodge(0.9), size = 1.3) +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5), size = 3) +
+  geom_text(aes(label = n2), color = "black", position = position_stack(vjust = 0.4), size = 4, fontface="bold") +
   scale_y_continuous(breaks = seq(0, 0.4, 0.05), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
-  labs(title = "", x = "Day of mixing events", y = "Proportion of mixing events") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  labs(title = "C", x = "Day of mixing events", y = "Proportion of participants") +
+  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
   theme(legend.position = "none")
 
@@ -106,7 +110,7 @@ D <- cn.labeled %>%
   geom_density(aes(x = cnt_no, y = ..density../0.00018), alpha = 0.3, size = 1) +
   theme_bw() +
   scale_x_continuous(breaks = seq(1, 25, 2)) +
-  scale_y_continuous("Total mixing events", sec.axis = sec_axis(~. * 0.00018, name = "Probability density"), limits = c(0, 1700)) + 
+  scale_y_continuous("Number of contacts", sec.axis = sec_axis(~. * 0.00018, name = "Probability density"), limits = c(0, 1700)) + 
   labs(title = "D", x = "Number of contactees per person") +
   theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
@@ -120,4 +124,4 @@ options(warn = defaultW)
 #combined plots
 ggsave(here("output", "Fig1_participant_contact_desc.png"),
        plot = (A | inset_element(X, right = 0.9, left = 0.4, bottom = 0.3, top = 0.95) | B | inset_element(Y, right = 0.9, left = 0.4, bottom = 0.3, top = 0.95) | plot_layout(ncol = 2, width = c(3,3))) / (C | D | plot_layout(ncol = 2, width = c(3,3))),
-       width = 19, height = 15, unit="in", dpi = 300)
+       width = 19, height = 14, unit="in", dpi = 300)

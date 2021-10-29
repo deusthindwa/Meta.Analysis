@@ -74,7 +74,7 @@ C <- pp.labeled %>%
 #===========================================================================
 
 # distribution of participant sex
-D <- pp.labeled %>% 
+D <- X %>% 
   dplyr::select(transfot, transbic, transcar, transpub, transbac) %>%
   pivot_longer(transfot:transbac, names_to = "question", values_to = "response") %>% 
   group_by(question, response) %>% 
