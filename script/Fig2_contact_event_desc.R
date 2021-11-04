@@ -12,9 +12,10 @@ ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), 
   theme_bw() +
   labs(title = "A", x = "Mixing duration", y = "Proportion of mixing events") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = "none")
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
+  theme(legend.position = c(0.4, 0.6), legend.text=element_text(size = 9), legend.title = element_text(size = 9)) +
+  guides(fill=guide_legend(title=""))
 
 #===========================================================================
 
@@ -27,8 +28,8 @@ B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_fr
   theme_bw() +
   labs(title = "B", x = "Mixing frequency", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -42,10 +43,10 @@ C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel
   theme_bw() +
   labs(title = "C", x = "Relationship to contactee", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
   guides(fill=guide_legend(title="Mixing type")) +
-  theme(legend.position = "right", legend.text=element_text(size=10, face = "bold"))
+  theme(legend.position = "none", legend.text=element_text(size=10, face = "bold"))
 
 #===========================================================================
 
@@ -62,8 +63,8 @@ D <- cn.labeled %>%
   theme_bw() + 
   labs(title = "D", x = "Location of mixing events", y = "Proportion of mixing events") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
   guides(fill=guide_legend(title="Mixing type")) +
   theme(legend.position = "none")
 
@@ -82,8 +83,8 @@ E <- cn.labeled %>%
   theme_bw() + 
   labs(title = "E", x = "Community boundary", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
   guides(fill=guide_legend(title="Mixing type")) +
   theme(legend.position = "none")
 
@@ -102,12 +103,16 @@ F <- cn.labeled %>%
   theme_bw() + 
   labs(title = "F", x = "Contactee sex", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
   theme(legend.position = "none")
 
 #===========================================================================
 
+#ggsave(here("output", "Fig2_contact_event_desc.png"),
+#       plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
+#       width = 15, height = 9, unit="in", dpi = 300)
+
 ggsave(here("output", "Fig2_contact_event_desc.png"),
-       plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))),
-       width = 15, height = 9, unit="in", dpi = 300)
+       plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))) / (G | H | I),
+       width = 16, height = 14, unit="in", dpi = 300)
