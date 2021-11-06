@@ -54,21 +54,17 @@ source(here::here("script", "Fig1_participant_contact_desc.R"))
 dev.off()
 source(here::here("script", "Fig2_contact_event_desc.R"))
 
-# mixing events abd spatial distance
+# mixing events and spatial distance
 dev.off()
-source(here::here("script", "Fig3_spatially_contacts.R"))
+source(here::here("script", "Fig2_spatially_contacts.R"))
 
 # matrices of social mixing rates by overall and mixing type 
 dev.off()
-source(here::here("script", "Fig4_crude_contact_matrix.R"))
+source(here::here("script", "Fig3_crude_contact_matrix.R"))
 
 # matrices of stratified social mixing rates
 dev.off()
-source(here::here("script", "Fig5_strat_contacts_matrix.R"))
-
-# simulate an outbreak based on estimated mixing rates
-dev.off()
-source(here::here("script", "Fig6_outbreak_simulation.R"))
+source(here::here("script", "Fig4_strat_contacts_matrix.R"))
 
 #=================================================================================
 
@@ -76,8 +72,20 @@ source(here::here("script", "Fig6_outbreak_simulation.R"))
 dev.off()
 source(here::here("script", "FigS1_household_char.R"))
 
-# simulate a theoretic epidemic based on estimated social mixing rates
+# travel history of participants and COVID-19 risk
 dev.off()
 source(here::here("script", "FigS2_travel_history_covid.R"))
+
+# box plots on the number of contacts and COVID-19 risk behavior 
+dev.off()
+source(here::here("script", "FigS3_covid_number_contact.R"))
+
+# contact matrices and COVID-19 risk behavior
+dev.off()
+source(here::here("script", "FigS4_covid_contact_matrix.R"))
+
+# contact matrices and HIV status
+dev.off()
+source(here::here("script", "FigS5_hiv_contac_matrix.R"))
 
 #END SCRIPT
