@@ -60,8 +60,8 @@ ggplot() +
   theme_bw() +
   guides(fill = guide_legend(title = "Households included\nacross clusters")) + 
   theme(legend.position = c(0.8, 0.75)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11))
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12))
   #guides(fill = guide_legend(title = "Sample"), shape = guide_legend(override.aes = list(size = 9)), color = guide_legend(override.aes = list(size = 9))) +
   #theme(legend.title = element_text(size = 9), legend.text  = element_text(size = 9), legend.key.size = unit(0.9, "lines"))
 
@@ -77,8 +77,8 @@ B <- hh.labeled %>%
   theme_bw() + 
   scale_x_continuous(breaks = seq(1, 12, 1)) +
   labs(title = "B", x = "Houserooms (HR) v bedrooms (BR)", y = "Probability density") +
-  theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   theme(legend.position = "right")
 
 #===========================================================================
@@ -90,8 +90,8 @@ C <- hh.labeled %>%
   theme_bw() +
   scale_x_continuous(breaks = seq(1, 20, 2)) +
   labs(title = "C", x = "Household size", y = "Probability density") +
-  theme(axis.text.x = element_text(face = "bold", size = 10), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   theme(legend.position = "none")
 
 X <- filter(hh.labeled, !is.na(smoke) & smoke !="Dont know") %>% 
@@ -105,8 +105,8 @@ X <- filter(hh.labeled, !is.na(smoke) & smoke !="Dont know") %>%
   scale_y_continuous(breaks = seq(0, 2, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "", x = "Household smokers", y = "Proportion of households") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -131,8 +131,8 @@ ggplot(mapping = aes(x = factor(questionc,levels(factor(questionc))[c(1,4,3,6,2,
   theme_bw() +
   labs(title = "D", x = "Source of household energy", y = "Proportion of households") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill = guide_legend(title="")) +
   theme(legend.position = c(0.58, 0.75))
 
@@ -150,8 +150,8 @@ E <- hh.labeled %>%
   scale_y_continuous(breaks = seq(0, 1, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "E", x = "Indoor cooking", y = "Proportion of households") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -167,8 +167,8 @@ F <- filter(hh.labeled, !is.na(vent)) %>%
   scale_y_continuous(breaks = seq(0, 1, 0.1), labels = scales::percent_format(accuracy = 1)) + 
   theme_bw() +
   labs(title = "F", x = "Indoor ventilation", y = "Proportion of households") +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   theme(legend.position = "none")
 
 #===========================================================================

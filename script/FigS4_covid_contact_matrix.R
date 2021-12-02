@@ -280,14 +280,16 @@ B <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
 
 #=============================================================================================
 
-X <-  rbind(A, B) %>% filter(!is.na(Daily.average.contacts)) %>%
-ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = Daily.average.contacts)) + 
+X <-  rbind(A, B) %>% 
+  filter(!is.na(Daily.average.contacts)) %>%
+  rename(`Daily average contacts` = Daily.average.contacts) %>%
+  ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = `Daily average contacts`)) + 
   geom_tile(color = "white") + 
-  geom_text(aes(label = sprintf("%1.2f", Daily.average.contacts)), color = "white", size = 2) +
+  geom_text(aes(label = sprintf("%1.2f", `Daily average contacts`)), color = "white", size = 3) +
   scale_fill_gradient(low="gray30", high="red") +
   facet_grid(subtit ~ Category) +
   theme_bw() +
-  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
+  labs(title = "", x = "Participant age (years)", y = "Contact age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 16), strip.text.y = element_text(size = 16), strip.background = element_rect(fill = "white")) +
