@@ -43,7 +43,7 @@ somipa.pos <- contact_matrix(
 )
 
 #calculate the mean of matrices generated through bootstrapping for uncertainty
-somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix})) / length(somipa.pos$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Daily.average.contacts")
+somipa.pos <- melt(Reduce("+", lapply(somipa.pos$matrices, function(x) {x$matrix})) / length(somipa.pos$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 #---------------------------------------------------------------
 
@@ -88,7 +88,7 @@ somipa.posQ <- Reduce("+", lapply(somipa.posQ$matrices, function(x) {x$matrix}))
 
 # column-wise matrix normalization method 1 (P) and assortative index (Q)
 P <- (somipa.posQ)/rowSums(somipa.posQ)[row(somipa.posQ)]
-Q1 <- (sum(diag(P), na.rm = TRUE)-1)/(dim(P)[1]-1)
+Q7 <- (sum(diag(P), na.rm = TRUE)-1)/(dim(P)[1]-1)
 
 
 #==========================contact matrix for HIV negative participants
@@ -118,7 +118,7 @@ somipa.neg <- contact_matrix(
 )
 
 #calculate the mean of matrices generated through bootstrapping for uncertainty
-somipa.neg <- melt(Reduce("+", lapply(somipa.neg$matrices, function(x) {x$matrix})) / length(somipa.neg$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Daily.average.contacts")
+somipa.neg <- melt(Reduce("+", lapply(somipa.neg$matrices, function(x) {x$matrix})) / length(somipa.neg$matrices), varnames = c("Participant.age", "Contact.age"), value.name = "Mixing.rate")
 
 #---------------------------------------------------------------
 
@@ -150,32 +150,5 @@ somipa.negQ <- Reduce("+", lapply(somipa.negQ$matrices, function(x) {x$matrix}))
 
 # column-wise matrix normalization method 1 (P) and assortative index (Q)
 P <- (somipa.negQ)/rowSums(somipa.negQ)[row(somipa.negQ)]
-Q2 <- (sum(diag(P), na.rm = TRUE)-1)/(dim(P)[1]-1)
+Q8 <- (sum(diag(P), na.rm = TRUE)-1)/(dim(P)[1]-1)
 
-#==========================combine plots
-
-# ggplotting the matrices
-somipa.pos <- somipa.pos %>% mutate(Category = paste0("A, HIV-infected on ART, Q=", round(Q1, 3)))
-somipa.neg <- somipa.neg %>% mutate(Category = paste0("B, HIV-uninfected, Q=", round(Q2, 3)))
-
-
-A <- filter(rbind(somipa.neg, somipa.pos), !is.na(Daily.average.contacts)) %>%
-  ggplot(aes(x = Participant.age, y = Contact.age, fill = Daily.average.contacts)) + 
-  geom_tile(color = "white") + 
-  geom_text(aes(label = sprintf("%1.2f", Daily.average.contacts)), color = "white", size = 2) +
-  theme_bw() +
-  scale_fill_gradient(low="gray30", high="red") +
-  facet_grid(.~ Category) +
-  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
-  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
-  theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
-  theme(strip.text.x = element_text(size = 14), strip.text.y = element_text(size = 14), strip.background=element_rect(fill="white")) +
-  scale_color_grey() +
-  geom_hline(yintercept = c(2.5, 4.5, 5.5, 7.5), linetype="dashed", color = "black", size = 0.2) +
-  theme(legend.position = "bottom")
-
-#===========================================================================
-
-ggsave(here::here("output", "Fig6_hiv_contact_matrix.png"),
-       plot = A,
-       width = 12, height = 6, unit="in", dpi = 300)

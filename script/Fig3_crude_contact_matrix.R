@@ -147,9 +147,9 @@ somipa.verb <- melt(somipa.verb, varnames = c("Participant.age", "Contact.age"),
 
 # make combined plots
 
-somipa.all <- somipa.all %>% mutate(Category = paste0("A, All mixing events, Q=", round(Q1, 3)))
-somipa.phys <- somipa.phys %>% mutate(Category = paste0("B, Physical mixing, Q=", round(Q2, 3)))
-somipa.verb <- somipa.verb %>% mutate(Category = paste0("C, Non-physical mixing, Q=", round(Q3, 3)))
+somipa.all <- somipa.all %>% mutate(Category = paste0("A, All contact events, Q=", round(Q1, 3)))
+somipa.phys <- somipa.phys %>% mutate(Category = paste0("B, Physical contact, Q=", round(Q2, 3)))
+somipa.verb <- somipa.verb %>% mutate(Category = paste0("C, Non-physical contact, Q=", round(Q3, 3)))
 
 A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,5)",
@@ -162,24 +162,24 @@ A <- rbind(somipa.all, somipa.phys, somipa.verb) %>%
                                                                             if_else(Participant.age == 8L, "[35,40)",
                                                                                     if_else(Participant.age == 9L, "[40,45)",
                                                                                             if_else(Participant.age == 10L, "[45,50)", "50+")))))))))),
-         Daily.average.contacts = if_else(is.na(Mixing.rate), 0, Mixing.rate)) %>%
-
-ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = Daily.average.contacts)) + 
+         `Daily average contacts` = if_else(is.na(Mixing.rate), 0, Mixing.rate)) %>%
+  
+ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = `Daily average contacts`)) + 
   geom_tile(color = "white") + 
-  geom_text(aes(label = sprintf("%1.2f", Daily.average.contacts)), color = "white", size = 2) +
+  geom_text(aes(label = sprintf("%1.2f", `Daily average contacts`)), color = "white", size = 4) +
   scale_fill_gradient(low="gray30", high="red") +
   facet_grid(.~ Category) +
   theme_bw() +
-  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
+  labs(title = "", x = "Participant age (years)", y = "Contact age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
   theme(strip.text.x = element_text(size = 16), strip.background=element_rect(fill="white")) +
-  theme(legend.position = "bottom") + 
-  geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
-  geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
+  theme(legend.position = "bottom", legend.text=element_text(size = 12), legend.title = element_text(size = 12)) 
+  #geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
+  #geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig4_crude_contact_matrix.png"),
+ggsave(here::here("output", "Fig3_crude_contact_matrix.png"),
        plot = A,
        width = 19, height = 8, unit="in", dpi = 300)

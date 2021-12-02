@@ -10,12 +10,12 @@ ggplot(mapping = aes(x = factor(cnt_dur,levels(factor(cnt_dur))[c(5,2,1,3,4)]), 
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_fill_brewer() +
   theme_bw() +
-  labs(title = "A", x = "Mixing duration", y = "Proportion of mixing events") +
+  labs(title = "A", x = "Contact duration", y = "Proportion of contact events") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
   theme(legend.position = c(0.4, 0.6), legend.text=element_text(size = 9), legend.title = element_text(size = 9)) +
-  guides(fill=guide_legend(title=""))
+  guides(fill = guide_legend(title = element_blank()))
 
 #===========================================================================
 
@@ -26,10 +26,10 @@ B <- filter(cn.labeled, !is.na(cnt_freq) & !is.na(cnt_type)) %>% group_by(cnt_fr
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_fill_brewer() +
   theme_bw() +
-  labs(title = "B", x = "Mixing frequency", y = "") +
+  labs(title = "B", x = "Contact frequency", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -41,12 +41,12 @@ C <- filter(cn.labeled, !is.na(cnt_rel) & !is.na(cnt_type)) %>% group_by(cnt_rel
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_fill_brewer() +
   theme_bw() +
-  labs(title = "C", x = "Relationship to contactee", y = "") +
+  labs(title = "C", x = "Relationship to contact", y = "") +
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
-  theme(legend.position = "none", legend.text=element_text(size=10, face = "bold"))
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
+  guides(fill=guide_legend(title="Contact type")) +
+  theme(legend.position = "none")
 
 #===========================================================================
 
@@ -61,11 +61,11 @@ D <- cn.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_fill_brewer() +
   theme_bw() + 
-  labs(title = "D", x = "Location of mixing events", y = "Proportion of mixing events") + 
+  labs(title = "D", x = "Location of contact events", y = "Proportion of contact events") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
+  guides(fill=guide_legend(title="Contact type")) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -83,9 +83,9 @@ E <- cn.labeled %>%
   theme_bw() + 
   labs(title = "E", x = "Community boundary", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
-  guides(fill=guide_legend(title="Mixing type")) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
+  guides(fill=guide_legend(title="Contact type")) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -101,10 +101,10 @@ F <- cn.labeled %>%
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   scale_fill_brewer() +
   theme_bw() + 
-  labs(title = "F", x = "Contactee sex", y = "") + 
+  labs(title = "F", x = "Contact sex", y = "") + 
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) + 
-  theme(axis.text.x = element_text(face = "bold", size = 11, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 11), axis.title.y = element_text(size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(size = 12), axis.title.y = element_text(size = 12)) +
   theme(legend.position = "none")
 
 #===========================================================================
@@ -114,5 +114,5 @@ F <- cn.labeled %>%
 #       width = 15, height = 9, unit="in", dpi = 300)
 
 ggsave(here("output", "Fig2_contact_event_desc.png"),
-       plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))) / (G | H | I),
+       plot = (A | B | C) / (D + E + F + plot_layout(ncol=3, widths=c(3,1,1))) / (G | H | I), #G,H,I are plots from the spatial distance - Fig2b_spatially_contacts
        width = 16, height = 14, unit="in", dpi = 300)

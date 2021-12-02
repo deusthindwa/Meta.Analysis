@@ -17,14 +17,14 @@ G <- filter(cn.unlabel, !is.na(cnt_type) & !is.na(cnt_dist)) %>%
   scale_linetype_manual(values = c(1,3)) +
   geom_step(aes(y = 1 - ..y..), stat='ecdf', size = 0.8, color = "gray30") + 
   theme_bw() +
-  labs(title = "G, Mixing type") +
+  labs(title = "G, Contact type") +
   xlab(bquote('Distance in meters ('*delta~')')) +
   scale_x_continuous(trans = log10_trans()) +
-  coord_cartesian(xlim=c(30,12360)) +
+  coord_cartesian(xlim=c(30, 12360)) +
   ylab(bquote('Proportion of contacts further away from home')) +
-  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 11), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = c(0.6, 0.6), legend.text=element_text(size = 9), legend.title = element_text(size = 9)) + 
-  guides(linetype=guide_legend(title="Mixing type (Median, IQR)\n \n        Overall (121.6m, 57.2-369.5)"))
+  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(legend.position = c(0.65, 0.6), legend.text=element_text(size = 11), legend.title = element_text(size = 11)) + 
+  guides(linetype=guide_legend(title="Contact type (Median, IQR)\n \nOverall (121.6m, 57.2-369.5)"))
 
 #===========================================================================
 
@@ -45,13 +45,13 @@ H <- left_join(cn.unlabel, dplyr::select(pp.unlabel, somipa_pid, agey)) %>%
   geom_step(aes(y = 1 - ..y..), stat='ecdf', size = 0.8) + 
   scale_linetype_manual(values = c(4,4,4,4)) +
   theme_bw() +
-  labs(title = "H, Physical mixing") +
+  labs(title = "H, Physical contact") +
   xlab(bquote('Distance in meters ('*delta~')')) +
   scale_x_continuous(trans = log10_trans()) +
   coord_cartesian(xlim=c(30,12360)) +
   ylab(bquote("")) +
-  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 11), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = c(0.6, 0.6), legend.text=element_text(size=9), legend.title = element_text(size = 9)) + 
+  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(legend.position = c(0.65, 0.6), legend.text=element_text(size=11), legend.title = element_text(size = 11)) + 
   guides(color=guide_legend(title="Age group (Median, IQR)"), linetype=FALSE)
 
 #===========================================================================
@@ -72,17 +72,17 @@ I <- left_join(cn.unlabel, dplyr::select(pp.unlabel, somipa_pid, agey)) %>%
   ggplot(aes(x = cnt_dist, color = factor(category, levels(factor(category))[c(1,4,2,3)]))) + 
   geom_step(aes(y = 1 - ..y..), stat='ecdf', size = 0.8) + 
   theme_bw() +
-  labs(title = "I, Non-physical mixing") +
+  labs(title = "I, Non-physical contact") +
   xlab(bquote('Distance in meters ('*delta~')')) +
   scale_x_continuous(trans = log10_trans()) +
   coord_cartesian(xlim=c(30,12360)) +
   ylab(bquote("")) +
-  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 11), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(legend.position = c(0.6, 0.6), legend.text=element_text(size=9), legend.title = element_text(size = 9)) + 
+  theme(plot.title = element_text(size = 22), axis.text.x = element_text(face = "bold", size = 12), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(legend.position = c(0.65, 0.6), legend.text=element_text(size = 11), legend.title = element_text(size = 11)) + 
   guides(color=guide_legend(title="Age group (Median, IQR)"))
 
 #===========================================================================
 
-ggsave(here("output", "Fig3_spatially_contacts.png"),
-       plot = (A | B | C),
-       width = 15, height = 5, unit="in", dpi = 300)
+#ggsave(here("output", "Fig2_spatially_contacts.png"),
+#       plot = (A | B | C),
+#       width = 15, height = 5, unit="in", dpi = 300)

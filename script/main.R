@@ -13,7 +13,7 @@ if (!require(pacman)){
 }
 pacman::p_load(char = c("tidyverse", "remotes", "NBZIMM", "dplyr", "lubridate","data.table", "grid","ggrepel", "pwr", "splitstackshape","PropCIs", "table1",
                         "socialmixr","reshape2", "patchwork", "naniar", "scales", "ggpubr", "deSolve", "foreign","forcats", "geosphere", "boot", "broman",
-                        "sf", "MASS", "here"))
+                        "sf", "MASS", "epiR", "here"))
 
 options(stringsAsFactors = FALSE)
 setwd(here::here())
@@ -50,21 +50,25 @@ cnt.m <- cnt.m %>% rename("part_id" = somipa_pid)
 dev.off()
 source(here::here("script", "Fig1_participant_contact_desc.R"))
 
-# mixing events description
-dev.off()
-source(here::here("script", "Fig2_contact_event_desc.R"))
-
 # mixing events and spatial distance
 dev.off()
-source(here::here("script", "Fig2_spatially_contacts.R"))
+source(here::here("script", "Fig2a_spatially_contacts.R"))
+
+# mixing events description
+dev.off()
+source(here::here("script", "Fig2b_contact_event_desc.R"))
 
 # matrices of social mixing rates by overall and mixing type 
 dev.off()
 source(here::here("script", "Fig3_crude_contact_matrix.R"))
 
+# contact matrices and HIV status
+dev.off()
+source(here::here("script", "Fig4a_hiv_contac_matrix.R"))
+
 # matrices of stratified social mixing rates
 dev.off()
-source(here::here("script", "Fig4_strat_contacts_matrix.R"))
+source(here::here("script", "Fig4b_strat_contacts_matrix.R"))
 
 #=================================================================================
 
@@ -83,9 +87,5 @@ source(here::here("script", "FigS3_covid_number_contact.R"))
 # contact matrices and COVID-19 risk behavior
 dev.off()
 source(here::here("script", "FigS4_covid_contact_matrix.R"))
-
-# contact matrices and HIV status
-dev.off()
-source(here::here("script", "FigS5_hiv_contac_matrix.R"))
 
 #END SCRIPT

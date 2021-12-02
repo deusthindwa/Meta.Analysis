@@ -231,40 +231,43 @@ somipa.whh <- somipa.whh %>% mutate(Category = paste0("B, Within, Q=", round(Q3,
 somipa.ohh <- somipa.ohh %>% mutate(Category = paste0("B, Within, Q=", round(Q3, 3), " | ", "Outside household, Q=", round(Q4, 3)), subtitle = "Category 2")
 somipa.wcom <- somipa.wcom %>% mutate(Category = paste0("C, Within, Q=", round(Q5, 3), " | ", "Outside community, Q=", round(Q6, 3)), subtitle = "Category 1")
 somipa.ocom <- somipa.ocom %>% mutate(Category = paste0("C, Within, Q=", round(Q5, 3), " | ", "Outside community, Q=", round(Q6, 3)), subtitle = "Category 2")
+somipa.pos <- somipa.pos %>% mutate(Category = paste0("D, HIV-infected on ART, Q=", round(Q7, 3), " | ", "HIV-uninfected, Q=", round(Q8, 3)), subtitle = "Category 1") #result from Fig4a_strat_contact_matrix
+somipa.neg <- somipa.neg %>% mutate(Category = paste0("D, HIV-infected on ART, Q=", round(Q7, 3), " | ", "HIV-uninfected, Q=", round(Q8, 3)), subtitle = "Category 2") #result from Fig4a_strat_contact_matrix
 
-somipa1 <- rbind(somipa.sexm, somipa.whh, somipa.wcom)
-somipa2 <- rbind(somipa.sexf, somipa.ohh, somipa.ocom)
+somipa1 <- rbind(somipa.sexm, somipa.whh, somipa.wcom, somipa.pos)
+somipa2 <- rbind(somipa.sexf, somipa.ohh, somipa.ocom, somipa.neg)
 
-A <- rbind(somipa1, somipa2) %>%
+#filter(somipa.neg, !is.na(Mixing.rate))
+
+A <- filter(rbind(somipa1, somipa2), !is.na(Mixing.rate)) %>%
   mutate(part.age = if_else(Participant.age == 1L, "[0,5)",
                             if_else(Participant.age == 2L, "[5,10)",
                                     if_else(Participant.age == 3L, "[10,15)",
                                             if_else(Participant.age == 4L, "[15,20)",
                                                     if_else(Participant.age == 5L, "[20,25)",
-                                                            if_else(Participant.age == 6L, "[25, 30)",
+                                                            if_else(Participant.age == 6L, "[25,30)",
                                                                     if_else(Participant.age == 7L, "[30,35)",
                                                                             if_else(Participant.age == 8L, "[35,40)",
                                                                                     if_else(Participant.age == 9L, "[40,45)",
-                                                                                            if_else(Participant.age == 10L, "[45,50)", "50+")))))))))),
-         Daily.average.contacts = if_else(is.na(Mixing.rate), 0, Mixing.rate)) %>%
+                                                                                            if_else(Participant.age == 10L, "[45,50)", 
+                                                                                                    if_else(Participant.age == 11L, "50+", Participant.age))))))))))),
+         `Daily average contacts` = if_else(is.na(Mixing.rate), 0, Mixing.rate)) %>%
   
-  ggplot(aes(x = factor(part.age,levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = Daily.average.contacts)) + 
+  ggplot(aes(x = factor(part.age, levels(factor(part.age))[c(1,10,2,3,4,5,6,7,8,9,11)]), y = Contact.age, fill = `Daily average contacts`)) + 
   geom_tile(color = "white") + 
-  geom_text(aes(label = sprintf("%1.2f", Daily.average.contacts)), color = "white", size = 2) +
-  scale_fill_gradient(low="gray30", high="red") +
+  geom_text(aes(label = sprintf("%1.2f", `Daily average contacts`)), color = "white", size = 3) +
+  scale_fill_gradient(low = "gray30", high = "red") +
   facet_grid(subtitle ~ Category) +
   theme_bw() +
-  labs(title = "", x = "Participant age (years)", y = "Contactee age (years)") +
+  labs(title = "", x = "Participant age (years)", y = "Contact age (years)") +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 30, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(axis.title.x = element_text(size = 16), axis.title.y = element_text(size = 16)) +
-  theme(strip.text.x = element_text(size = 14), strip.text.y = element_text(size = 14), strip.background=element_rect(fill="white")) +
-  theme(legend.position = "bottom") +
-  geom_vline(xintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2) +
-  geom_hline(yintercept = c(2.5, 5.5, 12), linetype="dashed", color = "black", size = 0.2)
+  theme(strip.text.x = element_text(size = 14), strip.text.y = element_text(size = 0), strip.background = element_rect(fill="white")) +
+  theme(legend.position = "bottom", legend.text=element_text(size = 12), legend.title = element_text(size = 12))
 
 
 #===========================================================================
 
-ggsave(here::here("output", "Fig5_strat_contact_matrix.png"),
+ggsave(here::here("output", "Fig4_strat_contact_matrix.png"),
        plot = (A),
-       width = 19, height = 9, unit="in", dpi = 300)
+       width = 24, height = 9, unit="in", dpi = 300)
