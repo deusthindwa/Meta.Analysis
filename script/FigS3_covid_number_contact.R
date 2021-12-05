@@ -33,10 +33,10 @@ A <- rbind((pp.labeled %>%
   geom_boxplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = cntno, 
                    fill = cat), notch = FALSE, color = "gray50", size = 0.6, position=position_dodge(width=0.8), width = 0.6) + 
   theme_bw() +
-  labs(title = "A, All mixing events", x = "", y = "Number of reported mixing events") +
+  labs(title = "A, All contacts", x = "", y = "Reported contact events") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = c(0.2, 0.85))
   
@@ -71,8 +71,8 @@ B <- rbind((filter(pp.labeled, sex == "Female") %>%
   theme_bw() +
   labs(title = "B, Female", x = "", y = "") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = "none")
 
@@ -108,8 +108,8 @@ C <- rbind((filter(pp.labeled, occup == "School") %>%
   theme_bw() +
   labs(title = "C, School", x = "", y = "") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = "none")
 
@@ -158,10 +158,10 @@ D <- rbind(
   geom_boxplot(aes(x = factor(agegp, levels(factor(agegp))[c(1, 2, 5, 3, 4, 6)]), y = cntno, 
                    fill = cat), notch = FALSE, color = "gray50", size = 0.6, position=position_dodge(width=0.8), width = 0.6) + 
   theme_bw() +
-  labs(title = "D, Physical mixing", x = "Participant age in years (y)", y = "Number of reported mixing events") +
+  labs(title = "D, Physical contacts", x = "Participant age in years (y)", y = "Reported contact events") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = "none")
 
@@ -197,8 +197,8 @@ E <- rbind((filter(pp.labeled, sex == "Male") %>%
   theme_bw() +
   labs(title = "E, Male", x = "Participant age in years (y)", y = "") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = "none")
 
@@ -234,8 +234,8 @@ F <- rbind((filter(pp.labeled, occup != "School") %>%
   theme_bw() +
   labs(title = "F, Other occupation", x = "Participant age in years (y)", y = "") +
   scale_y_continuous(breaks = seq(0, 50, 5)) +
-  theme(axis.text.x = element_text(face = "bold", size = 10, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 11)) +
-  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 11), axis.title.y = element_text(face = "bold", size = 11)) +
+  theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
+  theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
   guides(fill=guide_legend(title="")) +
   theme(legend.position = "none")
 

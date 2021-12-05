@@ -63,7 +63,8 @@ hh.gee <- hh.labeled %>%
   dplyr::select(hhid, nlive) %>% 
   rename("somipa_hhid" = hhid) 
 
-glm.gee <- left_join(pp.gee, hh.gee) %>% 
+glm.gee <- left_join(pp.gee, hh.gee) %>%
+  #rename("hhsize" = nlive) %>%
   mutate(hhsize = if_else(nlive <= 3, "1-3", 
                           if_else(nlive == 4 | nlive == 5, "4-5",
                                           if_else(nlive == 6, "6", "7+"))))
@@ -154,9 +155,7 @@ for(i in gee_hhsize){
   print("-----------------------------------------------------------")
 }
 
-# fit a GLM GEE model for the mean number of contacts (Table 1 column 3)
-
-# mean and standard deviation
+# mean and standard deviation (alternative to confidence intervals)
 with(glm.gee, tapply(cntno, agey, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, sex, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, occup, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
@@ -166,7 +165,7 @@ with(glm.gee, tapply(cntno, dowgp, function(x){sprintf("M (SD) = %1.2f (%1.2f)",
 with(glm.gee, tapply(cntno, cvdcnt, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hhsize, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 
-# fit model for crude incidence rate ratio (IRR)
+# fit adjusted negative binomial mixed model for crude contact rate ratio (CRR)
 cmodel <- glmm.nb(cntno ~ agey, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
@@ -191,6 +190,6 @@ summary(cmodel); intervals(cmodel)
 cmodel <- glmm.nb(cntno ~ hhsize, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-# fit adjusted negative binomial mixed model
+# fit adjusted negative binomial mixed model for adjusted contact rate ratio (CRR)
 cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize , random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
