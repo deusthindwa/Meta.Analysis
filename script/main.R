@@ -15,11 +15,8 @@ pacman::p_load(char = c("tidyverse", "remotes", "NBZIMM", "dplyr", "lubridate","
                         "socialmixr","reshape2", "patchwork", "naniar", "scales", "ggpubr", "deSolve", "foreign","forcats", "geosphere", "boot", "broman",
                         "sf", "MASS", "here"))
 
-#"ggmap", "rgeos", "tmap", "maptools", "maps", "ggfortify"
-
 options(stringsAsFactors = FALSE)
 setwd(here::here())
-
 
 # load all required datasets
 hh.unlabel <- read_csv(here::here("data", "hh.unlabel.csv"))
