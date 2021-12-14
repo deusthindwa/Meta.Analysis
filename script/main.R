@@ -87,4 +87,8 @@ source(here::here("script", "FigS3_covid_number_contact.R"))
 dev.off()
 source(here::here("script", "FigS4_covid_contact_matrix.R"))
 
+# contact matrices in sex-sex interactions
+dev.off()
+source(here::here("script", "FigS5_gender_contact_matrix.R"))
+
 #END SCRIPT
