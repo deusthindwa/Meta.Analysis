@@ -8,7 +8,8 @@
 
 # age
  pp.gee <- pp.gee %>% 
-  mutate(agey = if_else(agey < 1, "<1y", 
+  mutate(agex = agey,
+         agey = if_else(agey < 1, "<1y", 
                          if_else(agey >= 1 & agey < 5, "1-4y", 
                                  if_else(agey >= 5 & agey < 15, "5-14y", 
                                          if_else(agey >= 15 & agey < 20, "15-19y", 
@@ -41,8 +42,14 @@
    group_by(occup) %>% 
    tally()
 
+ #educ
+ pp.gee %>% 
+   group_by(educ) %>% 
+   tally()
+ 
 # hiv
 pp.gee %>% 
+  #filter(agex >=18) %>%
   group_by(hiv) %>% 
   tally()
 
