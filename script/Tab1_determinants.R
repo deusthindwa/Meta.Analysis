@@ -5,6 +5,13 @@
 
 # number of participant (Table 1 column 1)
  pp.gee <- pp.labeled
+ 
+ #covid19 levels
+ pp.gee <- pp.gee %>% mutate(cvdlevel = month(date(date)),
+                             cvdlevel = if_else(cvdlevel >5, "level3", "level1"))
+ pp.gee %>% 
+   group_by(cvdlevel) %>% 
+   tally()
 
 # age
  pp.gee <- pp.gee %>% 
@@ -81,12 +88,12 @@ glm.gee %>% group_by(hhsize) %>%
 
 # final dataset
 glm.gee <- glm.gee %>% 
-  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, cvdcnt, hhsize)
+  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, cvdcnt, hhsize, cvdlevel)
 
 
 #===========================================================================
 
-# mean number of contacts (Table 1 column 2)
+# mean number of contacts and 95% confidence intervals (Table 1 column 3)
 glm.gee$cntno <- as.integer(glm.gee$cntno)
 
 gee_agey <- c("<1y", "1-4y", "5-14y", "15-19y", "20-49y", "50+y")
@@ -97,6 +104,7 @@ gee_hiv <- c("Negative", "Positive on ART")
 gee_dowgp <- c("Weekday", "Weekend")
 gee_cvd <- c("No", "Yes")
 gee_hhsize <- c("1-3", "4-5", "6", "7+")
+gee_cvdlevel <- c("level1", "level3")
 
 for(i in gee_agey){
   set.seed(1988)
@@ -162,7 +170,15 @@ for(i in gee_hhsize){
   print("-----------------------------------------------------------")
 }
 
-# mean and standard deviation (alternative to confidence intervals)
+for(i in gee_cvdlevel){
+  set.seed(1988)
+  j = boot(subset(glm.gee, cvdlevel == i)$cntno, function(x,i) mean(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
+  print("-----------------------------------------------------------")
+}
+
+# mean and standard deviation (alternative to confidence intervals above)
 with(glm.gee, tapply(cntno, agey, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, sex, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, occup, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
@@ -171,8 +187,9 @@ with(glm.gee, tapply(cntno, hiv, function(x){sprintf("M (SD) = %1.2f (%1.2f)", m
 with(glm.gee, tapply(cntno, dowgp, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, cvdcnt, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hhsize, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
+with(glm.gee, tapply(cntno, cvdlevel, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 
-# fit adjusted negative binomial mixed model for crude contact rate ratio (CRR)
+# fit negative binomial mixed model for crude contact rate ratio (CRR)
 cmodel <- glmm.nb(cntno ~ agey, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
@@ -197,6 +214,9 @@ summary(cmodel); intervals(cmodel)
 cmodel <- glmm.nb(cntno ~ hhsize, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-# fit adjusted negative binomial mixed model for adjusted contact rate ratio (CRR)
-cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize , random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ cvdlevel, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+summary(cmodel); intervals(cmodel)
+
+# fit negative binomial mixed model for adjusted contact rate ratio (CRR)
+cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize + cvdlevel, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
