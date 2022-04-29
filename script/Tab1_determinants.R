@@ -5,13 +5,6 @@
 
 # number of participant (Table 1 column 1)
  pp.gee <- pp.labeled
- 
- #covid19 levels
- pp.gee <- pp.gee %>% mutate(cvdlevel = month(date(date)),
-                             cvdlevel = if_else(cvdlevel >5, "level3", "level1"))
- pp.gee %>% 
-   group_by(cvdlevel) %>% 
-   tally()
 
 # age
  pp.gee <- pp.gee %>% 
@@ -86,10 +79,10 @@ glm.gee <- left_join(pp.gee, hh.gee) %>%
 glm.gee %>% group_by(hhsize) %>% 
   tally()
 
+
 # final dataset
 glm.gee <- glm.gee %>% 
-  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, cvdcnt, hhsize, cvdlevel)
-
+  dplyr::select(somipa_hhid, somipa_pid, cntno, agey, sex, occup, educ, hiv, dowgp, cvdcnt, hhsize)
 
 #===========================================================================
 
@@ -104,75 +97,66 @@ gee_hiv <- c("Negative", "Positive on ART")
 gee_dowgp <- c("Weekday", "Weekend")
 gee_cvd <- c("No", "Yes")
 gee_hhsize <- c("1-3", "4-5", "6", "7+")
-gee_cvdlevel <- c("level1", "level3")
 
+set.seed(1988)
 for(i in gee_agey){
-  set.seed(1988)
   j = boot(subset(glm.gee, agey == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_sex){
-  set.seed(1988)
   j = boot(subset(glm.gee, sex == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_occup){
-  set.seed(1988)
   j = boot(subset(glm.gee, occup == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_educ){
-  set.seed(1988)
   j = boot(subset(glm.gee, educ == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_hiv){
-  set.seed(1988)
   j = boot(subset(glm.gee, hiv == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_dowgp){
-  set.seed(1988)
   j = boot(subset(glm.gee, dowgp == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_cvd){
-  set.seed(1988)
   j = boot(subset(glm.gee, cvdcnt == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
 }
 
+set.seed(1988)
 for(i in gee_hhsize){
-  set.seed(1988)
   j = boot(subset(glm.gee, hhsize == i)$cntno, function(x,i) mean(x[i]), R = 1000)
-  print(i)
-  print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
-  print("-----------------------------------------------------------")
-}
-
-for(i in gee_cvdlevel){
-  set.seed(1988)
-  j = boot(subset(glm.gee, cvdlevel == i)$cntno, function(x,i) mean(x[i]), R = 1000)
   print(i)
   print(j); print(boot.ci(j, conf = 0.95, type = c("bca"))) 
   print("-----------------------------------------------------------")
@@ -187,36 +171,35 @@ with(glm.gee, tapply(cntno, hiv, function(x){sprintf("M (SD) = %1.2f (%1.2f)", m
 with(glm.gee, tapply(cntno, dowgp, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, cvdcnt, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hhsize, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
-with(glm.gee, tapply(cntno, cvdlevel, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 
 # fit negative binomial mixed model for crude contact rate ratio (CRR)
-cmodel <- glmm.nb(cntno ~ agey, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+glm.gee <- glm.gee %>% mutate(N = sum(cntno))
+
+cmodel <- glmm.nb(cntno ~ agey + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ sex, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ sex + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ occup, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ occup + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ educ, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ educ + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ hiv, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ hiv + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ dowgp, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ dowgp + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ cvdcnt, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ cvdcnt + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
-cmodel <- glmm.nb(cntno ~ hhsize, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
-summary(cmodel); intervals(cmodel)
-
-cmodel <- glmm.nb(cntno ~ cvdlevel, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ hhsize + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
 
 # fit negative binomial mixed model for adjusted contact rate ratio (CRR)
-cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize + cvdlevel, random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
+cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
+
