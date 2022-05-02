@@ -86,7 +86,7 @@ glm.gee <- glm.gee %>%
 
 #===========================================================================
 
-# mean number of contacts and 95% confidence intervals (Table 1 column 3)
+#prepare dataset for mean and medan number of contacts
 glm.gee$cntno <- as.integer(glm.gee$cntno)
 
 gee_agey <- c("<1y", "1-4y", "5-14y", "15-19y", "20-49y", "50+y")
@@ -98,6 +98,9 @@ gee_dowgp <- c("Weekday", "Weekend")
 gee_cvd <- c("No", "Yes")
 gee_hhsize <- c("1-3", "4-5", "6", "7+")
 
+#===========================================================================
+
+# mean number of contacts and 95% confidence intervals (Table 1 column 4)
 set.seed(1988)
 for(i in gee_agey){
   j = boot(subset(glm.gee, agey == i)$cntno, function(x,i) mean(x[i]), R = 1000)
@@ -172,6 +175,75 @@ with(glm.gee, tapply(cntno, dowgp, function(x){sprintf("M (SD) = %1.2f (%1.2f)",
 with(glm.gee, tapply(cntno, cvdcnt, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 with(glm.gee, tapply(cntno, hhsize, function(x){sprintf("M (SD) = %1.2f (%1.2f)", mean(x), sd(x))}))
 
+#===========================================================================
+
+# median number of contacts and 95% confidence intervals (Table 1 column 3)
+set.seed(1988)
+for(i in gee_agey){
+  j = boot(subset(glm.gee, agey == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_sex){
+  j = boot(subset(glm.gee, sex == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_occup){
+  j = boot(subset(glm.gee, occup == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_educ){
+  j = boot(subset(glm.gee, educ == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_hiv){
+  j = boot(subset(glm.gee, hiv == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_dowgp){
+  j = boot(subset(glm.gee, dowgp == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_cvd){
+  j = boot(subset(glm.gee, cvdcnt == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+set.seed(1988)
+for(i in gee_hhsize){
+  j = boot(subset(glm.gee, hhsize == i)$cntno, function(x,i) median(x[i]), R = 1000)
+  print(i)
+  print(j); print(boot.ci(j, conf = 0.95, type = c("norm"))) 
+  print("-----------------------------------------------------------")
+}
+
+#===========================================================================
+
 # fit negative binomial mixed model for crude contact rate ratio (CRR)
 glm.gee <- glm.gee %>% mutate(N = sum(cntno))
 
@@ -198,6 +270,8 @@ summary(cmodel); intervals(cmodel)
 
 cmodel <- glmm.nb(cntno ~ hhsize + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
 summary(cmodel); intervals(cmodel)
+
+#===========================================================================
 
 # fit negative binomial mixed model for adjusted contact rate ratio (CRR)
 cmodel <- glmm.nb(cntno ~ agey + sex + occup + cvdcnt + hhsize + offset(log(N)), random =  ~ 1 | somipa_hhid, na.action = na.omit, data = glm.gee, verbose = TRUE)
