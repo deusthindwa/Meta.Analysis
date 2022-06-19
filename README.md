@@ -1,5 +1,5 @@
 # social.contact.rates.estimation.hiv.malawi
-https://www.medrxiv.org/content/10.1101/2021.12.16.21267959v1
+https://doi.org/10.1016/j.epidem.2022.100590
 
 # Social mixing patterns relevant to infectious diseases spread by close contact in urban Blantyre, Malawi.
 
