@@ -168,11 +168,7 @@ H <- filter(pp.labeled, cvdcnt == "Yes") %>%
   scale_fill_brewer() +
   geom_text(aes(label = n), color = "black", position = position_stack(vjust = 0.5)) +
   theme_bw() +
-<<<<<<< HEAD
-  labs(title = "H", x = "Potential place of missed mixing", y = "Proportion of contactees") +
-=======
   labs(title = "H", x = "Potential place of missed contacts", y = "Proportion of participants") +
->>>>>>> e89deea4ed4a577937af675763b03d95327089e9
   scale_y_continuous(breaks = seq(0, 1, 0.2), labels = scales::percent_format(accuracy = 1)) +
   theme(axis.text.x = element_text(face = "bold", size = 12, angle = 0, vjust = 0.5, hjust = 0.3), axis.text.y = element_text(face = "bold", size = 12)) +
   theme(plot.title = element_text(size = 22), axis.title.x = element_text(face = "bold", size = 12), axis.title.y = element_text(face = "bold", size = 12)) +
